@@ -20,7 +20,6 @@ const config = {
         'water': '#33A7FD',
         'red': '#F00',
         'green': '#54C42D',
-        'white': '#D9D9D9',
         'lightGrey': '#8C8C8C',
         'grey': '#1F1F1F',
         'black': '#131313',
@@ -39,13 +38,15 @@ const config = {
         themes: {
           light: {
             colors: {
-              background: "#F1F1F1"
+              background: "#D9D9D9",
+              headerbg: '#1F1F1F',
             }
           },
 
           dark: {
             colors: {
-              background: "#1F1F1F"
+              background: "#1F1F1F",
+              headerbg: '#D9D9D9',
             }
           }
         }

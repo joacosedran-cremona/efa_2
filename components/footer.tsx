@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="flex flex-col align-middle bg-footerbg w-[100%] text-white inset-x-[0px] bottom-[0px]">
-      <div className="flex flex-row w-[100%] max-w-1920 h-[165px] justify-between align-middle p-[40px]">
+      <div className="flex flex-row w-[100%] max-w-1920 h-[10rem] justify-between align-middle p-[40px]">
         <ul className="flex flex-col justify-center align-middle h-[100%] w-[30%]">
           {opcionesIzq.map(({ id, icono, link, texto }) => (
             <li
