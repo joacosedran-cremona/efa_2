@@ -1,3 +1,10 @@
+## Iconos
+
+Instalacion
+```bash
+npm install react-icons --save
+```
+
 ```js
 import { FiMapPin } from "react-icons/fi"; //Mapa
 
@@ -35,3 +42,30 @@ import { GrResources } from "react-icons/gr"; //Nivel
 import { MdCancel } from "react-icons/md"; //Cancel
 ```
 
+## Traducciones
+```bash
+npm install i18next react-i18next
+```
+
+Como usar?
+```js
+import { useTranslation } from 'react-i18next';
+
+export default Ejemplo () {
+  const { t } = useTranslation('NombreDelArchivo');
+  <p> {t("objeto.atributo")} </p>
+}
+```
+
+## WebSocket
+```js
+// Usando el endpoint por defecto
+const { data } = useWebSocketContext();
+
+// Usando un endpoint específico
+const { data } = useWebSocketContext("mi-endpoint-especifico");
+
+// Usando endpoints dinámicos
+const endpoint = `${miVariable}-datos`;
+const { data } = useWebSocketContext(endpoint);
+```
