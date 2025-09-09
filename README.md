@@ -69,3 +69,8 @@ const { data } = useWebSocketContext("mi-endpoint-especifico");
 const endpoint = `${miVariable}-datos`;
 const { data } = useWebSocketContext(endpoint);
 ```
+
+## Para descargar en pdf y excel
+```bash
+npm install html2canvas jspdf
+```
