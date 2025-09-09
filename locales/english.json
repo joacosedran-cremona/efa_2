@@ -1,3 +1,19 @@
 {
-    "titulo": "Title"
+    "titulo": "Title",
+    "header1": {
+        "titulo": "EFA - Cremona Inoxidable"
+    },
+    "header2": {
+        "botones": {
+        "cocinas": "KITCHENS",
+        "enfriadores": "CHILLERS"
+        }
+    },
+    "menu": {
+        "home": "Home"
+    },
+    "deslogueo": {
+        "estado": "Active session",
+        "botonsesion": "Log out"
+    }
 }

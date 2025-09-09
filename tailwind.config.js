@@ -40,6 +40,8 @@ const config = {
             colors: {
               background: "#D9D9D9",
               headerbg: '#1F1F1F',
+              texto: '#131313',
+              textoheader: "#E6E6E6",
             }
           },
 
@@ -47,6 +49,8 @@ const config = {
             colors: {
               background: "#1F1F1F",
               headerbg: '#D9D9D9',
+              texto: '#E6E6E6',
+              textoheader: '#131313',
             }
           }
         }
