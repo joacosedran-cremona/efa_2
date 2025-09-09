@@ -12,6 +12,11 @@ const config = {
   ],
   theme: {
     extend: {
+      screens: {
+        1365: "1365px",
+        1050: "1050px",
+        545: "545px",
+      },
       colors: {
         'orange': '#EF8225',
         'oranget': '#F826',
