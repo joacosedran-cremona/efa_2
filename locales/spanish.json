@@ -1,28 +1,28 @@
 {
-    "titulo": "Titulo",
-    "header1": {
-        "titulo": "EFA - Cremona Inoxidable"
-    },
-    "header2": {
-        "botones": {
-        "cocinas": "COCINAS",
-        "enfriadores": "ENFRIADORES"
-        }
-    },
-    "menu": {
-        "home": "Home"
-    },
-    "deslogueo": {
-        "estado": "Sesión activa",
-        "botonsesion": "Cerrar sesión"
-    },
-    "formulario": {
-        "usuario": "Usuario",
-        "contra": "Contraseña",
-        "recuperar": "¿Olvidó su contraseña? Recupérela aquí",
-        "correo": "Correo electrónico",
-        "enviar": "Enviar",
-        "recordo": "¿Recordó su contraseña? Inicie sesión aquí",
-        "acceder": "Acceder"
+  "titulo": "Titulo",
+  "header1": {
+    "titulo": "EFA - Cremona Inoxidable"
+  },
+  "header2": {
+    "botones": {
+      "cocinas": "COCINAS",
+      "enfriadores": "ENFRIADORES"
     }
+  },
+  "menu": {
+    "home": "Home"
+  },
+  "deslogueo": {
+    "estado": "Sesión activa",
+    "botonsesion": "Cerrar sesión"
+  },
+  "formulario": {
+    "usuario": "Usuario",
+    "contra": "Contraseña",
+    "recuperar": "¿Olvidó su contraseña? Recupérela aquí",
+    "correo": "Correo electrónico",
+    "enviar": "Enviar",
+    "recordo": "¿Recordó su contraseña? Inicie sesión aquí",
+    "acceder": "Acceder"
+  }
 }

@@ -1,6 +1,7 @@
 ## Iconos
 
 Instalacion
+
 ```bash
 npm install react-icons --save
 ```
@@ -43,11 +44,13 @@ import { MdCancel } from "react-icons/md"; //Cancel
 ```
 
 ## Traducciones
+
 ```bash
 npm install i18next react-i18next
 ```
 
 Como usar?
+
 ```js
 import { useTranslation } from 'react-i18next';
 
@@ -58,6 +61,7 @@ export default Ejemplo () {
 ```
 
 ## WebSocket
+
 ```js
 // Usando el endpoint por defecto
 const { data } = useWebSocketContext();
@@ -71,6 +75,7 @@ const { data } = useWebSocketContext(endpoint);
 ```
 
 ## Para descargar en pdf y excel
+
 ```bash
 npm install html2canvas jspdf
 ```

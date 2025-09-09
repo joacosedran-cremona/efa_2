@@ -1,28 +1,28 @@
 {
-    "titulo": "Title",
-    "header1": {
-        "titulo": "EFA - Cremona Inoxidable"
-    },
-    "header2": {
-        "botones": {
-        "cocinas": "KITCHENS",
-        "enfriadores": "CHILLERS"
-        }
-    },
-    "menu": {
-        "home": "Home"
-    },
-    "deslogueo": {
-        "estado": "Active session",
-        "botonsesion": "Log out"
-    },
-    "formulario": {
-        "usuario": "Username",
-        "contra": "Password",
-        "recuperar": "Forgot your password? Recover it here.",
-        "correo": "E-mail",
-        "enviar": "Send",
-        "recordo": "Remembered your password? Log in here.",
-        "acceder": "Login"
+  "titulo": "Title",
+  "header1": {
+    "titulo": "EFA - Cremona Inoxidable"
+  },
+  "header2": {
+    "botones": {
+      "cocinas": "KITCHENS",
+      "enfriadores": "CHILLERS"
     }
+  },
+  "menu": {
+    "home": "Home"
+  },
+  "deslogueo": {
+    "estado": "Active session",
+    "botonsesion": "Log out"
+  },
+  "formulario": {
+    "usuario": "Username",
+    "contra": "Password",
+    "recuperar": "Forgot your password? Recover it here.",
+    "correo": "E-mail",
+    "enviar": "Send",
+    "recordo": "Remembered your password? Log in here.",
+    "acceder": "Login"
+  }
 }

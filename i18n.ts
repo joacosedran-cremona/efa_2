@@ -15,18 +15,16 @@ const resources = {
 
 export const i18n = createInstance();
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: "es",
-    fallbackLng: "es",
-    ns: ["locales"],
-    interpolation: {
-      escapeValue: false,
-      skipOnVariables: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: "es",
+  fallbackLng: "es",
+  ns: ["locales"],
+  interpolation: {
+    escapeValue: false,
+    skipOnVariables: false,
+  },
+});
 
 declare module "i18next" {
   interface CustomTypeOptions {

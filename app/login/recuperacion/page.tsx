@@ -4,8 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
-import crem from "@/public/creminox.png";
-
 const ForgotPassword = () => {
   const { t } = useTranslation();
 
@@ -15,7 +13,7 @@ const ForgotPassword = () => {
         <Image
           alt="Creminox"
           className="flex w-[60%] p-[0px] h-auto"
-          src={crem}
+          src="/logo/creminox.png"
         />
 
         <form className="w-[100%] h-3/5 flex flex-col justify-evenly">

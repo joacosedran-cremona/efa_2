@@ -1,4 +1,4 @@
-import {heroui} from "@heroui/theme"
+import { heroui } from "@heroui/theme";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -18,50 +18,48 @@ const config = {
         545: "545px",
       },
       colors: {
-        'orange': '#EF8225',
-        'oranget': '#F826',
-        'blue': '#30A0F0',
-        'bluet': '#06E5',
-        'water': '#33A7FD',
-        'red': '#F00',
-        'green': '#54C42D',
-        'lightGrey': '#8C8C8C',
-        'grey': '#1F1F1F',
-        'black': '#131313',
-        'footerbg': '#2C2C2C'
+        orange: "#EF8225",
+        oranget: "#F826",
+        blue: "#30A0F0",
+        bluet: "#06E5",
+        water: "#33A7FD",
+        red: "#F00",
+        green: "#54C42D",
+        lightGrey: "#8C8C8C",
+        grey: "#1F1F1F",
+        black: "#131313",
+        footerbg: "#2C2C2C",
       },
       spacing: {
-        '4' : '0px 0px 0px 0px',
-        '1' : '133px 20px 20px 20px',
+        4: "0px 0px 0px 0px",
+        1: "133px 20px 20px 20px",
       },
     },
   },
   darkMode: "class",
   plugins: [
-    heroui(
-      {
-        themes: {
-          light: {
-            colors: {
-              background: "#D9D9D9",
-              headerbg: '#1F1F1F',
-              texto: '#131313',
-              textoheader: "#E6E6E6",
-            }
+    heroui({
+      themes: {
+        light: {
+          colors: {
+            background: "#D9D9D9",
+            headerbg: "#1F1F1F",
+            texto: "#131313",
+            textoheader: "#E6E6E6",
           },
+        },
 
-          dark: {
-            colors: {
-              background: "#1F1F1F",
-              headerbg: '#D9D9D9',
-              texto: '#E6E6E6',
-              textoheader: '#131313',
-            }
-          }
-        }
-      }
-    )
+        dark: {
+          colors: {
+            background: "#1F1F1F",
+            headerbg: "#D9D9D9",
+            texto: "#E6E6E6",
+            textoheader: "#131313",
+          },
+        },
+      },
+    }),
   ],
-}
+};
 
 module.exports = config;

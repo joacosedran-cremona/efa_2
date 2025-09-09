@@ -1,9 +1,11 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
+
 import { Providers } from "./providers";
+import LayoutClient from "./layout-client";
+
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import LayoutClient from "./layout-client";
 
 export const metadata: Metadata = {
   title: {
@@ -35,9 +37,7 @@ export default function RootLayout({
         className={`min-h-screen text-foreground bg-background font-sans antialiased ${fontSans.variable}`}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <LayoutClient>
-            {children}
-          </LayoutClient>
+          <LayoutClient>{children}</LayoutClient>
         </Providers>
       </body>
     </html>

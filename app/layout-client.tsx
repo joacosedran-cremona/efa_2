@@ -1,7 +1,8 @@
 "use client";
+import { usePathname } from "next/navigation";
+
 import Header from "@/components/footer&header/header";
 import Footer from "@/components/footer&header/footer";
-import { usePathname } from "next/navigation";
 
 export default function LayoutClient({
   children,

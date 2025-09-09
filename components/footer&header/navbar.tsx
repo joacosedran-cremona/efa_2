@@ -1,17 +1,13 @@
 "use client";
 
 import { Navbar as HeroUINavbar } from "@heroui/navbar";
-import { ThemeSwitch } from "@/components/theme-switch";
-
 import { useTranslation } from "react-i18next";
-
 import { VscBell } from "react-icons/vsc";
 import { GoGear } from "react-icons/go";
-
 import Link from "next/link";
 import Image from "next/image";
-import crem from "@/public/creminox.png";
 
+import { ThemeSwitch } from "@/components/theme-switch";
 import DropdownBanderas from "@/components/traduccion/dropdownBanderas";
 import Desloguear from "@/components/botones/desloguear";
 
@@ -72,10 +68,11 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const { t } = useTranslation();
 
   const opcionesMenu: OpcionMenu[] = [
-    { id: 1, url: "/", text: t("menu.home") }
+    { id: 1, url: "/", text: t("menu.home") },
   ];
+
   return (
-    <HeroUINavbar maxWidth="full" position="sticky" className="bg-headerbg">
+    <HeroUINavbar className="bg-headerbg" maxWidth="full" position="sticky">
       <div className="flex flex-row h-[100%] w-[30%] justify-start gap-[30px] items-center">
         {opcionesIconos.map(({ id, icon }) => (
           <div key={id} className="flex items-center justify-center">
@@ -109,7 +106,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
               alt="Creminox"
               className="h-[100%] w-[105px]"
               height={1000}
-              src={crem}
+              src="/logo/creminox.png"
               width={1000}
             />
           </Link>
