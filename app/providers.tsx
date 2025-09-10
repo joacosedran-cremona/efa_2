@@ -3,11 +3,13 @@
 import type { ThemeProviderProps } from "next-themes";
 
 import * as React from "react";
-import { HeroUIProvider } from "@heroui/system";
 import { useRouter } from "next/navigation";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { I18nextProvider } from "react-i18next";
 
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { AuthProvider } from "../context/AuthContext";
+import { HeroUIProvider } from "@heroui/system";
+
+import { I18nextProvider } from "react-i18next";
 import { i18n } from "@/i18n";
 
 export interface ProvidersProps {
@@ -29,7 +31,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
-        <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+        <I18nextProvider i18n={i18n}>
+          <AuthProvider>{children}</AuthProvider>
+        </I18nextProvider>
       </NextThemesProvider>
     </HeroUIProvider>
   );

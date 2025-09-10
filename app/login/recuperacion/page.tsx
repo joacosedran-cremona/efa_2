@@ -13,6 +13,8 @@ const ForgotPassword = () => {
         <Image
           alt="Creminox"
           className="flex w-[60%] p-[0px] h-auto"
+          height={2000}
+          width={2000}
           src="/logo/creminox.png"
         />
 

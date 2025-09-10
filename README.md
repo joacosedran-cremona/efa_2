@@ -79,3 +79,10 @@ const { data } = useWebSocketContext(endpoint);
 ```bash
 npm install html2canvas jspdf
 ```
+
+## Otros
+
+```bash
+npm install --save-dev @types/js-cookie
+npm install --save-dev @types/axios
+```

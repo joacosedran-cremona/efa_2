@@ -106,8 +106,8 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
               alt="Creminox"
               className="h-[100%] w-[105px]"
               height={1000}
-              src="/logo/creminox.png"
               width={1000}
+              src="/logo/creminox.png"
             />
           </Link>
         </ul>
