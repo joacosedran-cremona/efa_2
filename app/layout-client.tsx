@@ -17,9 +17,9 @@ export default function LayoutClient({
   ].includes(pathname);
 
   return (
-    <div className="relative flex flex-col h-screen">
+    <div className="relative flex flex-col w-screen h-screen">
       {!hideHeaderFooter && <Header />}
-      <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+      <main className="flex-grow">
         {children}
       </main>
       {!hideHeaderFooter && <Footer />}

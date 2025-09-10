@@ -29,6 +29,8 @@ const config = {
         grey: "#1F1F1F",
         black: "#131313",
         footerbg: "#2C2C2C",
+        datosRed: "#581420",
+        datosGrey: "#5a5a5a",
       },
       spacing: {
         4: "0px 0px 0px 0px",
@@ -42,19 +44,27 @@ const config = {
       themes: {
         light: {
           colors: {
-            background: "#D9D9D9",
-            headerbg: "#1F1F1F",
+            background: "#FDFDFD",
+            background2: "#EDEDED",
+            background3: "#E0E0E0",
+            background4: "#D8D8D8",
+            background5: "#D3D3D3",
+            headerbg: "#a4deffff",
             texto: "#131313",
-            textoheader: "#E6E6E6",
+            textoheader: "#111",
           },
         },
 
         dark: {
           colors: {
-            background: "#1F1F1F",
-            headerbg: "#D9D9D9",
-            texto: "#E6E6E6",
-            textoheader: "#131313",
+            background: "#1B1B1B",
+            background2: "#222",
+            background3: "#292929",
+            background4: "#333",
+            background5: "#393939",
+            headerbg: "#111",
+            texto: "#FFF",
+            textoheader: "#FFF",
           },
         },
       },

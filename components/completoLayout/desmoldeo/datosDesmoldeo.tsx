@@ -1,20 +1,73 @@
 "use client";
 
 import { useContext } from "react";
-import AuthContext from "../../../context/AuthContext";
+import AuthContext from "@/context/AuthContext";
+import style from "../texto.module.css";
+import cont from "./datosdesmoldeo.module.css";
 import Link from "next/link";
 
+// Define interfaces for your data structure
+interface MachineStatus {
+  estadoMaquina?: string;
+  TiempoTranscurrido?: string;
+  idRecetaActual?: number;
+  idRecetaProxima?: string;
+  CodigoProducto?: string;
+  TotalNiveles?: number;
+  TipoMolde?: string;
+  desmoldeoBanda?: string;
+  PesoProducto?: number;
+  sdda_nivel_actual?: number;
+  NGripperActual?: number;
+  PesoActualDesmoldado?: number;
+  TorreActual?: number;
+}
+
+interface DesmoldeoData {
+  "Nombre actual"?: string;
+  PesoProducto?: number;
+  TotalNiveles?: number;
+  sdda_nivel_actual?: number;
+  estadoMaquina?: string;
+  iniciado?: boolean;
+  PesoActualDesmoldado?: number;
+  TiempoTranscurrido?: number | string;
+}
+
+interface WebSocketData {
+  machineStatus?: MachineStatus;
+  processData?: {
+    Desmoldeo?: DesmoldeoData;
+    Encajonado?: any[];
+    Palletizado?: any[];
+  };
+}
+
 const DatosDesmoldeo = () => {
-  const { data } = useContext(AuthContext); // Obtiene datos del contexto
-  const desmoldeoData = data?.[1]?.Desmoldeo || {};
+  const { websocketData } = useContext(AuthContext); // Obtiene el objeto websocketData del contexto
+  const data = websocketData?.data as WebSocketData | null; // Accede a los datos con type assertion
 
-  const {
-    estadoMaquina = "CICLO INACTIVO",
-    PesoProducto,
-    PesoActualDesmoldado,
-  } = desmoldeoData;
+  // Accede a los datos desde la nueva estructura
+  const machineStatus = data?.machineStatus || ({} as MachineStatus);
+  const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
 
-  const NombreActual = desmoldeoData["Nombre actual"]?.trim() || "-";
+  // Utiliza datos de ambas fuentes según disponibilidad
+  const estadoMaquina =
+    desmoldeoData.estadoMaquina ||
+    machineStatus.estadoMaquina ||
+    "CICLO INACTIVO";
+  const PesoProducto = desmoldeoData.PesoProducto || machineStatus.PesoProducto;
+  const PesoActualDesmoldado =
+    desmoldeoData.PesoActualDesmoldado ||
+    machineStatus.PesoActualDesmoldado ||
+    0;
+
+  // Obtener el nombre actual de la receta
+  const NombreActual =
+    desmoldeoData["Nombre actual"]?.trim() ||
+    machineStatus.CodigoProducto ||
+    machineStatus.idRecetaProxima ||
+    "-";
 
   const datosTiempoReal = [
     {
@@ -45,40 +98,34 @@ const DatosDesmoldeo = () => {
 
   return (
     <>
-      <ul className="width-[100%] h-[100%] flex flex-col p-0 m-0 gap-[0.8vw] text-texto list-none">
+      <ul className={style.datosTods}>
         {datosTiempoReal.map(({ id, nombre, dato }) => (
           <li
             key={id}
             className={
               estadoMaquina === "CICLO ACTIVO" ||
               estadoMaquina === "CICLO PAUSADO"
-                ? "flex flex-col p-[0.4vw_0.8vw] rounded-[0.7vw] bg-[#581420] max-h-[65px] h-full w-full transition-colors duration-800 shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]"
-                : "flex flex-col p-[0.4vw_0.8vw] rounded-[0.7vw] bg-[#5a5a5a] max-h-[65px] h-full w-full transition-colors duration-800 shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]"
+                ? cont.datosIndvRed
+                : style.datosIndvGray
             }
           >
             <Link
               className={
                 estadoMaquina === "CICLO ACTIVO" ||
                 estadoMaquina === "CICLO PAUSADO"
-                  ? "max-h-[55px] w-full h-full "
-                  : "flex w-full h-full "
+                  ? style.detallesDatos
+                  : style.detallesDatosDesac
               }
               href="/desmoldeo/equipox"
             >
               {estadoMaquina === "CICLO ACTIVO" ||
               estadoMaquina === "CICLO PAUSADO" ? (
-                <div className="w-full h-full">
-                  <h3 className="text-[0.9vw] h-[50%] w-full p-0 m-0 text-bold transition-colors duration-800 ease-in-out">
-                    {nombre}
-                  </h3>
-                  <h4 className="text-[0.8 vw] h-[50%] w-full p-0 m-0 text-bold transition-colors duration-800 ease-in-out">
-                    {dato}
-                  </h4>
+                <div className={style.contenedorActivo}>
+                  <h3 className={style.h3}>{nombre}</h3>
+                  <h4 className={style.h4}>{dato}</h4>
                 </div>
               ) : (
-                <h3 className="text-[0.9vw] h-[100%] w-full p-0 m-0 text-bold text-grey transition-colors duration-800 ease-in-out">
-                  {nombre}
-                </h3>
+                <h3 className={style.h3inactivo}>{nombre}</h3>
               )}
             </Link>
           </li>

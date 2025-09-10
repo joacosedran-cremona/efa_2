@@ -1,8 +1,12 @@
 "use client";
-import { useWebSocketContext } from "@/context/WebSocketContext";
+import { useAuth } from "@/context/AuthContext";
+import { useState } from "react";
 
 export default function MachineMonitor() {
-  const { data, isConnected, error, reconnect } = useWebSocketContext();
+  // Get WebSocket data from Auth context
+  const { websocketData } = useAuth();
+  const { data, isConnected, error, reconnect } = websocketData;
+  const [showRawData, setShowRawData] = useState(true);
 
   // If there's an error, show it and provide a reconnect button
   if (error) {
@@ -17,6 +21,32 @@ export default function MachineMonitor() {
     <div className="machine-monitor">
       <p>Estado de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
+      {/* Toggle button for raw data display */}
+      <button
+        onClick={() => setShowRawData(!showRawData)}
+        style={{ marginBottom: "1rem" }}
+      >
+        {showRawData ? "Ocultar datos crudos" : "Mostrar datos crudos"}
+      </button>
+
+      {/* Raw JSON data display */}
+      {data && showRawData && (
+        <div className="raw-data" style={{ marginBottom: "2rem" }}>
+          <h2>Datos JSON Completos</h2>
+          <div className="bg-background2"
+            style={{
+              padding: "1rem",
+              borderRadius: "4px",
+              overflow: "auto",
+              maxHeight: "500px",
+            }}
+          >
+            <pre style={{ margin: 0 }}>{JSON.stringify(data, null, 2)}</pre>
+          </div>
+        </div>
+      )}
+
+      {/* Formatted data display */}
       {data && (
         <>
           <div className="machine-status">
