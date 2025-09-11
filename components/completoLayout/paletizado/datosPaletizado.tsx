@@ -105,7 +105,7 @@ const DatosPaletizado = () => {
             key={id}
             className={
               isActive
-                ? "flex flex-col px-[0.8vw] py-[0.4vw] rounded-[0.7vw] bg-[#581420] max-h-[65px] h-full w-full transition-colors duration-800 shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]"
+                ? "flex flex-col p-[0.4vw_0.8vw] rounded-[0.7vw] bg-[#581420] max-h-[65px] h-full w-full transition-colors duration-800 shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]"
                 : "h-full w-full flex text-center justify-center p-[1vw] rounded-[0.7vw] bg-[#555555] transition-colors duration-800 shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
             }
           >

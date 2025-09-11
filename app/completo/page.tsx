@@ -120,14 +120,13 @@ const Completo = () => {
 
   return (
     <section className="flex flex-col p-6 gap-6 w-full h-full items-center">
-      <div className=" w-auto h-full">
+      <div className=" w-[75%] h-auto">
         <LayoutCompleto />
       </div>
 
       {/* Título */}
       <h2 className="">LISTADO ALERTAS</h2>
 
-      {/*
       <div className="">
         <Table aria-label="Tabla de alertas">
           <TableHeader columns={columns}>
@@ -192,7 +191,6 @@ const Completo = () => {
           </Button>
         </Link>
       </div>
-      */}
     </section>
   );
 };

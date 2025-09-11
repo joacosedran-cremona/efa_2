@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import style from "./SubNav.module.css";
-
 import { GoDotFill } from "react-icons/go"; //Punto
 
 const SubNav = () => {
@@ -14,32 +12,31 @@ const SubNav = () => {
       id: 1,
       path: "/completo",
       text: "COMPLETO",
-      styleClass: style.secciondesbloqueada,
+      styleClass: "text-gray-800", // secciondesbloqueada
     },
     {
       id: 2,
       path: ["/desmoldeo", "/desmoldeo/equipox"],
       text: "DESMOLDEO",
-      styleClass: style.secciondesbloqueada,
+      styleClass: "text-gray-800", // secciondesbloqueada
     },
     {
       id: 3,
       path: "/encajonado",
       text: "ENCAJONADO",
-      styleClass: style.seccionbloqueada,
+      styleClass: "text-gray-400", // seccionbloqueada
     },
     {
       id: 4,
       path: "/paletizado",
       text: "PALETIZADO",
-      styleClass: style.seccionbloqueada,
+      styleClass: "text-gray-400", // seccionbloqueada
     },
   ];
 
   return (
-    <div className={style.contenedor}>
-      <div className={style.SubNav}>
-        <ul className={style.navLinks}>
+    <div className="w-full bg-background2 shadow-sm flex flex-row justify-center">
+        <ul className="flex flex-row items-center gap-6">
           {opcionesBotones.map(({ id, path, text, styleClass }) => {
             // Verifica si pathname coincide con alguna de las rutas
             const isActive = Array.isArray(path)
@@ -49,24 +46,28 @@ const SubNav = () => {
             return (
               <li
                 key={id}
-                className={`${style.itemNav} ${
-                  isActive ? style.active : ""
+                className={`relative py-3 transition-colors text-texto duration-200 ${
+                  isActive ? "font-semibold" : "font-normal"
                 } ${styleClass}`}
               >
-                <Link href={Array.isArray(path) ? path[0] : path}>
+                <Link
+                  href={Array.isArray(path) ? path[0] : path}
+                  className="flex items-center gap-2 hover:text-gray-900"
+                >
                   {isActive ? (
                     <GoDotFill className="text-green-500" />
                   ) : (
                     <GoDotFill className="text-gray-500" />
                   )}
-                  <span className={styleClass}>{text}</span>
+                  <span>{text}</span>
                 </Link>
-                {isActive && <div className={style.barraSeleccionada}></div>}
+                {isActive && (
+                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"></div>
+                )}
               </li>
             );
           })}
         </ul>
-      </div>
     </div>
   );
 };

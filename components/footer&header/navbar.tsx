@@ -86,7 +86,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
       </p>
 
       <div className="flex flex-row w-[30%] justify-end">
-        <ul className="flex flex-row w-[100%] h-[100%] gap-[30px] justify-end">
+        <ul className="flex flex-row w-full h-[100%] gap-[30px] justify-end">
           {opcionesMenu.map(({ id, url, text }) => (
             <li key={id} className="h-[100%]">
               <Link

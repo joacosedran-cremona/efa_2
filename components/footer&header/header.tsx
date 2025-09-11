@@ -8,7 +8,7 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="w-[100%] text-black">
+    <header className="text-black">
       <Navbar currentPath={pathname} />
     </header>
   );

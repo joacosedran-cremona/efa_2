@@ -66,14 +66,13 @@ const LayoutCompleto = () => {
   };
 
   return (
-    <div className="relative w-auto h-full">
-      <div className="w-full h-auto rounded-lg overflow-hidden">
+    <div className="relative w-full mx-auto">
+      <div className="w-full h-auto rounded-[15px] overflow-hidden">
         <Image
           src="/Layout/layoutcompleto.png"
           alt="Layout"
           width={1080}
           height={1920}
-          className="w-full h-auto object-contain"
           priority
         />
       </div>
@@ -84,7 +83,7 @@ const LayoutCompleto = () => {
             className={getSectionClasses(section.styleClass)}
             style={section.position}
           >
-            <span className="absolute text-[#D9D9D9] p-[5px] rounded-[3px] text-xs opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black text-[#D9D9D9] p-[5px] rounded-[3px] text-xs opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
               {section.name}
             </span>
 

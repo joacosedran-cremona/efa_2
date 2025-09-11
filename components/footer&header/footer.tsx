@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="flex flex-col align-middle bg-footerbg w-[100%] text-white inset-x-[0px] bottom-[0px]">
+    <footer className="flex flex-col align-middle bg-footerbg w-screen text-white x-[0px] bottom-[0px]">
       <div className="flex flex-row w-[100%] max-w-1920 h-[10rem] justify-between align-middle p-[40px]">
         <ul className="flex flex-col justify-center align-middle h-[100%] w-[30%]">
           {opcionesIzq.map(({ id, icono, link, texto }) => (
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
 
         <div className="flex justify-center align-middle h-[100%] w-[40%]">
           <Link
-            className="flex w-auto h-[100%] p-[0px] justify-center items-center"
+            className="flex w-auto h-[100%] p-0 justify-center items-center"
             href="https://creminox.com"
             rel="noopener noreferrer"
             target="_blank"
@@ -69,14 +69,14 @@ const Footer: React.FC = () => {
           </Link>
         </div>
 
-        <ul className="flex flex-col justify-center align-middle h-[100%] w-[30%]">
+        <ul className="flex flex-col justify-center align-middle h-full w-[30%]">
           {opcionesDer.map(({ id, icono, link, texto }) => (
             <li
               key={id}
               className="flex flex-row items-center justify-end h-1/2 py-[1vh] gap-[10px]"
             >
               <Link
-                className="flex flex-row items-center h-[100%] gap-[15px]"
+                className="flex flex-row items-center h-full gap-[15px]"
                 href={link}
                 rel="noopener noreferrer"
                 target="_blank"
