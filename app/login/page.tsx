@@ -16,7 +16,7 @@ const Login = () => {
   };
 
   return (
-    <section className="flex h-[100%] w-full items-center justify-center">
+    <section className="flex h-full w-full items-center justify-center">
       <div className="w-auto h-[60vh] gap-[15px] flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-[1920px] text-texto bg-black rounded-[15px]">
         <Image
           alt="Creminox"

@@ -1,0 +1,110 @@
+"use client";
+
+import Link from "next/link";
+import React from "react";
+import Image from "next/image";
+
+import DatosDesmoldeo from "./desmoldeo/datosDesmoldeo";
+import EstadoDesmoldeo from "./desmoldeo/estadoDesmoldeo";
+import DatosEncajonado from "./encajonado/datosEncajonado";
+import EstadoEncajonado from "./encajonado/estadoEncajonado";
+import DatosPaletizado from "./paletizado/datosPaletizado";
+import EstadoPaletizado from "./paletizado/estadoDesmoldeo";
+
+const LayoutCompleto = () => {
+  const sections = [
+    {
+      id: 1,
+      name: "Desmoldeo",
+      path: "/desmoldeo",
+      position: { top: "36.2%", left: "0%", width: "35.3%", height: "63.8%" },
+      styleClass: "secciondesbloqueada",
+    },
+    {
+      id: 2,
+      name: "Encajonado",
+      path: "/encajonado",
+      position: { top: "0.3%", left: "35.3%", width: "59.5%", height: "48%" },
+      styleClass: "seccionbloqueada",
+    },
+    {
+      id: 3,
+      name: "Paletizado",
+      path: "/paletizado",
+      position: { top: "32.8%", left: "62.8%", width: "37.2%", height: "34%" },
+      styleClass: "seccionbloqueada",
+    },
+    {
+      id: 4,
+      name: "Datos",
+      path: "/",
+      position: {
+        top: "67.5%",
+        left: "36.5%",
+        width: "61.3%",
+        height: "31.5%",
+      },
+      styleClass: "secciondatos",
+    },
+  ];
+
+  // Helper function to get Tailwind classes based on section type
+  const getSectionClasses = (styleClass: string) => {
+    const baseClasses =
+      "absolute p-0 cursor-pointer transition-all duration-300 ease-in-out bg-transparent";
+
+    switch (styleClass) {
+      case "secciondesbloqueada":
+        return `${baseClasses} rounded-[20px] z-0 border-2 border-green-500 hover:bg-white/30 hover:shadow-[0px_0px_15px_10px_rgba(255,255,255,0.8)]`;
+      case "seccionbloqueada":
+        return `${baseClasses} rounded-[20px] bg-gray-500 border border-black opacity-50 z-0 pointer-events-none hover:bg-[rgba(17,17,17,0.815)]`;
+      case "secciondatos":
+        return `${baseClasses} rounded-[15px] bg-transparent z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent`;
+      default:
+        return baseClasses;
+    }
+  };
+
+  return (
+    <div className="relative w-auto h-full">
+      <div className="w-full h-auto rounded-lg overflow-hidden">
+        <Image
+          src="/Layout/layoutcompleto.png"
+          alt="Layout"
+          width={1080}
+          height={1920}
+          className="w-full h-auto object-contain"
+          priority
+        />
+      </div>
+
+      {sections.slice(0, 3).map((section) => (
+        <Link href={section.path} key={section.id}>
+          <div
+            className={getSectionClasses(section.styleClass)}
+            style={section.position}
+          >
+            <span className="absolute text-[#D9D9D9] p-[5px] rounded-[3px] text-xs opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+              {section.name}
+            </span>
+
+            {section.id === 1 && <EstadoDesmoldeo />}
+            {section.id === 2 && <EstadoEncajonado />}
+            {section.id === 3 && <EstadoPaletizado />}
+          </div>
+        </Link>
+      ))}
+
+      <div
+        className="absolute p-0 bg-transparent rounded-[15px] z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent"
+        style={sections[3].position}
+      >
+        <DatosDesmoldeo />
+        <DatosEncajonado />
+        <DatosPaletizado />
+      </div>
+    </div>
+  );
+};
+
+export default LayoutCompleto;

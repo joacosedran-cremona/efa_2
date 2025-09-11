@@ -41,7 +41,7 @@ interface WebSocketData {
   };
 }
 
-const DatosDesmoldeo = () => {
+const DatosEncajonado = () => {
   const { websocketData } = useContext(AuthContext); // Obtiene el objeto websocketData del contexto
   const data = websocketData?.data as WebSocketData | null; // Accede a los datos con type assertion
 
@@ -117,10 +117,10 @@ const DatosDesmoldeo = () => {
             >
               {isActive ? (
                 <div className="w-full h-full">
-                  <h3 className="text-[0.9vw] h-1/2 w-full p-0 m-0 transition-colors duration-800 font-bold truncate">
+                  <h3 className="text-[0.9vw] h-1/2 w-full p-0 m-0 transition-colors duration-800 font-bold">
                     {nombre}
                   </h3>
-                  <h4 className="text-[0.8vw] h-1/2 w-full p-0 m-0 transition-colors duration-800 truncate">
+                  <h4 className="text-[0.8vw] h-1/2 w-full p-0 m-0 transition-colors duration-800">
                     {dato}
                   </h4>
                 </div>
@@ -137,4 +137,4 @@ const DatosDesmoldeo = () => {
   );
 };
 
-export default DatosDesmoldeo;
+export default DatosEncajonado;

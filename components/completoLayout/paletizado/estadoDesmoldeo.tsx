@@ -40,7 +40,7 @@ interface WebSocketData {
   };
 }
 
-const DatosEstadoDesmoldeo = () => {
+const EstadoPaletizado = () => {
   const { websocketData } = useContext(AuthContext); // Obtiene el objeto websocketData del contexto
   const data = websocketData?.data as WebSocketData | null; // Accede a los datos con type assertion
 
@@ -102,4 +102,4 @@ const DatosEstadoDesmoldeo = () => {
   );
 };
 
-export default DatosEstadoDesmoldeo;
+export default EstadoPaletizado;
