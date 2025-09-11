@@ -1,10 +1,13 @@
 "use client";
 
 import { useContext } from "react";
-import AuthContext from "@/context/AuthContext";
-import style from "../texto.module.css";
-import cont from "./datosdesmoldeo.module.css";
 import Link from "next/link";
+
+import style from "../texto.module.css";
+
+import cont from "./datosdesmoldeo.module.css";
+
+import AuthContext from "@/context/AuthContext";
 
 // Define interfaces for your data structure
 interface MachineStatus {

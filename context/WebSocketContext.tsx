@@ -8,6 +8,7 @@ import React, {
   useRef,
   useCallback,
 } from "react";
+
 import {
   WebSocketResponse,
   MachineStatus,
@@ -54,6 +55,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     try {
       const wsUrl = `ws://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/ws/${pollId}`;
       const socket = new WebSocket(wsUrl);
+
       socketRef.current = socket;
 
       // Event: Connection opened

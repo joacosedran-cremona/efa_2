@@ -4,12 +4,12 @@ import type { ThemeProviderProps } from "next-themes";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { AuthProvider } from "../context/AuthContext";
 import { HeroUIProvider } from "@heroui/system";
-
 import { I18nextProvider } from "react-i18next";
+
+import { AuthProvider } from "../context/AuthContext";
+
 import { i18n } from "@/i18n";
 
 export interface ProvidersProps {

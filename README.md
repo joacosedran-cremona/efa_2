@@ -85,4 +85,17 @@ npm install html2canvas jspdf
 ```bash
 npm install --save-dev @types/js-cookie
 npm install --save-dev @types/axios
+npm install --save-dev @next/eslint-plugin-next
+```
+
+## npm run build
+
+```bash
+npx eslint --fix .
+
+npx prettier --write .
+
+npm run build
+
+npm run start
 ```

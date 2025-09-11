@@ -1,9 +1,6 @@
 "use client";
-import { useTranslation } from "react-i18next";
 
 export default function Home() {
-  const { t } = useTranslation();
-
   return (
     <section className="flex flex-col h-full w-full py-6 px-6 gap-6">
       <div className="bg-background2 text-texto p-6 rounded-lg w-full h-full text-center flex">

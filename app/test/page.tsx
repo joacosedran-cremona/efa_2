@@ -1,6 +1,7 @@
 "use client";
-import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
+
+import { useAuth } from "@/context/AuthContext";
 
 export default function MachineMonitor() {
   // Get WebSocket data from Auth context
@@ -23,8 +24,8 @@ export default function MachineMonitor() {
 
       {/* Toggle button for raw data display */}
       <button
-        onClick={() => setShowRawData(!showRawData)}
         style={{ marginBottom: "1rem" }}
+        onClick={() => setShowRawData(!showRawData)}
       >
         {showRawData ? "Ocultar datos crudos" : "Mostrar datos crudos"}
       </button>
@@ -33,7 +34,8 @@ export default function MachineMonitor() {
       {data && showRawData && (
         <div className="raw-data" style={{ marginBottom: "2rem" }}>
           <h2>Datos JSON Completos</h2>
-          <div className="bg-background2"
+          <div
+            className="bg-background2"
             style={{
               padding: "1rem",
               borderRadius: "4px",

@@ -7,8 +7,10 @@ import {
   useContext,
 } from "react";
 import { usePathname } from "next/navigation";
-import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
+
 import { WebSocketResponse } from "../interfaces/websocket";
+
+import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
 
 // Define enhanced types for our context
 interface AuthContextType {
@@ -66,6 +68,7 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
         }
       }
     };
+
     initializeStream();
   }, [streamInitialized, pathname]);
 

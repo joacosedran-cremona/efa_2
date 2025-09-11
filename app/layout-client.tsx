@@ -19,9 +19,7 @@ export default function LayoutClient({
   return (
     <div className="relative flex flex-col w-screen h-screen">
       {!hideHeaderFooter && <Header />}
-      <main className="flex-grow">
-        {children}
-      </main>
+      <main className="flex-grow">{children}</main>
       {!hideHeaderFooter && <Footer />}
     </div>
   );
