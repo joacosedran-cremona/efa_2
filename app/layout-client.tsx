@@ -25,13 +25,15 @@ export default function LayoutClient({
     pathname.startsWith("/desmoldeo/");
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-grow min-h-screen">
       <div className="sticky top-0 left-0 w-full z-[999]">
         {!hideHeaderFooter && <Header />}
         {!hideHeaderFooter && showHeader2 && <Header2 />}
       </div>
-      <main className="flex-grow">{children}</main>
-      {!hideHeaderFooter && <Footer />}
+      <main className="flex-grow h-screen">{children}</main>
+      <div className="">
+        {!hideHeaderFooter && <Footer />}
+      </div>
     </div>
   );
 }
