@@ -52,6 +52,7 @@ const config = {
             headerbg: "#a4deffff",
             texto: "#131313",
             textoheader: "#111",
+            blueBack: "#89caffff",
           },
         },
 
@@ -65,6 +66,7 @@ const config = {
             headerbg: "#111",
             texto: "#FFF",
             textoheader: "#FFF",
+            blueBack: "#0056b3",
           },
         },
       },

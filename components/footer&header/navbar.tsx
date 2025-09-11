@@ -68,7 +68,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const { t } = useTranslation();
 
   const opcionesMenu: OpcionMenu[] = [
-    { id: 1, url: "/", text: t("menu.home") },
+    { id: 1, url: "/", text: t("min.home") },
   ];
 
   return (
@@ -82,7 +82,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
       </div>
 
       <p className="flex w-[40%] justify-center text-textoheader">
-        {t("header1.titulo")}
+        {t("min.titulo")}
       </p>
 
       <div className="flex flex-row w-[30%] justify-end">

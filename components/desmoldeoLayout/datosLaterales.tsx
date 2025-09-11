@@ -1,108 +1,146 @@
 "use client";
 
-import Image from "next/image";
-import receta1 from "@/assets/img/RECETA.png";
-import receta2 from "@/assets/img/RECETA2.png";
-import torre from "@/assets/img/TORRE.png";
-import nivelactual from "@/assets/img/NIVELACTUAL.png";
-import molde from "@/assets/img/MOLDE.png";
-import peso from "@/assets/img/PESO.png";
-import tiempo from "@/assets/img/TIEMPO.png";
-import gripper from "@/assets/img/GRIPPER.png";
-
-import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
 import React, { useState, useEffect, useRef } from "react";
-import style from "./NavDatos.module.css";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import Image from "next/image";
 
-const NavDatos = () => {
-  const { data } = useContext(AuthContext); // Obtiene datos del contexto
+// React Icons imports
+import { BiReceipt } from "react-icons/bi"; // Receta
+import { PiChefHat } from "react-icons/pi"; // Receta 2
+import { BiCabinet } from "react-icons/bi"; // Torre
+import { GrResources } from "react-icons/gr"; // Nivel
+import { TbBowl } from "react-icons/tb"; // Molde
+import { FaWeightHanging } from "react-icons/fa"; // Peso
+import { FaRegClock } from "react-icons/fa"; // Reloj
+import { MdPrecisionManufacturing } from "react-icons/md"; // Gripper
 
-  const {
-    idRecetaActual,
-    idRecetaProxima,
-    CodigoProducto,
-    TotalNiveles,
-    TipoMolde,
-    estadoMaquina,
-    desmoldeoBanda,
-    PesoProducto,
-    TiempoTranscurrido,
-    sdda_nivel_actual,
-    NGripperActual,
-    PesoActualDesmoldado,
-    TorreActual,
-  } = data?.[0] || {};
+interface NavOption {
+  id: number;
+  nombre: string;
+}
 
-  const opcionesAlarma = [
-    { id: 1, nombre: "LAYOUT" },
-    { id: 2, nombre: "PRODUCTIVIDAD" },
-    { id: 3, nombre: "GRAFICOS HISTORICOS" },
+interface DatoTiempoReal {
+  id: number;
+  nombre: string;
+  dato: string | number | null;
+  icono: any;
+  isReactIcon?: boolean;
+}
+
+const DatosLaterales: React.FC = () => {
+  // Use translation hook
+  const { t } = useTranslation();
+
+  // Use the updated AuthContext hook
+  const { websocketData } = useAuth();
+
+  // Access machine status data from the websocket response
+  const machineStatus = websocketData?.data?.machineStatus;
+
+  // Get values with null as default for undefined values
+  const idRecetaActual = machineStatus?.idRecetaActual ?? null;
+  const idRecetaProxima = machineStatus?.idRecetaProxima ?? null;
+  const CodigoProducto = machineStatus?.CodigoProducto ?? null;
+  const TotalNiveles = machineStatus?.TotalNiveles ?? null;
+  const TipoMolde = machineStatus?.TipoMolde ?? null;
+  const estadoMaquina = machineStatus?.estadoMaquina ?? null;
+  const desmoldeoBanda = machineStatus?.desmoldeoBanda ?? null;
+  const PesoProducto = machineStatus?.PesoProducto ?? null;
+  const TiempoTranscurrido = machineStatus?.TiempoTranscurrido ?? null;
+  const sdda_nivel_actual = machineStatus?.sdda_nivel_actual ?? null;
+  const NGripperActual = machineStatus?.NGripperActual ?? null;
+  const PesoActualDesmoldado = machineStatus?.PesoActualDesmoldado ?? null;
+  const TorreActual = machineStatus?.TorreActual ?? null;
+
+  const opcionesAlarma: NavOption[] = [
+    { id: 1, nombre: t("mayus.layout") },
+    { id: 2, nombre: t("mayus.productividad") },
+    { id: 3, nombre: t("mayus.graficosHistoricos") },
   ];
 
-  const datosTiempoReal = [
+  const datosTiempoReal: DatoTiempoReal[] = [
     {
       id: 1,
-      nombre: "Nombre receta",
-      dato: CodigoProducto !== null ? CodigoProducto : "null",
-      icono: receta1,
+      nombre: t("min.recetaActual"),
+      dato: CodigoProducto || "",
+      icono: BiReceipt,
+      isReactIcon: true,
     },
     {
       id: 2,
-      nombre: "ID Proxima receta",
-      dato: idRecetaProxima !== null ? idRecetaProxima : "null",
-      icono: receta2,
+      nombre: t("min.nroMolde"),
+      dato: TipoMolde || "",
+      icono: TbBowl,
+      isReactIcon: true,
     },
     {
       id: 3,
-      nombre: "N° Gripper actual",
-      dato: NGripperActual !== null ? NGripperActual : "null",
-      icono: gripper,
+      nombre: t("min.nroGripperActual"),
+      dato: NGripperActual || "",
+      icono: MdPrecisionManufacturing,
+      isReactIcon: true,
     },
     {
       id: 4,
-      nombre: "Peso por fila",
-      dato: PesoProducto !== null ? PesoProducto : "null",
-      icono: peso,
+      nombre: t("min.nroTorreActual"),
+      dato: TorreActual || "",
+      icono: BiCabinet,
+      isReactIcon: true,
     },
     {
       id: 5,
-      nombre: "Peso desmoldado",
-      dato: PesoActualDesmoldado !== null ? PesoActualDesmoldado : "null",
-      icono: peso,
+      nombre: t("min.pesoFila"),
+      dato: PesoProducto || "",
+      icono: FaWeightHanging,
+      isReactIcon: true,
     },
     {
       id: 6,
-      nombre: "N° Torre actual",
-      dato: TorreActual !== null ? TorreActual : "null",
-      icono: torre,
+      nombre: t("min.pesoDesmoldado"),
+      dato:
+        estadoMaquina === "CICLO INACTIVO"
+          ? "0"
+          : PesoActualDesmoldado != null
+            ? PesoActualDesmoldado
+            : "",
+      icono: FaWeightHanging,
+      isReactIcon: true,
     },
     {
       id: 7,
-      nombre: "Torre nivel actual",
+      nombre: t("min.torreNivelActual"),
       dato:
-        (sdda_nivel_actual !== null ? sdda_nivel_actual : "null") +
-        "/" +
-        (TotalNiveles !== null ? TotalNiveles : "null"),
-      icono: nivelactual,
+        sdda_nivel_actual != null && TotalNiveles != null
+          ? `${sdda_nivel_actual}/${TotalNiveles}`
+          : "",
+      icono: GrResources,
+      isReactIcon: true,
     },
     {
       id: 8,
-      nombre: "N° Molde",
-      dato: TipoMolde !== null ? TipoMolde : "null",
-      icono: molde,
+      nombre: t("min.tiempoTranscurrido"),
+      dato:
+        TiempoTranscurrido != null
+          ? TiempoTranscurrido === "0" || TiempoTranscurrido === 0 // Fixed comparison to check for both string "0" and number 0
+            ? "00:00 mm:ss"
+            : TiempoTranscurrido
+          : "",
+      icono: FaRegClock,
+      isReactIcon: true,
     },
     {
       id: 9,
-      nombre: "Tiempo transcurrido",
-      dato: TiempoTranscurrido !== null ? TiempoTranscurrido : "00:00 mm:ss",
-      icono: tiempo,
+      nombre: t("min.idProxReceta"),
+      dato: idRecetaProxima || "",
+      icono: PiChefHat,
+      isReactIcon: true,
     },
   ];
 
-  const [activeSection, setActiveSection] = useState(1);
-  const debounceTimeout = useRef(null);
+  const [activeSection, setActiveSection] = useState<number>(1);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,11 +183,13 @@ const NavDatos = () => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      clearTimeout(debounceTimeout.current);
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
     };
   }, []);
 
-  const handleScrollClick = (id) => {
+  const handleScrollClick = (id: number) => {
     const section = document.getElementById(`section${id}`);
     if (section) {
       const offset = -133;
@@ -167,20 +207,21 @@ const NavDatos = () => {
   };
 
   return (
-    <div className={style.nav}>
-      <ul className={style.navList}>
+    <div className="left-0 w-[270px] bg-background2 p-5 z-[998] flex flex-col">
+      <ul className="flex flex-col gap-2 list-none">
         {opcionesAlarma.map(({ id, nombre }) => (
-          <li
-            key={id}
-            className={`${style.navItem} ${activeSection === id ? style.active : ""}`}
-          >
+          <li key={id} className="gap-[10px]">
             <Link
               href={`#section${id}`}
               onClick={(e) => {
                 e.preventDefault();
                 handleScrollClick(id);
               }}
-              className={style.navLink}
+              className={`block p-[5px] text-center text-texto no-underline rounded-lg font-semibold border border-[#555555] transition-all duration-300 ${
+                activeSection === id
+                  ? "bg-[#007bff] text-[#D9D9D9] border-[#0056b3]"
+                  : "bg-[#1c1c1c] hover:bg-[#2b2b2b]"
+              }`}
             >
               {nombre}
             </Link>
@@ -188,19 +229,42 @@ const NavDatos = () => {
         ))}
       </ul>
 
-      <hr className={style.linea}></hr>
+      <hr className="w-[98%] flex mx-auto my-[20px] text-[#D9D9D9]" />
 
-      <div className={style.contenedorDatos}>
-        <p className={style.datosGen}>DATOS GENERALES</p>
-        <ul className={style.datosTods}>
-          {datosTiempoReal.map(({ id, nombre, dato, icono }) => (
-            <li key={id} className={style.datosIndv}>
-              <Link className={style.detallesDatos} href="/desmoldeo/equipox">
-                <h3 className={style.h3}>{nombre}</h3>
-                <h4 className={style.h4}>{dato}</h4>
-              </Link>
-              <Image src={icono} alt={`Estado: ${id}`} className={style.icon} />
-            </li>
+      <div className="overflow-auto">
+        <p className="m-0 mb-[10px] font-bold text-[#D9D9D9] block text-center">
+          {t("mayus.datosGenerales")}
+        </p>
+        <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
+          {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
+            <Link href="/desmoldeo/equipox" key={id} className="block">
+              <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-[#555555] rounded-[15px] bg-[#1C1C1C] min-h-[55px] max-h-[5vh]">
+                <div className="w-[90%] flex flex-col no-underline text-[#D9D9D9]">
+                  <h3 className="text-base p-0 m-0 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+                    {nombre}
+                  </h3>
+                  <h4 className="text-[15px] p-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap">
+                    {nombre === t("min.pesoFila") ||
+                    nombre === t("min.pesoDesmoldado")
+                      ? `${dato} kg`
+                      : dato}
+                  </h4>
+                </div>
+                <div className="w-[10%] flex items-start justify-center">
+                  {isReactIcon ? (
+                    <div className="text-[#D9D9D9] text-2xl flex-shrink-0 mt-[3px]">
+                      {React.createElement(icono)}
+                    </div>
+                  ) : (
+                    <Image
+                      src={icono}
+                      alt={`Estado: ${id}`}
+                      className="max-w-[25px] max-h-[25px] flex-shrink-0 mt-[3px]"
+                    />
+                  )}
+                </div>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -208,4 +272,4 @@ const NavDatos = () => {
   );
 };
 
-export default NavDatos;
+export default DatosLaterales;
