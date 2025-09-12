@@ -2,11 +2,12 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import EstadosLayout from "./estadosLayout";
-import AuthContext from "@/context/AuthContext";
 import Image from "next/image";
-import LayoutIMG from "@/assets/img/LAYOUT.png";
+import AuthContext from "@/context/AuthContext";
 import { useTranslation } from "react-i18next";
+
+import EstadosLayout from "./estadosLayout";
+import LayoutIMG from "@/public/layout/LAYOUT.png";
 
 interface SectionStyle {
   top: string;
@@ -33,7 +34,6 @@ interface EquipmentStatus {
   statusClass: string;
 }
 
-// Map for equipment status based on respuesta.json
 const equipmentStatusMap = {
   posicionador: (data: any): EquipmentStatus => {
     const torreActual = data?.machineStatus?.TorreActual;
@@ -62,7 +62,6 @@ const equipmentStatusMap = {
     };
   },
   robot: (data: any): EquipmentStatus => {
-    // Find latest robot state from alarms
     const robotAlarms =
       data?.alarms?.filter(
         (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT"
@@ -128,7 +127,6 @@ const Layout: React.FC = () => {
     useContext(AuthContext);
   const [equipmentData, setEquipmentData] = useState<any>(null);
 
-  // Define sections with TypeScript typing
   const sections: LayoutSection[] = [
     {
       id: 1,
@@ -199,7 +197,6 @@ const Layout: React.FC = () => {
     },
   ];
 
-  // Update equipment data when websocket data changes
   useEffect(() => {
     if (websocketData.data) {
       setEquipmentData(websocketData.data);
@@ -210,7 +207,6 @@ const Layout: React.FC = () => {
     setEquipoSeleccionado(section.identifier);
   };
 
-  // Get equipment status for a section
   const getEquipmentStatus = (
     section: LayoutSection
   ): EquipmentStatus | null => {
@@ -221,7 +217,7 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full flex justify-center items-center rounded-[15px] bg-[#131313]">
+    <div className="relative w-full flex justify-center items-center rounded-[15px] bg-background2">
       <div className="absolute left-[10px] top-[10px] z-10 pointer-events-none">
         <EstadosLayout />
       </div>

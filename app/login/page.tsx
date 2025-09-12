@@ -107,7 +107,7 @@ const Login = () => {
           {message && <div className="text-red-500 text-sm">{message}</div>}
 
           <button
-            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             type="submit"
             disabled={loading}
           >

@@ -54,7 +54,7 @@ const config = {
             headerbg: "#a4deffff",
             texto: "#131313",
             texto2: "#555",
-            textoheader: "#111",
+            textoheader: "#FFF",
             textohover: "#333",
             textodesac: "#929292ff",
             
