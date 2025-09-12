@@ -20,9 +20,11 @@ const BotonFiltro = ({ onClick, isDisabled }: BotonFiltroProps) => {
         alignItems: "center",
         fontSize: "17px",
       }}
+      variant="bordered"
+      radius="lg"
       onClick={onClick}
       isDisabled={isDisabled}
-      className="bg-background3 hover:bg-background4 rounded-lg"
+      className="bg-background3 hover:bg-background4"
     >
       {t("min.aplicarCambios")}
       <FaSearch />

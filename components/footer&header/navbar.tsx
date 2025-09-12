@@ -37,10 +37,8 @@ const opcionesIconos: OpcionIcono[] = [
         className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
         href="/alertas"
       >
-        {/* Efecto de glow */}
         <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
 
-        {/* Icono con escala */}
         <VscBell className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
       </Link>
     ),
@@ -52,10 +50,8 @@ const opcionesIconos: OpcionIcono[] = [
         className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
         href="/alertas"
       >
-        {/* Efecto de glow */}
         <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
 
-        {/* Icono con escala */}
         <GoGear className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
       </Link>
     ),
