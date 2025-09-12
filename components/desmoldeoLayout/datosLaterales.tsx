@@ -207,7 +207,7 @@ const DatosLaterales: React.FC = () => {
   };
 
   return (
-    <div className="left-0 w-[270px] bg-background2 p-5 z-[998] flex flex-col">
+    <div className="fixed left-0 w-[270px] bg-background2 p-5 z-[998] flex flex-col h-[calc(100vh-112px)] overflow-auto">
       <ul className="flex flex-col gap-2 list-none">
         {opcionesAlarma.map(({ id, nombre }) => (
           <li key={id} className="gap-[10px]">
@@ -231,8 +231,8 @@ const DatosLaterales: React.FC = () => {
 
       <hr className="w-[98%] flex mx-auto my-[20px]" />
 
-      <div className="overflow-auto">
-        <p className="m-0 mb-[10px] font-bold block text-center">
+      <div className="overflow-auto h-full">
+        <p className="font-bold block text-center">
           {t("mayus.datosGenerales")}
         </p>
         <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">

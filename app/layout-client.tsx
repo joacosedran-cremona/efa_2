@@ -24,14 +24,20 @@ export default function LayoutClient({
     pathname === "/" ||
     pathname.startsWith("/desmoldeo/");
 
+  // Check if we're on the desmoldeo page to adjust footer
+  const isDesmoldeoPage =
+    pathname === "/desmoldeo" || pathname.startsWith("/desmoldeo/");
+
   return (
     <div className="flex flex-col flex-grow min-h-screen">
       <div className="sticky top-0 left-0 w-full z-[999]">
         {!hideHeaderFooter && <Header />}
         {!hideHeaderFooter && showHeader2 && <Header2 />}
       </div>
-      <main className="flex-grow h-screen">{children}</main>
-      <div className="">
+      <main className={`flex-grow ${isDesmoldeoPage ? "pl-[270px]" : ""}`}>
+        {children}
+      </main>
+      <div className={isDesmoldeoPage ? "pl-[270px]" : ""}>
         {!hideHeaderFooter && <Footer />}
       </div>
     </div>
