@@ -17,14 +17,12 @@ export default function LayoutClient({
     "/login/recuperacion",
   ].includes(pathname);
 
-  // Check if current path needs Header2
   const showHeader2 =
     pathname === "/completo" ||
     pathname === "/desmoldeo" ||
     pathname === "/" ||
     pathname.startsWith("/desmoldeo/");
 
-  // Check if we're on the desmoldeo page to adjust footer
   const isDesmoldeoPage =
     pathname === "/desmoldeo" || pathname.startsWith("/desmoldeo/");
 

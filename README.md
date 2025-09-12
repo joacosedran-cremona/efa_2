@@ -1,9 +1,9 @@
-## Iconos
-
-Instalacion
+## Iconos y banderas
 
 ```bash
 npm install react-icons --save
+
+npm install country-flag-icons --save
 ```
 
 ```js

@@ -4,7 +4,6 @@ import { useContext } from "react";
 import Link from "next/link";
 import AuthContext from "@/context/AuthContext";
 
-// Define interfaces for your data structure
 interface MachineStatus {
   estadoMaquina?: string;
   TiempoTranscurrido?: string;
@@ -42,14 +41,12 @@ interface WebSocketData {
 }
 
 const DatosPaletizado = () => {
-  const { websocketData } = useContext(AuthContext); // Obtiene el objeto websocketData del contexto
-  const data = websocketData?.data as WebSocketData | null; // Accede a los datos con type assertion
+  const { websocketData } = useContext(AuthContext);
+  const data = websocketData?.data as WebSocketData | null;
 
-  // Accede a los datos desde la nueva estructura
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
   const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
 
-  // Utiliza datos de ambas fuentes según disponibilidad
   const estadoMaquina =
     desmoldeoData.estadoMaquina ||
     machineStatus.estadoMaquina ||
@@ -60,7 +57,6 @@ const DatosPaletizado = () => {
     machineStatus.PesoActualDesmoldado ||
     0;
 
-  // Obtener el nombre actual de la receta
   const NombreActual =
     desmoldeoData["Nombre actual"]?.trim() ||
     machineStatus.CodigoProducto ||

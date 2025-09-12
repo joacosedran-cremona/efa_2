@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 
-// React Icons imports
 import { BiReceipt } from "react-icons/bi"; // Receta
 import { PiChefHat } from "react-icons/pi"; // Receta 2
 import { BiCabinet } from "react-icons/bi"; // Torre
@@ -30,16 +29,12 @@ interface DatoTiempoReal {
 }
 
 const DatosLaterales: React.FC = () => {
-  // Use translation hook
   const { t } = useTranslation();
 
-  // Use the updated AuthContext hook
   const { websocketData } = useAuth();
 
-  // Access machine status data from the websocket response
   const machineStatus = websocketData?.data?.machineStatus;
 
-  // Get values with null as default for undefined values
   const idRecetaActual = machineStatus?.idRecetaActual ?? null;
   const idRecetaProxima = machineStatus?.idRecetaProxima ?? null;
   const CodigoProducto = machineStatus?.CodigoProducto ?? null;
@@ -123,7 +118,7 @@ const DatosLaterales: React.FC = () => {
       nombre: t("min.tiempoTranscurrido"),
       dato:
         TiempoTranscurrido != null
-          ? TiempoTranscurrido === "0" || TiempoTranscurrido === 0 // Fixed comparison to check for both string "0" and number 0
+          ? TiempoTranscurrido === "0"
             ? "00:00 mm:ss"
             : TiempoTranscurrido
           : "",

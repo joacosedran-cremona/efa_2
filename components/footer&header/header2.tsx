@@ -12,25 +12,25 @@ const SubNav = () => {
       id: 1,
       path: "/completo",
       text: "COMPLETO",
-      styleClass: "", // secciondesbloqueada
+      styleClass: "",
     },
     {
       id: 2,
       path: ["/desmoldeo", "/desmoldeo/equipox"],
       text: "DESMOLDEO",
-      styleClass: "", // secciondesbloqueada
+      styleClass: "",
     },
     {
       id: 3,
       path: "/encajonado",
       text: "ENCAJONADO",
-      styleClass: "desac", // seccionbloqueada
+      styleClass: "desac",
     },
     {
       id: 4,
       path: "/paletizado",
       text: "PALETIZADO",
-      styleClass: "desac", // seccionbloqueada
+      styleClass: "desac",
     },
   ];
 
@@ -38,10 +38,9 @@ const SubNav = () => {
     <div className="w-full bg-background2 shadow-sm flex flex-row justify-center">
       <ul className="flex flex-row items-center gap-6">
         {opcionesBotones.map(({ id, path, text, styleClass }) => {
-          // Verifica si pathname coincide con alguna de las rutas
           const isActive = Array.isArray(path)
-            ? path.includes(pathname) // Si path es un array, verifica si pathname está en él
-            : pathname === path; // Si path es una cadena, compara directamente
+            ? path.includes(pathname)
+            : pathname === path;
 
           return (
             <li

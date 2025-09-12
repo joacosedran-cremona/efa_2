@@ -9,21 +9,21 @@ function Desmoldeo() {
       <DatosLaterales />
       <div className="w-full">
         {/*
-              <section id="section1" className="">
-                  <Layout />
-              </section>
+            <section id="section1" className="">
+                <Layout />
+            </section>
           */}
 
         {/*
-              <section id="section2" className="">
-              <Productividad />
-              </section>
+            <section id="section2" className="">
+                <Productividad />
+            </section>
           */}
 
         {/*
-              <section id="section3" className="">
-                  <FiltroPeriodoGraficos />
-              </section>
+            <section id="section3" className="">
+                <FiltroPeriodoGraficos />
+            </section>
           */}
       </div>
     </>

@@ -15,7 +15,6 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   const { t } = useTranslation();
   const router = useRouter();
 
-  // Cerrar dropdown cuando se hace click fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (

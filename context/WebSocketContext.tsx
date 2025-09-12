@@ -17,7 +17,6 @@ import {
   Alarm,
 } from "../interfaces/websocket";
 
-// Define the shape of the context
 interface WebSocketContextType {
   data: WebSocketResponse | null;
   isConnected: boolean;
@@ -25,7 +24,6 @@ interface WebSocketContextType {
   reconnect: () => void;
 }
 
-// Create the context with default values
 const WebSocketContext = createContext<WebSocketContextType>({
   data: null,
   isConnected: false,
@@ -33,7 +31,6 @@ const WebSocketContext = createContext<WebSocketContextType>({
   reconnect: () => {},
 });
 
-// Hook to use the WebSocket context
 export const useWebSocketContext = () => useContext(WebSocketContext);
 
 interface WebSocketProviderProps {
@@ -58,20 +55,17 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 
       socketRef.current = socket;
 
-      // Event: Connection opened
       socket.onopen = () => {
         console.log(`WebSocket connected: ${wsUrl}`);
         setIsConnected(true);
         setError(null);
 
-        // Clear any reconnection timeout
         if (reconnectTimeoutRef.current) {
           clearTimeout(reconnectTimeoutRef.current);
           reconnectTimeoutRef.current = null;
         }
       };
 
-      // Event: Message received
       socket.onmessage = (event: MessageEvent) => {
         if (
           socketRef.current !== socket ||
@@ -83,7 +77,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         try {
           const rawData = JSON.parse(event.data);
 
-          // Process the data according to the expected structure
           if (Array.isArray(rawData) && rawData.length >= 5) {
             const formattedData: WebSocketResponse = {
               machineStatus: rawData[0] as MachineStatus,
@@ -103,7 +96,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         }
       };
 
-      // Event: Connection closed
       socket.onclose = (event: CloseEvent) => {
         if (socketRef.current !== socket) {
           return;
@@ -113,14 +105,12 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         setIsConnected(false);
         socketRef.current = null;
 
-        // Auto-reconnect after 3 seconds
         reconnectTimeoutRef.current = setTimeout(() => {
           console.log("Attempting to reconnect WebSocket...");
           connect();
         }, 3000);
       };
 
-      // Event: Error occurred
       socket.onerror = (event: Event) => {
         console.error("WebSocket error:", event);
         setError(new Error("WebSocket connection error"));
@@ -131,11 +121,9 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     }
   }, [pollId]);
 
-  // Initial connection
   useEffect(() => {
     connect();
 
-    // Cleanup on component unmount
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
@@ -149,7 +137,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     };
   }, [connect]);
 
-  // Manual reconnect function
   const reconnect = useCallback(() => {
     if (socketRef.current) {
       socketRef.current.close();
@@ -159,7 +146,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     connect();
   }, [connect]);
 
-  // Context value
   const contextValue: WebSocketContextType = {
     data,
     isConnected,

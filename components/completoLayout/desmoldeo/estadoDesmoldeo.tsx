@@ -3,7 +3,6 @@
 import { useContext } from "react";
 import AuthContext from "@/context/AuthContext";
 
-// Define interfaces for your data structure
 interface MachineStatus {
   estadoMaquina?: string;
   TiempoTranscurrido?: string;
@@ -41,14 +40,12 @@ interface WebSocketData {
 }
 
 const DatosEstadoDesmoldeo = () => {
-  const { websocketData } = useContext(AuthContext); // Obtiene el objeto websocketData del contexto
-  const data = websocketData?.data as WebSocketData | null; // Accede a los datos con type assertion
+  const { websocketData } = useContext(AuthContext);
+  const data = websocketData?.data as WebSocketData | null;
 
-  // Accede a los datos de estado de la máquina desde la estructura correcta
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
   const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
 
-  // Usa los datos de machineStatus o desmoldeoData según disponibilidad
   const estadoMaquina =
     machineStatus.estadoMaquina ||
     desmoldeoData.estadoMaquina ||

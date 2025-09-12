@@ -61,7 +61,7 @@ const Login = () => {
         setLoading(false);
       }
       */
-    }, 1000); // Show spinner for 1 second to test the UI
+    }, 1000);
   };
 
   return (

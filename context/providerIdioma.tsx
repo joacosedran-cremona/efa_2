@@ -1,4 +1,3 @@
-// providers/LanguageProvider.tsx
 "use client";
 
 import { useEffect } from "react";
@@ -12,7 +11,6 @@ export const LanguageProvider = ({
   const { i18n } = useTranslation();
 
   useEffect(() => {
-    // Sincronizar idioma al cargar la app
     const lang =
       localStorage.getItem("selectedLanguage") ||
       document.cookie.match(/selectedLanguage=([^;]+)/)?.[1];

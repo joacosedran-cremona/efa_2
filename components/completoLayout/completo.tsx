@@ -48,7 +48,6 @@ const LayoutCompleto = () => {
     },
   ];
 
-  // Helper function to get Tailwind classes based on section type
   const getSectionClasses = (styleClass: string) => {
     const baseClasses =
       "absolute p-0 cursor-pointer ease-in-out bg-transparent";

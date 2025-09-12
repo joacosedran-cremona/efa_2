@@ -4,12 +4,10 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 
 export default function MachineMonitor() {
-  // Get WebSocket data from Auth context
   const { websocketData } = useAuth();
   const { data, isConnected, error, reconnect } = websocketData;
   const [showRawData, setShowRawData] = useState(true);
 
-  // If there's an error, show it and provide a reconnect button
   if (error) {
     return (
       <div>

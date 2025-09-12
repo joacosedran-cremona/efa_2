@@ -30,20 +30,17 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
 
       socketRef.current = socket;
 
-      // Event: Connection opened
       socket.onopen = () => {
         console.log(`WebSocket connected: ${wsUrl}`);
         setIsConnected(true);
         setError(null);
 
-        // Clear any reconnection timeout
         if (reconnectTimeoutRef.current) {
           clearTimeout(reconnectTimeoutRef.current);
           reconnectTimeoutRef.current = null;
         }
       };
 
-      // Event: Message received
       socket.onmessage = (event: MessageEvent) => {
         if (
           socketRef.current !== socket ||
@@ -55,7 +52,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         try {
           const rawData = JSON.parse(event.data);
 
-          // Process the data according to the expected structure
           if (Array.isArray(rawData) && rawData.length >= 5) {
             const formattedData: WebSocketResponse = {
               machineStatus: rawData[0] as MachineStatus,
@@ -75,7 +71,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         }
       };
 
-      // Event: Connection closed
       socket.onclose = (event: CloseEvent) => {
         if (socketRef.current !== socket) {
           return;
@@ -85,14 +80,12 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         setIsConnected(false);
         socketRef.current = null;
 
-        // Auto-reconnect after 3 seconds
         reconnectTimeoutRef.current = setTimeout(() => {
           console.log("Attempting to reconnect WebSocket...");
           connect();
         }, 3000);
       };
 
-      // Event: Error occurred
       socket.onerror = (event: Event) => {
         console.error("WebSocket error:", event);
         setError(new Error("WebSocket connection error"));
@@ -103,11 +96,9 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
     }
   }, [pollId]);
 
-  // Initial connection
   useEffect(() => {
     connect();
 
-    // Cleanup on component unmount
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
@@ -121,7 +112,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
     };
   }, [connect]);
 
-  // Manual reconnect function
   const reconnect = useCallback(() => {
     if (socketRef.current) {
       socketRef.current.close();

@@ -12,12 +12,10 @@ import { WebSocketResponse } from "../interfaces/websocket";
 
 import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
 
-// Define enhanced types for our context
 interface AuthContextType {
   equipoSeleccionado: string;
   setEquipoSeleccionado: (equipo: string) => void;
   streamInitialized: boolean;
-  // Add WebSocket data to AuthContext
   websocketData: {
     data: WebSocketResponse | null;
     isConnected: boolean;
@@ -30,7 +28,6 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-// Create context with default values
 const AuthContext = createContext<AuthContextType>({
   equipoSeleccionado: "Default",
   setEquipoSeleccionado: () => {},
@@ -43,17 +40,14 @@ const AuthContext = createContext<AuthContextType>({
   },
 });
 
-// Custom hook to use the auth context
 export const useAuth = () => useContext(AuthContext);
 
-// Inner component that can access WebSocket context
 const AuthProviderInner = ({ children }: { children: ReactNode }) => {
   const [equipoSeleccionado, setEquipoSeleccionado] =
     useState<string>("Default");
   const pathname = usePathname();
   const [streamInitialized, setStreamInitialized] = useState<boolean>(false);
 
-  // Access WebSocket context values
   const websocketData = useWebSocketContext();
 
   useEffect(() => {
@@ -82,7 +76,7 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
     equipoSeleccionado,
     setEquipoSeleccionado,
     streamInitialized,
-    websocketData, // Pass WebSocket data through context
+    websocketData,
   };
 
   return (
@@ -90,7 +84,6 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Main provider component that wraps WebSocketProvider around our inner provider
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   return (
     <WebSocketProvider pollId="datos">

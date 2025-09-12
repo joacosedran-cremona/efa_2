@@ -18,7 +18,6 @@ import LayoutCompleto from "@/components/completoLayout/completo";
 import { useAuth } from "@/context/AuthContext";
 import { GoDotFill } from "react-icons/go";
 
-// Define interfaces for the data structure
 interface Alarma {
   id_alarma: number;
   estadoAlarma: boolean | string;
@@ -72,9 +71,7 @@ const Completo = () => {
         description: alarma.descripcion,
         type: alarma.tipoAlarma,
         state: alarma.estadoAlarma,
-        // Se muestra siempre la fecha y hora actual
-        time: alarma.fechaActual || alarma.fechaRegistro, // Fallback to fechaRegistro if fechaActual not available
-        // Si la alarma está activa y posee fechaInicio, se asigna; de lo contrario, se deja vacío.
+        time: alarma.fechaActual || alarma.fechaRegistro,
         registerTime:
           alarma.estadoAlarma === "Activo" && alarma.fechaInicio
             ? alarma.fechaInicio

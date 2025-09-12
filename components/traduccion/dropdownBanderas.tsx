@@ -1,13 +1,14 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { FaChevronDown } from "react-icons/fa";
-import Image from "next/image";
+import { US } from "country-flag-icons/react/3x2";
+import { AR } from "country-flag-icons/react/3x2";
 
 import useOutsideClick from "@/hooks/useOutsideClick";
 
 type Option = {
   value: string;
-  flag: string;
+  flagComponent: React.ComponentType<any>;
 };
 
 const DropdownBanderas = () => {
@@ -20,8 +21,8 @@ const DropdownBanderas = () => {
   });
 
   const options: Option[] = [
-    { value: "es", flag: "es.png" },
-    { value: "en", flag: "us.png" },
+    { value: "ar", flagComponent: AR },
+    { value: "en", flagComponent: US },
   ];
 
   const handleLanguageChange = (value: string) => {
@@ -40,13 +41,10 @@ const DropdownBanderas = () => {
         className="flex items-center justify-between w-[100%] py-[2px] px-[4px] bg-[#BBB5] border border-[#AAA] rounded-lg shadow-sm z-[1000] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <Image
-          alt={`${currentLanguage.value} flag`}
-          className="inline-block"
-          height={15}
-          src={`/${currentLanguage.flag}`}
-          width={20}
-        />
+        {React.createElement(currentLanguage.flagComponent, {
+          className: "inline-block",
+          style: { width: "20px", height: "15px" },
+        })}
         <FaChevronDown
           className={`ml-[2px] transition-transform ${isOpen ? "rotate-180" : ""} inline-block w-[8px] h-[8px]`}
         />
@@ -69,13 +67,10 @@ const DropdownBanderas = () => {
                   role="menuitem"
                   onClick={() => handleLanguageChange(option.value)}
                 >
-                  <Image
-                    alt={`${option.value} flag`}
-                    className="inline-block"
-                    height={15}
-                    src={`/${option.flag}`}
-                    width={20}
-                  />
+                  {React.createElement(option.flagComponent, {
+                    className: "inline-block",
+                    style: { width: "20px", height: "15px" },
+                  })}
                 </button>
               ))}
           </div>
