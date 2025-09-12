@@ -34,22 +34,19 @@ const EstadosLayout: React.FC = () => {
         text: t("mayus.cicloActivo"),
         colorClass: "text-green-600",
       };
-    }
-    else if (estadoMaquina === "CICLO PAUSADO") {
+    } else if (estadoMaquina === "CICLO PAUSADO") {
       return {
         color: "#4b5563",
         text: t("mayus.cicloPausado"),
         colorClass: "text-gray-600",
       };
-    }
-    else if (estadoMaquina === "CICLO INACTIVO" || !estadoMaquina) {
+    } else if (estadoMaquina === "CICLO INACTIVO" || !estadoMaquina) {
       return {
         color: "#b92400",
         text: t("mayus.cicloInactivo"),
         colorClass: "text-[#b92400]",
       };
-    }
-    else {
+    } else {
       return {
         color: "#4b5563",
         text: t("min.cargando"),
@@ -70,7 +67,7 @@ const EstadosLayout: React.FC = () => {
               className="w-[15px] h-[15px] my-[5px] -ml-[5px]"
               aria-label={t("min.estadoMaquina")}
             />
-            <h3 className={`font-bold ${machineState.colorClass}`}>
+            <h3 className={`font-semibold ${machineState.colorClass}`}>
               {machineState.text}
             </h3>
           </div>

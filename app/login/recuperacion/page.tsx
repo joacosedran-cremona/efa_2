@@ -20,7 +20,7 @@ const ForgotPassword = () => {
 
         <form className="w-[100%] h-3/5 flex flex-col justify-evenly">
           <div className="flex flex-col gap-[5px] h-1/3">
-            <label className="flex font-bold text-[17px] tracking-[0.5px]">
+            <label className="flex font-semibold text-[17px] tracking-[0.5px]">
               {t("formulario.correo")}
             </label>
             <input
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
           </div>
 
           <button
-            className="bg-[#e82a31] p-[4px] rounded-lg w-[100%] h-1/6 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] p-[4px] rounded-lg w-[100%] h-1/6 flex items-center justify-center border-none text-[#D9D9D9] font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             type="submit"
           >
             <Link

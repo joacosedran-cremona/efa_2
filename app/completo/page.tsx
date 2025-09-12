@@ -17,6 +17,7 @@ import Link from "next/link";
 import LayoutCompleto from "@/components/completoLayout/completo";
 import { useAuth } from "@/context/AuthContext";
 import { GoDotFill } from "react-icons/go";
+import { useTranslation } from "react-i18next";
 
 interface Alarma {
   id_alarma: number;
@@ -43,6 +44,7 @@ interface Column {
 }
 
 const Completo = () => {
+  const { t } = useTranslation();
   const { websocketData } = useAuth();
   const { data } = websocketData;
   const [page, setPage] = useState(1);
@@ -139,7 +141,7 @@ const Completo = () => {
           <TableBody
             isLoading={isLoading}
             items={paginatedRows}
-            loadingContent={<Spinner label="Cargando..." />}
+            loadingContent={<Spinner label={t("min.recetaActual")} />}
           >
             {(item: ProcessedAlarma) => (
               <TableRow key={item.key}>

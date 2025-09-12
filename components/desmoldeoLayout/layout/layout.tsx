@@ -217,7 +217,7 @@ const Layout: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full flex justify-center items-center rounded-[15px] bg-background2">
+    <div className="relative w-full flex justify-center items-center rounded-lg bg-background2">
       <div className="absolute left-[10px] top-[10px] z-10 pointer-events-none">
         <EstadosLayout />
       </div>
@@ -239,7 +239,7 @@ const Layout: React.FC = () => {
               style={section.style}
             >
               <span
-                className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-[3px] 
+                className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-lg 
                 text-xs opacity-0 transition-opacity whitespace-nowrap overflow-hidden text-ellipsis 
                 group-hover:opacity-100"
               >

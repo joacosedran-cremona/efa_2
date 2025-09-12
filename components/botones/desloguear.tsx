@@ -65,7 +65,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
         {/* Botón de cerrar sesión - Updated styles */}
         <div className="bg-cerrarsesion rounded-b-lg text-[#FFF]">
           <button
-            className="w-[100%] text-left px-[10px] py-[8px] text-sm font-bold
+            className="w-[100%] text-left px-[10px] py-[8px] text-sm font-semibold
                                  hover:bg-[#ff7a7e] rounded-b-lg
                                  active:bg-red-200 active:text-black
                                  ease-in-out flex items-center space-x-2

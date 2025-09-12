@@ -81,7 +81,7 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-[5px] h-1/3">
-            <label className="flex font-bold text-[17px] tracking-[0.5px]">
+            <label className="flex font-semibold text-[17px] tracking-[0.5px]">
               {t("min.usuario")}
             </label>
             <input
@@ -93,7 +93,7 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col gap-[5px] h-1/3">
-            <label className="flex font-bold text-[17px] tracking-[0.5px]">
+            <label className="flex font-semibold text-[17px] tracking-[0.5px]">
               {t("min.contra")}
             </label>
             <input
@@ -107,7 +107,7 @@ const Login = () => {
           {message && <div className="text-red-500 text-sm">{message}</div>}
 
           <button
-            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             type="submit"
             disabled={loading}
           >
@@ -116,7 +116,7 @@ const Login = () => {
         </form>
 
         <Link
-          className="w-[100%] flex text-center justify-center text-[#5d5d5d] h-auto text-[14px] font-bold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] ease-in-out"
+          className="w-[100%] flex text-center justify-center text-[#5d5d5d] h-auto text-[14px] font-semibold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] ease-in-out"
           href="/login/recuperacion"
         >
           {t("min.recuperar")}

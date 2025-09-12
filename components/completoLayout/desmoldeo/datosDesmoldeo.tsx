@@ -113,7 +113,7 @@ const DatosDesmoldeo = () => {
             >
               {isActive ? (
                 <div className="w-full h-full">
-                  <h3 className="text-[0.9vw] h-1/2 w-full p-0 m-0 transition-colors  font-bold">
+                  <h3 className="text-[0.9vw] h-1/2 w-full p-0 m-0 transition-colors  font-semibold">
                     {nombre}
                   </h3>
                   <h4 className="text-[0.8vw] h-1/2 w-full p-0 m-0 transition-colors ">

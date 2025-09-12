@@ -227,7 +227,7 @@ const DatosLaterales: React.FC = () => {
       <hr className="w-[98%] flex mx-auto my-[20px]" />
 
       <div className="overflow-auto h-full">
-        <p className="font-bold block text-center">
+        <p className="font-semibold block text-center">
           {t("mayus.datosGenerales")}
         </p>
         <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
@@ -235,7 +235,7 @@ const DatosLaterales: React.FC = () => {
             <Link href="/desmoldeo/equipox" key={id} className="block">
               <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-background4 rounded-lg bg-background3 min-h-[55px] max-h-[5vh]">
                 <div className="w-[90%] flex flex-col no-underline">
-                  <h3 className="text-base p-0 m-0 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
+                  <h3 className="text-base p-0 m-0 font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
                     {nombre}
                   </h3>
                   <h4 className="text-[15px] p-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap">

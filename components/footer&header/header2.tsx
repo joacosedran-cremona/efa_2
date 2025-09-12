@@ -3,33 +3,35 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GoDotFill } from "react-icons/go"; //Punto
+import { useTranslation } from "react-i18next";
 
 const SubNav = () => {
+  const { t } = useTranslation();
   const pathname = usePathname();
 
   const opcionesBotones = [
     {
       id: 1,
       path: "/completo",
-      text: "COMPLETO",
+      text: t("mayus.completo"),
       styleClass: "",
     },
     {
       id: 2,
       path: ["/desmoldeo", "/desmoldeo/equipox"],
-      text: "DESMOLDEO",
+      text: t("mayus.desmoldeo"),
       styleClass: "",
     },
     {
       id: 3,
       path: "/encajonado",
-      text: "ENCAJONADO",
+      text: t("mayus.encajonado"),
       styleClass: "desac",
     },
     {
       id: 4,
       path: "/paletizado",
-      text: "PALETIZADO",
+      text: t("mayus.paletizado"),
       styleClass: "desac",
     },
   ];
