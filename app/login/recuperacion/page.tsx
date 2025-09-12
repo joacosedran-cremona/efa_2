@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
   return (
     <section className="flex w-[100%] h-[90vh] items-center justify-center">
-      <div className="w-auto h-[60%] gap-[15px] flex flex-col items-center justify-between p-[3rem_4rem_2rem_4rem] max-w-[1920px] text-[#D9D9D9] bg-[#131313] rounded-[15px]">
+      <div className="w-auto h-[60%] gap-[15px] flex flex-col items-center justify-between p-[3rem_4rem_2rem_4rem] max-w-[1920px] text-[#D9D9D9] bg-[#131313] rounded-lg">
         <Image
           alt="Creminox"
           className="flex w-[60%] p-[0px] h-auto"
@@ -24,13 +24,13 @@ const ForgotPassword = () => {
               {t("formulario.correo")}
             </label>
             <input
-              className="bg-[#1f1f1f] p-[4px] rounded-[10px] w-[100%] h-[60%] flex items-center justify-center border-none"
+              className="bg-[#1f1f1f] p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none"
               type="text"
             />
           </div>
 
           <button
-            className="bg-[#e82a31] p-[4px] rounded-[10px] w-[100%] h-1/6 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] p-[4px] rounded-lg w-[100%] h-1/6 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             type="submit"
           >
             <Link

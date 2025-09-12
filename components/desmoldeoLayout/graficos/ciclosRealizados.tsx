@@ -258,32 +258,35 @@ const Grafico = ({ startDate, endDate }) => {
 
   return (
     <div
-      className="relative bg-black p-[20px] h-full w-full rounded-[15px]"
-      style={{ height: '500px', width: '100%' }}
+      className="relative bg-black p-[20px] h-full w-full rounded-lg"
+      style={{ height: "500px", width: "100%" }}
     >
-      <canvas ref={chartRef} className="block w-full h-full max-h-screen"></canvas>
+      <canvas
+        ref={chartRef}
+        className="block w-full h-full max-h-screen"
+      ></canvas>
       {loading && (
-        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-75 rounded-xl">
+        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-75 rounded-lg">
           <Spinner label="Cargando..." />
         </div>
       )}
       <Button
         style={{
-            backgroundColor: "#333",
-            border: "1px solid #CCC",
-            color: "#CCC",
-            width: "15%",
-            height: "35px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "17px",
+          backgroundColor: "#333",
+          border: "1px solid #CCC",
+          color: "#CCC",
+          width: "15%",
+          height: "35px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "17px",
         }}
         onClick={resetZoom}
-        className="absolute top-[20px] right-[20px] text-white bg-grey hover:text-black hover:bg-lightGrey px-3 rounded-md"
-    >
+        className="absolute top-[20px] right-[20px] text-white bg-grey hover:text-black hover:bg-lightGrey px-3 rounded-lg"
+      >
         Reiniciar Zoom
-    </Button>
+      </Button>
     </div>
   );
 };

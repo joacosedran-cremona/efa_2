@@ -38,43 +38,42 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   return (
     <div ref={dropdownRef} className="relative">
       <button
-        className="relative flex items-center justify-center w-[25px] h-[25px] rounded-[100%] group transition-all duration-200 ease-in-out"
+        className="relative flex items-center justify-center w-[25px] h-[25px] rounded-lg group ease-in-out"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="absolute inset-0 rounded-[100%] bg-gray-400/0 group-hover:bg-gray-400/20 transition-all duration-200 ease-in-out group-hover:scale-150 pointer-events-none" />
-        <VscAccount className="w-[25px] h-[25px] text-textoheader transition-transform duration-300 ease-in-out group-hover:scale-110" />
+        <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
+        <VscAccount className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
       </button>
 
       <div
-        className={`absolute left-[-10px] mt-[14px] w-48 rounded-md transform transition-all duration-200 ease-in-out origin-top-right shadow-[0_0_15px_rgba(0,0,0,0.3)]
+        className={`absolute left-[-10px] mt-[14px] w-48 rounded-lg transform ease-in-out origin-top-right shadow-[0_0_15px_rgba(0,0,0,0.3)]
                 ${
                   isOpen
                     ? "opacity-100 scale-100 translate-y-0"
                     : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
-                } bg-[#EEE]`}
+                } bg-background3 z-[999]`}
       >
         {/* Header del perfil */}
         <div className="px-[10px] py-[14px] border-b border-gray-200">
           <div className="flex items-center">
             <div className="ml-3">
-              <p className="text-sm font-medium text-texto">Creminox</p>
+              <p className="text-sm font-medium ">Creminox</p>
               <p className="text-xs text-gray-600">{t("deslogueo.estado")}</p>
             </div>
           </div>
         </div>
 
         {/* Botón de cerrar sesión - Updated styles */}
-        <div className="bg-[#f15b5f] rounded-b-md">
+        <div className="bg-cerrarsesion rounded-b-lg text-[#FFF]">
           <button
-            className="w-[100%] text-left px-[10px] py-[8px] text-sm text-[#D9D9D9] font-bold
-                                 hover:bg-[#ff7a7e] rounded-b-md
+            className="w-[100%] text-left px-[10px] py-[8px] text-sm font-bold
+                                 hover:bg-[#ff7a7e] rounded-b-lg
                                  active:bg-red-200 active:text-black
-                                 transition-all duration-200 ease-in-out
-                                 flex items-center space-x-2
+                                 ease-in-out flex items-center space-x-2
                                  cursor-pointer"
             onClick={handleLogout}
           >
-            <span>{t("deslogueo.botonsesion")}</span>
+            <span>{t("min.cerrarSesion")}</span>
           </button>
         </div>
       </div>

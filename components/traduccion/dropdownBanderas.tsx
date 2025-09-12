@@ -35,9 +35,9 @@ const DropdownBanderas = () => {
     options.find((opt) => opt.value === i18n.language) || options[0];
 
   return (
-    <div ref={dropdownRef} className="relative z-[1000]">
+    <div ref={dropdownRef} className="relative z-[1000] cursor-pointer">
       <button
-        className="flex items-center justify-between w-[100%] py-[2px] px-[4px] bg-[#BBB5] border border-[#AAA] rounded-md shadow-sm z-[1000]"
+        className="flex items-center justify-between w-[100%] py-[2px] px-[4px] bg-[#BBB5] border border-[#AAA] rounded-lg shadow-sm z-[1000] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <Image
@@ -48,16 +48,16 @@ const DropdownBanderas = () => {
           width={20}
         />
         <FaChevronDown
-          className={`ml-[2px] transition-transform duration-200 ${isOpen ? "rotate-180" : ""} inline-block w-[8px] h-[8px]`}
+          className={`ml-[2px] transition-transform ${isOpen ? "rotate-180" : ""} inline-block w-[8px] h-[8px]`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute right-[0px] mt-[2px] w-[40px] rounded-md shadow-lg bg-[#DDD] ring-[1px] ring-black ring-opacity-[5px] transition-colors duration-300 ease-in-out hover:bg-lightGrey z-[1000]">
+        <div className="absolute right-[0px] mt-[2px] w-[40px] rounded-lg shadow-lg bg-[#DDD] ring-[1px] ring-black ring-opacity-[5px] transition-colors ease-in-out hover:bg-lightGrey z-[1000] cursor-pointer">
           <div
             aria-labelledby="options-menu"
             aria-orientation="vertical"
-            className="py-[1px] z-[1000]"
+            className="py-[1px] z-[1000] cursor-pointer"
             role="menu"
           >
             {options
@@ -65,7 +65,7 @@ const DropdownBanderas = () => {
               .map((option) => (
                 <button
                   key={option.value}
-                  className="block w-[100%] text-left px-[4px] py-[2px] text-sm text-gray-700 z-[999]"
+                  className="block w-[100%] text-left px-[4px] py-[2px] text-sm text-gray-700 z-[999] cursor-pointer"
                   role="menuitem"
                   onClick={() => handleLanguageChange(option.value)}
                 >

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 const Spinner = () => (
-  <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-[50%] w-[20px] h-[20px] animate-spin"></div>
+  <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin"></div>
 );
 
 const Login = () => {
@@ -67,7 +67,7 @@ const Login = () => {
   return (
     <section className="flex h-full w-full items-center justify-center">
       {/* <Toaster position="bottom-center" richColors={true} /> */}
-      <div className="w-auto h-[60vh] gap-[15px] flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-[1920px] text-texto bg-black rounded-[15px]">
+      <div className="w-auto h-[60vh] gap-[15px] flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-[1920px]  bg-black rounded-lg">
         <Image
           alt="Creminox"
           className="flex w-[65%] p-[0px] h-auto"
@@ -85,7 +85,7 @@ const Login = () => {
               {t("min.usuario")}
             </label>
             <input
-              className="bg-grey p-[4px] rounded-[10px] w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
+              className="bg-grey p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -97,7 +97,7 @@ const Login = () => {
               {t("min.contra")}
             </label>
             <input
-              className="bg-[#1f1f1f] p-[4px] rounded-[10px] w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
+              className="bg-[#1f1f1f] p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +107,7 @@ const Login = () => {
           {message && <div className="text-red-500 text-sm">{message}</div>}
 
           <button
-            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-[10px] w-[100%] h-1/5 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none text-[#D9D9D9] font-bold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
             type="submit"
             disabled={loading}
           >
@@ -116,7 +116,7 @@ const Login = () => {
         </form>
 
         <Link
-          className="w-[100%] flex text-center justify-center text-[#5d5d5d] h-auto text-[14px] font-bold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] transition-all duration-200 ease-in-out"
+          className="w-[100%] flex text-center justify-center text-[#5d5d5d] h-auto text-[14px] font-bold tracking-[0.5px] cursor-pointer hover:text-[#e82a31] ease-in-out"
           href="/login/recuperacion"
         >
           {t("min.recuperar")}

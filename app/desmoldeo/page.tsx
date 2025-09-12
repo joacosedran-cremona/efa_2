@@ -5,23 +5,23 @@ import DatosLaterales from '@/components/desmoldeoLayout/datosLaterales';
 
 function Desmoldeo() {
     return (
-      <div className="w-screen">
+      <div className="flex flex-row">
         <DatosLaterales />
         {/*
-            <div className={style.secciones}>
-                <section id="section1" className={style.seccion}>
+            <div className="">
+                <section id="section1" className="">
                     <Layout />
                 </section>
         */}
 
         {/*
-                <section id="section2" className={style.seccion}>
+                <section id="section2" className="">
                 <Productividad />
                 </section>
         */}
 
         {/*
-                <section id="section3" className={style.seccion}>
+                <section id="section3" className="">
                     <FiltroPeriodoGraficos />
                 </section>
             </div>

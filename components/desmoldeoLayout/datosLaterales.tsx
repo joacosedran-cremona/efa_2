@@ -217,10 +217,10 @@ const DatosLaterales: React.FC = () => {
                 e.preventDefault();
                 handleScrollClick(id);
               }}
-              className={`block p-[5px] text-center text-texto no-underline rounded-lg font-semibold border border-[#555555] transition-all duration-300 ${
+              className={`block p-[5px] text-center  no-underline rounded-lg font-semibold border ${
                 activeSection === id
-                  ? "bg-[#007bff] text-[#D9D9D9] border-[#0056b3]"
-                  : "bg-[#1c1c1c] hover:bg-[#2b2b2b]"
+                  ? " border-blue bg-datosblueback hover:bg-datosbluebackhover"
+                  : "bg-background3 hover:bg-background4 border-background6"
               }`}
             >
               {nombre}
@@ -229,17 +229,17 @@ const DatosLaterales: React.FC = () => {
         ))}
       </ul>
 
-      <hr className="w-[98%] flex mx-auto my-[20px] text-[#D9D9D9]" />
+      <hr className="w-[98%] flex mx-auto my-[20px]" />
 
       <div className="overflow-auto">
-        <p className="m-0 mb-[10px] font-bold text-[#D9D9D9] block text-center">
+        <p className="m-0 mb-[10px] font-bold block text-center">
           {t("mayus.datosGenerales")}
         </p>
         <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
           {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
             <Link href="/desmoldeo/equipox" key={id} className="block">
-              <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-[#555555] rounded-[15px] bg-[#1C1C1C] min-h-[55px] max-h-[5vh]">
-                <div className="w-[90%] flex flex-col no-underline text-[#D9D9D9]">
+              <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-background4 rounded-lg bg-background3 min-h-[55px] max-h-[5vh]">
+                <div className="w-[90%] flex flex-col no-underline">
                   <h3 className="text-base p-0 m-0 font-bold overflow-hidden text-ellipsis whitespace-nowrap">
                     {nombre}
                   </h3>
@@ -252,7 +252,7 @@ const DatosLaterales: React.FC = () => {
                 </div>
                 <div className="w-[10%] flex items-start justify-center">
                   {isReactIcon ? (
-                    <div className="text-[#D9D9D9] text-2xl flex-shrink-0 mt-[3px]">
+                    <div className="text-2xl flex-shrink-0 mt-[3px]">
                       {React.createElement(icono)}
                     </div>
                   ) : (

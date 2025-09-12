@@ -51,15 +51,15 @@ const LayoutCompleto = () => {
   // Helper function to get Tailwind classes based on section type
   const getSectionClasses = (styleClass: string) => {
     const baseClasses =
-      "absolute p-0 cursor-pointer transition-all duration-300 ease-in-out bg-transparent";
+      "absolute p-0 cursor-pointer ease-in-out bg-transparent";
 
     switch (styleClass) {
       case "secciondesbloqueada":
-        return `${baseClasses} rounded-[20px] z-0 border-2 border-green-500 hover:bg-white/30 hover:shadow-[0px_0px_15px_10px_rgba(255,255,255,0.8)]`;
+        return `${baseClasses} rounded-lg z-0 border-2 border-green-500 hover:bg-white/30 hover:shadow-[0px_0px_15px_10px_rgba(255,255,255,0.8)]`;
       case "seccionbloqueada":
-        return `${baseClasses} rounded-[20px] bg-gray-500 border border-black opacity-50 z-0 pointer-events-none hover:bg-[rgba(17,17,17,0.815)]`;
+        return `${baseClasses} rounded-lg bg-gray-500 border border-black opacity-50 z-0 pointer-events-none hover:bg-[rgba(17,17,17,0.815)]`;
       case "secciondatos":
-        return `${baseClasses} rounded-[15px] bg-transparent z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent`;
+        return `${baseClasses} rounded-lg bg-transparent z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent`;
       default:
         return baseClasses;
     }
@@ -67,7 +67,7 @@ const LayoutCompleto = () => {
 
   return (
     <div className="relative w-full mx-auto">
-      <div className="w-full h-auto rounded-[15px] overflow-hidden">
+      <div className="w-full h-auto rounded-lg overflow-hidden">
         <Image
           src="/Layout/layoutcompleto.png"
           alt="Layout"
@@ -83,7 +83,7 @@ const LayoutCompleto = () => {
             className={getSectionClasses(section.styleClass)}
             style={section.position}
           >
-            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black text-[#D9D9D9] p-[5px] rounded-[3px] text-xs opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100">
+            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black text-[#D9D9D9] p-[5px] rounded-lg text-xs opacity-0 transition-opacity ease-in-out group-hover:opacity-100">
               {section.name}
             </span>
 
@@ -95,7 +95,7 @@ const LayoutCompleto = () => {
       ))}
 
       <div
-        className="absolute p-0 bg-transparent rounded-[15px] z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent"
+        className="absolute p-0 bg-transparent rounded-lg z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent"
         style={sections[3].position}
       >
         <DatosDesmoldeo />
