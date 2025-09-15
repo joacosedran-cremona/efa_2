@@ -2,8 +2,9 @@
 
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import AuthContext from "@/context/AuthContext";
 import { GoDotFill } from "react-icons/go";
+
+import AuthContext from "@/context/AuthContext";
 
 interface MachineStatusData {
   estadoMaquina?: string;
@@ -63,9 +64,9 @@ const EstadosLayout: React.FC = () => {
         <li>
           <div className="flex flex-row items-center">
             <GoDotFill
-              color={machineState.color}
-              className="w-[15px] h-[15px] my-[5px] -ml-[5px]"
               aria-label={t("min.estadoMaquina")}
+              className="w-[15px] h-[15px] my-[5px] -ml-[5px]"
+              color={machineState.color}
             />
             <h3 className={`font-semibold ${machineState.colorClass}`}>
               {machineState.text}

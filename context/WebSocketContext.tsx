@@ -77,18 +77,32 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         try {
           const rawData = JSON.parse(event.data);
 
-          if (Array.isArray(rawData) && rawData.length >= 5) {
-            const formattedData: WebSocketResponse = {
-              machineStatus: rawData[0] as MachineStatus,
-              processData: rawData[1] as ProcessData,
-              technicalData: rawData[2] as TechnicalData,
-              alarms: rawData[3] as Alarm[],
-              extraData: rawData[4] as any[],
-            };
+          if (typeof rawData === "object" && rawData !== null) {
+            // If the data is already in the expected format, use it directly
+            if (
+              rawData.machineStatus &&
+              rawData.processData &&
+              rawData.technicalData &&
+              rawData.alarms
+            ) {
+              setData(rawData as WebSocketResponse);
+            }
+            // If the data is an array (as in your current implementation)
+            else if (Array.isArray(rawData) && rawData.length >= 5) {
+              const formattedData: WebSocketResponse = {
+                machineStatus: rawData[0] as MachineStatus,
+                processData: rawData[1] as ProcessData,
+                technicalData: rawData[2] as TechnicalData,
+                alarms: rawData[3] as Alarm[],
+                extraData: rawData[4] as any[],
+              };
 
-            setData(formattedData);
+              setData(formattedData);
+            } else {
+              console.warn("WebSocket data format unexpected:", rawData);
+            }
           } else {
-            console.warn("WebSocket data format unexpected:", rawData);
+            console.warn("WebSocket data is not a valid object:", rawData);
           }
         } catch (err) {
           console.error("Error parsing WebSocket message:", err);

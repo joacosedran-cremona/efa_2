@@ -3,11 +3,12 @@ import { Button } from "@heroui/react";
 import { FaFilePdf, FaFileExcel } from "react-icons/fa";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useTranslation } from "react-i18next";
+
 import logoDataURL from "./cremonabase64";
 import telIcon from "./telbase64";
 import webIcon from "./webbase64";
 import mailIcon from "./mailbase64";
-import { useTranslation } from "react-i18next";
 
 interface BotonesDescargaProps {
   startDate: string;
@@ -70,11 +71,12 @@ export default function BotonesDescarga({
         pdfWidth,
         pdfHeight,
         undefined,
-        "FAST"
+        "FAST",
       );
 
       const logoWidth = 40;
       const logoHeight = 10;
+
       pdf.addImage(logoDataURL, "PNG", 245, logoMargin, logoWidth, logoHeight);
 
       pdf.setFontSize(12);
@@ -108,7 +110,7 @@ export default function BotonesDescarga({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -119,10 +121,11 @@ export default function BotonesDescarga({
       const url = window.URL.createObjectURL(blob);
 
       const link = document.createElement("a");
+
       link.href = url;
       link.setAttribute(
         "download",
-        `Productividad_${startDate}_to_${endDate}.xlsx`
+        `Productividad_${startDate}_to_${endDate}.xlsx`,
       );
       document.body.appendChild(link);
       link.click();

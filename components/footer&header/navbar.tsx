@@ -66,7 +66,11 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const opcionesMenu: OpcionMenu[] = [{ id: 1, url: "/", text: t("min.home") }];
 
   return (
-    <HeroUINavbar className="bg-headerbg text-textoheader" maxWidth="full" position="sticky">
+    <HeroUINavbar
+      className="bg-headerbg text-textoheader"
+      maxWidth="full"
+      position="sticky"
+    >
       <div className="flex flex-row h-[100%] w-[30%] justify-start gap-[30px] items-center">
         {opcionesIconos.map(({ id, icon }) => (
           <div

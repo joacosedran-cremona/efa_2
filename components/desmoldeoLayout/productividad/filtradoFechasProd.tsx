@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { DateRangePicker } from "@heroui/react";
 import { DateValue } from "@internationalized/date";
+import { useTranslation } from "react-i18next";
+
 import ExcelPDF from "@/components/botones/descargaExcelPDF/ExcelPDF";
 import AplicarFiltro from "@/components/botones/aplicarFiltro";
-import { useTranslation } from "react-i18next";
 
 interface DateObject {
   year: number;
@@ -32,7 +33,7 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) => void;
 }
 
@@ -57,6 +58,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const year = date.year;
     const month = String(date.month).padStart(2, "0");
     const day = String(date.day).padStart(2, "0");
+
     return `${year}-${month}-${day}`;
   };
 
@@ -74,7 +76,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -82,6 +84,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       }
 
       const data = await response.json();
+
       onDataUpdate(data, startDate, endDate);
     } catch (error) {
     } finally {
@@ -109,7 +112,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -117,6 +120,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       }
 
       const data = await response.json();
+
       onDataUpdate(data, startDate, endDate);
     } catch (error) {
     } finally {
@@ -140,15 +144,15 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
         />
         <AplicarFiltro onClick={handleButtonClick} />
         <ExcelPDF
-          startDate={
-            typeof dateRange.start === "string"
-              ? dateRange.start
-              : formatDate(dateRange.start) || formattedToday
-          }
           endDate={
             typeof dateRange.end === "string"
               ? dateRange.end
               : formatDate(dateRange.end) || formattedToday
+          }
+          startDate={
+            typeof dateRange.start === "string"
+              ? dateRange.start
+              : formatDate(dateRange.start) || formattedToday
           }
         />
       </div>

@@ -68,16 +68,16 @@ const LayoutCompleto = () => {
     <div className="relative w-full mx-auto">
       <div className="w-full h-auto rounded-lg overflow-hidden">
         <Image
-          src="/Layout/layoutcompleto.png"
-          alt="Layout"
-          width={1080}
-          height={1920}
           priority
+          alt="Layout"
+          height={1920}
+          src="/Layout/layoutcompleto.png"
+          width={1080}
         />
       </div>
 
       {sections.slice(0, 3).map((section) => (
-        <Link href={section.path} key={section.id}>
+        <Link key={section.id} href={section.path}>
           <div
             className={getSectionClasses(section.styleClass)}
             style={section.position}

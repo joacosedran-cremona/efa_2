@@ -11,8 +11,12 @@ interface BotonFiltroProps {
 
 const BotonFiltro = ({ onClick, isDisabled }: BotonFiltroProps) => {
   const { t } = useTranslation();
+
   return (
     <Button
+      className="bg-background3 hover:bg-background4"
+      isDisabled={isDisabled}
+      radius="sm"
       style={{
         width: "100%",
         display: "flex",
@@ -21,10 +25,7 @@ const BotonFiltro = ({ onClick, isDisabled }: BotonFiltroProps) => {
         fontSize: "17px",
       }}
       variant="bordered"
-      radius="lg"
       onClick={onClick}
-      isDisabled={isDisabled}
-      className="bg-background3 hover:bg-background4"
     >
       {t("min.aplicarCambios")}
       <FaSearch />

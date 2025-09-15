@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import FiltradoFechasProd from "./filtradoFechasProd";
 import { useTranslation } from "react-i18next";
 import { ReactNode } from "react";
+
+import FiltradoFechasProd from "./filtradoFechasProd";
 
 interface ProductoRealizado {
   id_recetario: number;
@@ -77,7 +78,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -86,14 +87,14 @@ const Productividad = () => {
   const Cant_Dias = Math.ceil(
     (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) /
       (1000 * 3600 * 24) +
-      1
+      1,
   );
 
   const cantidadCiclosF =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -106,13 +107,13 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + prod.tiempoTotal,
-          0
+          0,
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number
+    cantDias: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? ((horasUso as number) / 60 / cantDias).toFixed(2)
@@ -147,6 +148,7 @@ const Productividad = () => {
         ? (producto.pesoTotal * 100) / data.PesoTotalCiclos / 1000
         : 0;
       const pesoEnToneladas = (producto.pesoTotal / 1000).toFixed(1) + "Tn";
+
       return {
         nombre: producto.NombreProducto,
         peso: pesoEnToneladas,
@@ -157,7 +159,7 @@ const Productividad = () => {
     }) ?? [];
 
   return (
-    <div id="ProductividadSection" className="flex flex-row gap-5 w-full">
+    <div className="flex flex-row gap-5 w-full" id="ProductividadSection">
       <div className="w-4/5 flex flex-col bg-background2 rounded-lg p-5 relative">
         <h2 className="text-left text-[1vw] font-semibold">
           {t("mayus.productividad")}
@@ -178,7 +180,7 @@ const Productividad = () => {
         <hr className="border-t-4 border-texto rounded-lg mx-auto my-5 w-4/5" />
         <div className="relative">
           <h3>% {t("min.productoRealizado")}</h3>
-          <div className="flex h-5 rounded overflow-hidden bg-[#444] mb-[15px]">
+          <div className="flex h-5 rounded overflow-hidden bg-background5 mb-[15px]">
             {productos.map((producto, index) => (
               <div
                 key={index}
@@ -200,7 +202,7 @@ const Productividad = () => {
                 <span
                   className="w-[15px] h-[15px] rounded mr-[5px]"
                   style={{ backgroundColor: producto.color }}
-                ></span>
+                />
                 <p>{`${producto.nombre} - ${producto.porcentaje}% (${producto.peso})`}</p>
               </div>
             ))}

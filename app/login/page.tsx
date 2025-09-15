@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 const Spinner = () => (
-  <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin"></div>
+  <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin" />
 );
 
 const Login = () => {
@@ -21,13 +21,14 @@ const Login = () => {
 
   useEffect(() => {
     const storedUsername = sessionStorage.getItem("username");
+
     if (storedUsername) {
       setUsername(storedUsername);
     }
   }, []);
 
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
     e.preventDefault();
     setLoading(true);
@@ -108,8 +109,8 @@ const Login = () => {
 
           <button
             className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
-            type="submit"
             disabled={loading}
+            type="submit"
           >
             {loading ? <Spinner /> : t("min.acceder")}
           </button>

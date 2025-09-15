@@ -88,6 +88,15 @@ npm install --save-dev @types/axios
 npm install --save-dev @next/eslint-plugin-next
 ```
 
+## Graficos
+
+```bash
+npm install chart.js
+npm install chartjs-plugin-zoom
+npm install date-fns chartjs-adapter-date-fns --save
+
+```
+
 ## npm run build
 
 ```bash

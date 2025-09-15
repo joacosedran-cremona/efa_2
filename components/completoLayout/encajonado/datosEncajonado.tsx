@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import Link from "next/link";
+
 import AuthContext from "@/context/AuthContext";
 
 interface MachineStatus {

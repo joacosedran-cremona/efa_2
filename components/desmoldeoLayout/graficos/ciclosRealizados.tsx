@@ -1,25 +1,88 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Chart, registerables } from 'chart.js';
-import zoomPlugin from 'chartjs-plugin-zoom';
-import 'chartjs-adapter-date-fns';
-import { Spinner } from "@heroui/spinner";
-import { Button } from "@nextui-org/react";
+"use client";
 
-Chart.register(...registerables, zoomPlugin);
+import React, { useEffect, useRef, useState } from "react";
+import { Chart, registerables } from "chart.js";
+import "chartjs-adapter-date-fns";
+import { Button, Spinner } from "@heroui/react";
+import { useTranslation } from "react-i18next";
+import type { ChartData, ChartOptions, ChartEvent } from "chart.js";
 
-const Grafico = ({ startDate, endDate }) => {
-  const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
+Chart.register(...registerables);
+
+// Add theme color hook - similar to productosRealizados.tsx
+const useThemeColors = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check initial theme
+    const isDark = document.documentElement.classList.contains("dark");
+    setIsDarkMode(isDark);
+
+    // Set up a mutation observer to detect theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          const isDark = document.documentElement.classList.contains("dark");
+          setIsDarkMode(isDark);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
+
+  return {
+    textColor: isDarkMode ? "#EEE" : "#222", // texto
+    secondaryTextColor: isDarkMode ? "#AAA" : "#555", // texto2
+    headingColor: isDarkMode ? "#FFF" : "#111", // textoheader
+    gridColor: isDarkMode ? "#393939" : "#E0E0E0", // background3/5 equivalent
+    borderColor: isDarkMode ? "#666" : "#D9D9D9", // border color
+    gridLineColor: isDarkMode ? "#333" : "#8C8C8C", // grid lines
+    accentColor: "#ffa500", // Keeping accent color the same for both themes
+  };
+};
+
+interface GraficoProps {
+  startDate: string | Date;
+  endDate: string | Date;
+}
+
+interface ChartDataPoint {
+  x: string;
+  y: number;
+}
+
+const Grafico = ({ startDate, endDate }: GraficoProps) => {
+  const { t } = useTranslation();
+  const chartRef = useRef<HTMLCanvasElement>(null);
+  const chartInstanceRef = useRef<Chart<
+    "line",
+    ChartDataPoint[],
+    unknown
+  > | null>(null);
+  const registeredRef = useRef(false);
   const [chartData, setChartData] = useState({ ciclos: [], pesoProducto: [] });
   const [loading, setLoading] = useState(true);
+
+  // Get theme colors
+  const colors = useThemeColors();
 
   const fetchData = async () => {
     if (!startDate || !endDate) {
       setLoading(false);
       return;
     }
+    console.log("Fechas recibidas en grafico_ciclos:");
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
     setLoading(true);
-    const storedUser = sessionStorage.getItem('user_data');
+
+    // Safe sessionStorage access
+    const storedUser =
+      typeof window !== "undefined"
+        ? sessionStorage.getItem("user_data")
+        : null;
     const token = storedUser ? JSON.parse(storedUser).access_token : null;
 
     try {
@@ -27,7 +90,10 @@ const Grafico = ({ startDate, endDate }) => {
         `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/graficos-historico/ciclos-productos/?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
         {
           method: "GET",
-          headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         }
       );
 
@@ -42,11 +108,11 @@ const Grafico = ({ startDate, endDate }) => {
     }
   };
 
-  const formatDate = (date) => {
+  const formatDate = (date: string | Date) => {
     const d = new Date(date);
     const year = d.getUTCFullYear();
-    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(d.getUTCDate()).padStart(2, '0');
+    const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(d.getUTCDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
@@ -58,197 +124,218 @@ const Grafico = ({ startDate, endDate }) => {
   }, [startDate, endDate]);
 
   useEffect(() => {
-    const ctx = chartRef.current?.getContext('2d');
-    if (!ctx) return;
+    // Only run on client side
+    if (typeof window === "undefined") return;
 
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy();
-    }
+    (async () => {
+      // Register registerables + zoom plugin once on client
+      if (!registeredRef.current) {
+        const mod = await import("chartjs-plugin-zoom");
+        const zoom = (mod && (mod as any).default) || mod;
+        Chart.register(...registerables, zoom);
+        registeredRef.current = true;
+      }
 
-    const initialData = {
-      datasets: [
-        {
-          label: 'Ciclos',
-          data: [],
-          borderColor: '#F828',
-          backgroundColor: '#EF8225',
-          yAxisID: 'ciclos',
-          fill: false,
-          type: 'line'
-        },
-        {
-          label: 'Peso Producto (Tn)',
-          data: [],
-          borderColor: '#3AF8',
-          backgroundColor: '#3AF',
-          yAxisID: 'pesoProducto',
-          fill: false,
-          type: 'line'
-        }
-      ]
-    };
+      const ctx = chartRef.current?.getContext("2d");
+      if (!ctx) return;
 
-    const newChart = new Chart(ctx, {
-      type: 'line',
-      data: initialData,
-      options: {
+      if (chartInstanceRef.current) {
+        chartInstanceRef.current.destroy();
+      }
+
+      const initialData: ChartData<"line", ChartDataPoint[]> = {
+        datasets: [
+          {
+            label: t("min.cantidadCiclos"),
+            data: [],
+            borderColor: "#F828",
+            backgroundColor: "#EF8225",
+            yAxisID: "ciclos",
+            fill: false,
+            type: "line",
+          },
+          {
+            label: t("min.pesoProducto") + " (Tn)",
+            data: [],
+            borderColor: "#3AF8",
+            backgroundColor: "#3AF",
+            yAxisID: "pesoProducto",
+            fill: false,
+            type: "line",
+          },
+        ],
+      };
+
+      const chartOptions: ChartOptions<"line"> = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            position: 'top',
+            position: "top",
             labels: {
               usePointStyle: true,
-              color: '#D9D9D9'
+              color: colors.textColor,
             },
-            onHover: (event) => {
-              event.native.target.style.cursor = 'pointer';
-            }
+            onHover: (event: ChartEvent) => {
+              const target = event.native?.target as HTMLElement | undefined;
+              if (target) target.style.cursor = "pointer";
+            },
           },
           title: {
-            align: 'start',
+            align: "start",
             display: true,
-            text: 'CICLOS POR DIA',
-            color: '#D9D9D9',
+            text: t("mayus.ciclosDia"),
+            color: colors.textColor,
             font: {
               size: 20,
-              family: 'system-ui'
-            }
+              family: "system-ui",
+            },
           },
           subtitle: {
-            align: 'start',
+            align: "start",
             display: true,
             text: `${formattedStartDate} - ${formattedEndDate}`,
-            color: '#ffa500',
+            color: colors.accentColor,
             font: {
               size: 16,
-              weight: 'normal',
-              family: 'system-ui'
+              weight: "normal",
+              family: "system-ui",
             },
             padding: {
-              top: -10
-            }
+              top: -10,
+            },
           },
           zoom: {
-            pan: { enabled: true, mode: 'x' },
+            pan: { enabled: true, mode: "x" },
             zoom: {
               wheel: {
-                enabled: true 
+                enabled: true,
+                modifierKey: "ctrl",
               },
-              pinch: { 
-                enabled: true
+              pinch: {
+                enabled: true,
               },
-              mode: 'x' 
-            }
+              mode: "x",
+            },
           },
           tooltip: {
             callbacks: {
-              label: (context) => {
-                const datasetLabel = context.dataset.label || 'Dato';
+              label: (context: any) => {
+                const datasetLabel = context.dataset.label || "Dato";
                 const value = context.raw.y;
                 const date = formatDate(context.raw.x);
                 return [`Fecha: ${date}`, `${datasetLabel}: ${value}`];
               },
-              title: () => ''
-            }
-          }
+              title: () => "",
+            },
+          },
         },
         transitions: {
           zoom: {
             animation: {
-              duration: 0
-            }
-          }
+              duration: 0,
+            },
+          },
         },
         scales: {
           ciclos: {
-            type: 'linear',
+            type: "linear",
             beginAtZero: false,
             display: true,
-            position: 'left',
+            position: "left",
             title: {
               display: true,
-              text: 'Ciclos Completados',
-              color: '#EF8225'
+              text: t("min.ciclosRealizados"),
+              color: "#EF8225", // Keep this color constant for clarity
             },
-            grid: { color: '#1F1F1F', tickColor: '#EF8225' },
-            border: { color: '#EF8225' },
-            ticks: { color: '#EF8225' }
+            grid: { color: colors.gridColor, tickColor: "#EF8225" },
+            border: { color: "#EF8225" },
+            ticks: { color: "#EF8225" },
           },
           pesoProducto: {
-            type: 'linear',
+            type: "linear",
             beginAtZero: false,
             display: true,
-            position: 'right',
+            position: "right",
             title: {
               display: true,
-              text: 'Peso Producto (Tn)',
-              color: '#3AF'
+              text: t("min.pesoProducto") + " (Tn)",
+              color: "#3AF", // Keep this color constant for clarity
             },
-            grid: { color: '#1F1F1F', tickColor: '#3AF' },
-            border: { color: '#3AF' },
-            ticks: { color: '#3AF' }
+            grid: { color: colors.gridColor, tickColor: "#3AF" },
+            border: { color: "#3AF" },
+            ticks: { color: "#3AF" },
           },
           x: {
-            type: 'time',
+            type: "time",
             time: {
-              parser: 'yyyy-MM-dd',
-              unit: 'day',
-              tooltipFormat: 'yyyy-MM-dd',
+              parser: "yyyy-MM-dd",
+              unit: "day",
+              tooltipFormat: "yyyy-MM-dd",
               displayFormats: {
-                day: 'yyyy-MM-dd'
-              }
+                day: "yyyy-MM-dd",
+              },
             },
             title: {
               display: true,
-              text: 'Tiempo',
-              color: '#D9D9D9'
+              text: t("min.tiempo"),
+              color: colors.textColor,
             },
-            border: { color: '#D9D9D9' },
-            grid: { color: '#8C8C8C', tickColor: '#fff' },
-            ticks: { autoSkip: true, maxTicksLimit: 20, color: '#D9D9D9' }
+            border: { color: colors.borderColor },
+            grid: { color: colors.gridLineColor, tickColor: colors.textColor },
+            ticks: {
+              autoSkip: true,
+              maxTicksLimit: 20,
+              color: colors.textColor,
+            },
           },
-        }
-      }
-    });
+        },
+      } as any;
 
-    chartInstanceRef.current = newChart;
+      // Create a new chart with existing data if available
+      const chartDataToUse =
+        chartData && chartData.ciclos.length > 0
+          ? {
+              datasets: [
+                {
+                  ...initialData.datasets[0],
+                  data: chartData.ciclos.map((item: any) => ({
+                    x: item.fecha_fin,
+                    y: item.CiclosCompletados,
+                  })),
+                },
+                {
+                  ...initialData.datasets[1],
+                  data: chartData.pesoProducto.map((item: any) => ({
+                    x: item.fecha_fin,
+                    y: item.PesoDiarioProducto / 1000,
+                  })),
+                },
+              ],
+            }
+          : initialData;
 
-    return () => {
-      newChart.destroy();
-    };
-  }, [startDate, endDate, formattedStartDate, formattedEndDate]);
+      const newChart = new Chart(ctx, {
+        type: "line",
+        data: chartDataToUse,
+        options: chartOptions,
+      }) as unknown as Chart<"line", ChartDataPoint[], unknown>;
 
-  useEffect(() => {
-    if (
-      chartInstanceRef.current &&
-      chartData &&
-      chartData.ciclos.length > 0 &&
-      chartData.pesoProducto.length > 0
-    ) {
-      const ciclosData = chartData.ciclos.map(item => {
-        const date = new Date(item.fecha_fin);
-        date.setHours(0, 0, 0, 0);
-        return {
-          x: date,
-          y: item.CiclosCompletados
-        };
-      });
+      chartInstanceRef.current = newChart;
 
-      const pesoProductoData = chartData.pesoProducto.map(item => {
-        const date = new Date(item.fecha_fin);
-        date.setHours(0, 0, 0, 0);
-        return {
-          x: date,
-          y: item.PesoDiarioProducto / 1000
-        };
-      });
-
-      chartInstanceRef.current.data.datasets[0].data = ciclosData;
-      chartInstanceRef.current.data.datasets[1].data = pesoProductoData;
-      chartInstanceRef.current.update();
-    }
-  }, [chartData]);
+      return () => {
+        newChart.destroy();
+      };
+    })();
+  }, [
+    startDate,
+    endDate,
+    formattedStartDate,
+    formattedEndDate,
+    t,
+    colors,
+    chartData,
+  ]);
 
   const resetZoom = () => {
     if (chartInstanceRef.current) {
@@ -258,7 +345,7 @@ const Grafico = ({ startDate, endDate }) => {
 
   return (
     <div
-      className="relative bg-black p-[20px] h-full w-full rounded-lg"
+      className="relative bg-background2 p-[20px] h-full w-full rounded-lg"
       style={{ height: "500px", width: "100%" }}
     >
       <canvas
@@ -266,26 +353,21 @@ const Grafico = ({ startDate, endDate }) => {
         className="block w-full h-full max-h-screen"
       ></canvas>
       {loading && (
-        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-75 rounded-lg">
-          <Spinner label="Cargando..." />
+        <div className="absolute inset-0 flex justify-center items-center bg-background2 bg-opacity-75 rounded-lg">
+          <Spinner label={t("min.cargando")} />
         </div>
       )}
       <Button
         style={{
-          backgroundColor: "#333",
-          border: "1px solid #CCC",
-          color: "#CCC",
-          width: "15%",
-          height: "35px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "17px",
         }}
         onClick={resetZoom}
-        className="absolute top-[20px] right-[20px] text-white bg-grey hover:text-black hover:bg-lightGrey px-3 rounded-lg"
+        className="absolute top-[20px] right-[20px] text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
       >
-        Reiniciar Zoom
+        {t("min.reiniciarZoom")}
       </Button>
     </div>
   );

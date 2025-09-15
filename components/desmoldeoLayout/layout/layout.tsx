@@ -3,10 +3,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AuthContext from "@/context/AuthContext";
 import { useTranslation } from "react-i18next";
 
 import EstadosLayout from "./estadosLayout";
+
+import AuthContext from "@/context/AuthContext";
 import LayoutIMG from "@/public/layout/LAYOUT.png";
 
 interface SectionStyle {
@@ -64,7 +65,7 @@ const equipmentStatusMap = {
   robot: (data: any): EquipmentStatus => {
     const robotAlarms =
       data?.alarms?.filter(
-        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT"
+        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT",
       ) || [];
     const lastRobotAlarm = robotAlarms.length > 0 ? robotAlarms[0] : null;
 
@@ -208,11 +209,12 @@ const Layout: React.FC = () => {
   };
 
   const getEquipmentStatus = (
-    section: LayoutSection
+    section: LayoutSection,
   ): EquipmentStatus | null => {
     if (!equipmentData || !section.statusKey) return null;
 
     const statusFunction = equipmentStatusMap[section.statusKey];
+
     return statusFunction ? statusFunction(equipmentData) : null;
   };
 
@@ -221,9 +223,10 @@ const Layout: React.FC = () => {
       <div className="absolute left-[10px] top-[10px] z-10 pointer-events-none">
         <EstadosLayout />
       </div>
-      <Image src={LayoutIMG} alt="Layout" className="w-auto p-5 h-[39.5vw]" />
+      <Image alt="Layout" className="w-auto p-5 h-[39.5vw]" src={LayoutIMG} />
       {sections.map((section) => {
         const status = getEquipmentStatus(section);
+
         return (
           <Link
             key={section.id}

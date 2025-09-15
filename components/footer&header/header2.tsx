@@ -52,8 +52,8 @@ const SubNav = () => {
               } ${styleClass}`}
             >
               <Link
-                href={Array.isArray(path) ? path[0] : path}
                 className="flex items-center gap-2 hover:text-gray-900"
+                href={Array.isArray(path) ? path[0] : path}
               >
                 {isActive ? (
                   <GoDotFill className="text-green-500" />
@@ -63,7 +63,7 @@ const SubNav = () => {
                 <span>{text}</span>
               </Link>
               {isActive && (
-                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500" />
               )}
             </li>
           );

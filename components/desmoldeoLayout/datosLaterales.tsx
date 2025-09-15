@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-
 import { BiReceipt } from "react-icons/bi"; // Receta
 import { PiChefHat } from "react-icons/pi"; // Receta 2
 import { BiCabinet } from "react-icons/bi"; // Torre
@@ -14,6 +12,8 @@ import { TbBowl } from "react-icons/tb"; // Molde
 import { FaWeightHanging } from "react-icons/fa"; // Peso
 import { FaRegClock } from "react-icons/fa"; // Reloj
 import { MdPrecisionManufacturing } from "react-icons/md"; // Gripper
+
+import { useAuth } from "@/context/AuthContext";
 
 interface NavOption {
   id: number;
@@ -149,6 +149,7 @@ const DatosLaterales: React.FC = () => {
 
         opcionesAlarma.forEach(({ id }) => {
           const section = document.getElementById(`section${id}`);
+
           if (section) {
             const rect = section.getBoundingClientRect();
             const sectionTop = rect.top;
@@ -176,6 +177,7 @@ const DatosLaterales: React.FC = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (debounceTimeout.current) {
@@ -186,6 +188,7 @@ const DatosLaterales: React.FC = () => {
 
   const handleScrollClick = (id: number) => {
     const section = document.getElementById(`section${id}`);
+
     if (section) {
       const offset = -133;
       const elementPosition =
@@ -207,16 +210,16 @@ const DatosLaterales: React.FC = () => {
         {opcionesAlarma.map(({ id, nombre }) => (
           <li key={id} className="gap-[10px]">
             <Link
-              href={`#section${id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                handleScrollClick(id);
-              }}
               className={`block p-[5px] text-center  no-underline rounded-lg font-semibold border ${
                 activeSection === id
                   ? " border-blue bg-datosblueback hover:bg-datosbluebackhover"
                   : "bg-background3 hover:bg-background4 border-background6"
               }`}
+              href={`#section${id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleScrollClick(id);
+              }}
             >
               {nombre}
             </Link>
@@ -232,7 +235,7 @@ const DatosLaterales: React.FC = () => {
         </p>
         <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
           {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
-            <Link href="/desmoldeo/equipox" key={id} className="block">
+            <Link key={id} className="block" href="/desmoldeo/equipox">
               <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-background4 rounded-lg bg-background3 min-h-[55px] max-h-[5vh]">
                 <div className="w-[90%] flex flex-col no-underline">
                   <h3 className="text-base p-0 m-0 font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
@@ -252,9 +255,9 @@ const DatosLaterales: React.FC = () => {
                     </div>
                   ) : (
                     <Image
-                      src={icono}
                       alt={`Estado: ${id}`}
                       className="max-w-[25px] max-h-[25px] flex-shrink-0 mt-[3px]"
+                      src={icono}
                     />
                   )}
                 </div>

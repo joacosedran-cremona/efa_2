@@ -1,45 +1,113 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Chart, registerables } from 'chart.js';
-import zoomPlugin from 'chartjs-plugin-zoom';
-import 'chartjs-adapter-date-fns';
-import { Spinner } from '@heroui/spinner';
-import { Button } from "@nextui-org/react";
+"use client";
+
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import {
+  Chart,
+  registerables,
+  ChartData,
+  ChartOptions,
+  ChartDataset,
+} from "chart.js";
+import zoomPlugin from "chartjs-plugin-zoom";
+import "chartjs-adapter-date-fns";
+import { Button, Spinner } from "@heroui/react";
+import { useTranslation } from "react-i18next";
 
 Chart.register(...registerables, zoomPlugin);
 
-const GraficoC = ({ startDate, endDate }) => {
-  const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
-  const [chartData, setChartData] = useState({ datasets: [] });
-  const [loading, setLoading] = useState(true);
+const useThemeColors = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Check initial theme
+    const isDark = document.documentElement.classList.contains("dark");
+    setIsDarkMode(isDark);
+
+    // Set up a mutation observer to detect theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          const isDark = document.documentElement.classList.contains("dark");
+          setIsDarkMode(isDark);
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
+
+  return {
+    textColor: isDarkMode ? "#EEE" : "#222", // texto
+    secondaryTextColor: isDarkMode ? "#AAA" : "#555", // texto2
+    headingColor: isDarkMode ? "#FFF" : "#111", // textoheader
+    gridColor: isDarkMode ? "#393939" : "#E0E0E0", // background3/5 equivalent
+    accentColor: "#ffa500", // Keeping accent color the same for both themes
+  };
+};
+
+type Point = { x: number; y: number };
+type ProductoAPI = {
+  id_recetario: number;
+  NombreProducto: string;
+  ListaDeCiclos: { fecha_fin: number; pesoDesmontado: number }[];
+};
+
+const GraficoC = ({
+  startDate,
+  endDate,
+}: {
+  startDate?: number | string;
+  endDate?: number | string;
+}) => {
+  const { t } = useTranslation();
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
+  const chartInstanceRef = useRef<Chart<"bar", any, unknown> | null>(null);
+  const [chartData, setChartData] = useState<
+    ChartData<"bar", Point[], unknown>
+  >({ datasets: [] });
+  const [loading, setLoading] = useState<boolean>(true);
+  const totalsRef = useRef<Map<number, number>>(new Map());
+
+  // Get theme colors
+  const colors = useThemeColors();
 
   const colores = [
-    '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A6',
-    '#33FFF5', '#FF9A33', '#33FFBD', '#FF3333', '#A633FF',
-    '#FFD933', '#33FFD4', '#A6FF33', '#337BFF', '#33FF76',
-    '#FF3357', '#33FF8D', '#FF8633', '#FF33C5', '#33FFC5'
-  ];  
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#F333FF",
+    "#FF33A6",
+    "#33FFF5",
+    "#FF9A33",
+    "#33FFBD",
+    "#FF3333",
+    "#A633FF",
+    "#FFD933",
+    "#33FFD4",
+    "#A6FF33",
+    "#337BFF",
+    "#33FF76",
+    "#FF3357",
+    "#33FF8D",
+    "#FF8633",
+    "#FF33C5",
+    "#33FFC5",
+  ];
 
-  // Función para agrupar los ciclos por hora y sumar el peso desmontado
-  const groupByHour = (cycles) => {
-    const groups = {};
-    cycles.forEach(ciclo => {
+  const groupByDay = (cycles: ProductoAPI["ListaDeCiclos"]) => {
+    const groups = new Map<number, number>();
+    cycles.forEach((ciclo) => {
       const date = new Date(ciclo.fecha_fin * 1000);
-      // Redondea la fecha al inicio de la hora
-      const hour = new Date(
+      const day = new Date(
         date.getFullYear(),
         date.getMonth(),
-        date.getDate(),
-        date.getHours()
+        date.getDate()
       ).getTime();
-      if (!groups[hour]) {
-        groups[hour] = 0;
-      }
-      groups[hour] += ciclo.pesoDesmontado;
+      groups.set(day, (groups.get(day) || 0) + ciclo.pesoDesmontado);
     });
-    // Convierte el objeto en un arreglo de { x: timestamp, y: valor } y lo ordena cronológicamente
-    return Object.entries(groups)
-      .map(([hour, value]) => ({ x: parseInt(hour, 10), y: value }))
+    return Array.from(groups.entries())
+      .map(([x, y]) => ({ x, y }))
       .sort((a, b) => a.x - b.x);
   };
 
@@ -49,7 +117,7 @@ const GraficoC = ({ startDate, endDate }) => {
       return;
     }
     setLoading(true);
-    const storedUser = sessionStorage.getItem('user_data');
+    const storedUser = sessionStorage.getItem("user_data");
     const token = storedUser ? JSON.parse(storedUser).access_token : null;
 
     try {
@@ -59,23 +127,26 @@ const GraficoC = ({ startDate, endDate }) => {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            Accept: "application/json"
+            Accept: "application/json",
           },
         }
       );
 
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(`Error fetching data: ${response.statusText}`);
-      }
 
-      const productos = await response.json();
-      const datasets = productos.map((producto, index) => ({
-        label: producto.NombreProducto,
-        backgroundColor: colores[(producto.id_recetario - 1) % colores.length],
-        borderColor: `${colores[(producto.id_recetario - 1) % colores.length]}80`,
-        fill: false,
-        data: groupByHour(producto.ListaDeCiclos)
-      }));
+      const productos: ProductoAPI[] = await response.json();
+      const datasets: ChartDataset<"bar", Point[]>[] = productos.map(
+        (producto) => ({
+          label: producto.NombreProducto,
+          backgroundColor:
+            colores[(producto.id_recetario - 1) % colores.length],
+          borderColor: `${colores[(producto.id_recetario - 1) % colores.length]}80`,
+          fill: false,
+          data: groupByDay(producto.ListaDeCiclos),
+          borderWidth: 0,
+        })
+      );
 
       setChartData({ datasets });
     } finally {
@@ -83,201 +154,246 @@ const GraficoC = ({ startDate, endDate }) => {
     }
   };
 
-  const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getUTCFullYear();
-    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(d.getUTCDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
+  // Precálculo de totales para tooltips
+  useEffect(() => {
+    const totals = new Map<number, number>();
+    chartData.datasets.forEach((dataset) => {
+      (dataset.data as Point[] | undefined)?.forEach((point) => {
+        totals.set(point.x, (totals.get(point.x) || 0) + point.y);
+      });
+    });
+    totalsRef.current = totals;
+  }, [chartData]);
 
-  const formattedStartDate = formatDate(startDate);
-  const formattedEndDate = formatDate(endDate);
+  // Memoizar fechas formateadas
+  const formatDate = useMemo(
+    () => (date?: string | number) => {
+      if (date == null) return "";
+      const d = new Date(Number(date));
+      const year = d.getUTCFullYear();
+      const month = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    },
+    []
+  );
+
+  const formattedStartDate = useMemo(
+    () => formatDate(startDate),
+    [startDate, formatDate]
+  );
+  const formattedEndDate = useMemo(
+    () => formatDate(endDate),
+    [endDate, formatDate]
+  );
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
 
   useEffect(() => {
-    const ctx = chartRef.current?.getContext('2d');
+    const canvas = chartRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Destruir instancia previa, si existe
     if (chartInstanceRef.current) {
       chartInstanceRef.current.destroy();
+      chartInstanceRef.current = null;
     }
 
-    const initialData = {
-      datasets: []
+    const options: ChartOptions<"bar"> = {
+      // cast to any later where types are strict (plugins extend Chart API)
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "nearest",
+        intersect: false,
+      },
+      plugins: {
+        title: {
+          align: "start",
+          display: true,
+          text: t("mayus.productosRealizados"),
+          color: colors.textColor, // Use theme-aware color
+          font: {
+            size: 20,
+            family: "system-ui",
+          },
+        },
+        subtitle: {
+          align: "start",
+          display: true,
+          text: `${formattedStartDate} - ${formattedEndDate}`,
+          color: colors.accentColor,
+          font: {
+            size: 16,
+            weight: "normal",
+            family: "system-ui",
+          },
+          padding: {
+            top: -10,
+          },
+        },
+        legend: {
+          position: "top",
+          labels: {
+            usePointStyle: true,
+            color: colors.textColor, // Use theme-aware color
+          },
+          onHover: (event: any) => {
+            // event.native can be null; guard it
+            if (event?.native?.target) {
+              try {
+                (event.native.target as HTMLElement).style.cursor = "pointer";
+              } catch {
+                /* ignore */
+              }
+            }
+          },
+        },
+        zoom: {
+          pan: { enabled: true, mode: "x" },
+          zoom: {
+            wheel: { enabled: true, modifierKey: "ctrl" },
+            pinch: { enabled: true },
+            mode: "x",
+          },
+          limits: {
+            x: { minRange: 3600000 },
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: any) => {
+              const raw = context.raw as Point | undefined;
+              const datasetLabel = context.dataset?.label || "Peso";
+              const peso = raw ? parseFloat(String(raw.y)).toFixed(2) : "0.00";
+              const date = raw ? formatDate(raw.x) : "";
+              const totalStacked = raw ? totalsRef.current.get(raw.x) || 0 : 0;
+              const totalStackedTn = (totalStacked / 1000).toFixed(2);
+              return [
+                `${t("min.peso")}: ${peso} kg`,
+                `${t("min.fecha")}: ${date}`,
+                `${t("min.prodDiaria")}: ${totalStackedTn} Tn`,
+              ];
+            },
+            title: () => "",
+          },
+        },
+      },
+      transitions: {
+        zoom: {
+          animation: {
+            duration: 0,
+          },
+        },
+      },
+      scales: {
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: t("min.pesoProducto") + " (Kg)",
+            color: colors.textColor, // Use theme-aware color
+          },
+          beginAtZero: true,
+          border: { color: colors.textColor }, // Use theme-aware color
+          grid: { color: colors.gridColor, tickColor: colors.textColor }, // Use theme-aware colors
+          ticks: { color: colors.textColor }, // Use theme-aware color
+        },
+        x: {
+          stacked: true,
+          type: "time",
+          time: {
+            parser: "yyyy-MM-dd",
+            unit: "day",
+            tooltipFormat: "yyyy-MM-dd",
+            displayFormats: {
+              day: "yyyy-MM-dd",
+            },
+          },
+          title: {
+            display: true,
+            text: t("min.tiempo"),
+            color: colors.textColor, // Use theme-aware color
+          },
+          border: { color: colors.textColor }, // Use theme-aware color
+          grid: {
+            color: colors.secondaryTextColor,
+            tickColor: colors.textColor,
+          }, // Use theme-aware colors
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 20,
+            color: colors.textColor, // Use theme-aware color
+          },
+        },
+      },
     };
 
+    // Chart constructor - use current chartData instead of empty datasets
     const newChart = new Chart(ctx, {
-      type: 'bar',
-      data: initialData,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-          intersect: false,
-        },
-        plugins: {
-          title: {
-            align: 'start',
-            display: true,
-            text: 'PRODUCTOS REALIZADOS',
-            color: '#D9D9D9',
-            font: {
-              size: 20,
-              family: 'system-ui'
-            }
-          },
-          subtitle: {
-            align: 'start',
-            display: true,
-            text: `${formattedStartDate} - ${formattedEndDate}`,
-            color: '#ffa500',
-            font: {
-              size: 16,
-              weight: 'normal',
-              family: 'system-ui'
-            },
-            padding: {
-              top: -10  // Ajusta el subtítulo hacia arriba
-            }
-          },
-          legend: {
-            position: 'top',
-            labels: { usePointStyle: true, color: '#D9D9D9' },
-            onHover: (event) => {
-              event.native.target.style.cursor = 'pointer';
-            }
-          },
-          zoom: {
-            pan: { enabled: true, mode: 'x' },
-            zoom: {
-              wheel: { enabled: true },
-              pinch: { enabled: true },
-              mode: 'x'
-            },
-            limits: {
-              // Limitar el zoom para que no se muestre un rango menor a 1 hora (3600000 ms)
-              x: { minRange: 3600000 }
-            }
-          },
-          tooltip: {
-            callbacks: {
-              label: (context) => {
-                const datasetLabel = context.dataset.label || 'Peso';
-                const peso = context.raw.y;
-                const date = formatDate(context.raw.x);
-                // Calcula el total stackeado
-                const totalStacked = context.chart.data.datasets.reduce((total, dataset) => {
-                  const dataItem = dataset.data.find(item => item.x === context.raw.x);
-                  return total + (dataItem ? dataItem.y : 0);
-                }, 0);
-                return [
-                  `${datasetLabel}: ${peso} kg`,
-                  `FECHA: ${date}`,
-                  `PRODUCCION POR HORA: ${totalStacked} kg`
-                ];
-              },
-              title: () => ''
-            }
-          }
-        },
-        transitions: {
-          zoom: {
-            animation: {
-              duration: 0
-            }
-          }
-        },
-        scales: {
-          y: {
-            stacked: true,
-            title: { display: true, text: 'Peso producto (kg)', color: '#D9D9D9' },
-            beginAtZero: true,
-            border: { color: '#D9D9D9' },
-            grid: { color: '#1F1F1F', tickColor: '#fff' },
-            ticks: { color: '#D9D9D9' }
-          },
-          x: {
-            stacked: true,
-            type: 'time',
-            time: {
-              unit: 'hour',
-              tooltipFormat: 'yyyy-MM-dd HH:mm:ss',
-              displayFormats: {
-                hour: 'HH:mm',
-                day: 'dd MMM',
-                week: 'dd MMM',
-                month: 'MMM yyyy',
-                quarter: 'MMM yyyy',
-                year: 'yyyy'
-              }
-            },
-            title: { display: true, text: 'Tiempo', color: '#D9D9D9' },
-            border: { color: '#D9D9D9' },
-            grid: { color: '#8C8C8C', tickColor: '#fff' },
-            ticks: { autoSkip: true, maxTicksLimit: 20, color: '#D9D9D9' }
-          }
-        }
-      }
+      type: "bar",
+      data: chartData, // <-- Use existing chart data instead of empty datasets
+      options: options as any,
     });
 
-    chartInstanceRef.current = newChart;
+    // <-- cast al mismo genérico `any` para mantener consistencia
+    chartInstanceRef.current = newChart as Chart<"bar", any, unknown>;
 
     return () => {
       newChart.destroy();
+      chartInstanceRef.current = null;
     };
-  }, [startDate, endDate, formattedStartDate, formattedEndDate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startDate, endDate, formattedStartDate, formattedEndDate, t, colors]);
 
   useEffect(() => {
-    if (chartInstanceRef.current && chartData && chartData.datasets.length > 0) {
-      chartInstanceRef.current.data = chartData;
+    if (
+      chartInstanceRef.current &&
+      chartData &&
+      chartData.datasets.length > 0
+    ) {
+      chartInstanceRef.current.data = chartData as any;
       chartInstanceRef.current.update();
     }
   }, [chartData]);
 
   const resetZoom = () => {
     if (chartInstanceRef.current) {
-      chartInstanceRef.current.resetZoom();
+      // resetZoom added by plugin; cast to any to avoid TS error
+      (chartInstanceRef.current as any).resetZoom?.();
     }
   };
 
   return (
     <div
-      className="relative bg-black p-[20px] h-full w-full rounded-lg mt[10px]"
-      style={{ height: "500px", width: "100%" }}
+      className="relative bg-background2 p-5 h-full w-full rounded-lg"
+      style={{ height: "500px" }}
     >
-      <canvas
-        ref={chartRef}
-        className="block w-full h-full max-h-screen"
-      ></canvas>
+      <canvas ref={chartRef} />
       {loading && (
-        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-75 rounded-xl">
-          <Spinner label="Cargando..." />
+        <div className="absolute inset-0 flex justify-center items-center bg-background2 rounded-lg">
+          <Spinner label={t("min.cargando")} />
         </div>
       )}
       <Button
         style={{
-          backgroundColor: "#333",
-          border: "1px solid #CCC",
-          color: "#CCC",
-          width: "15%",
-          height: "35px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "17px",
         }}
-        onClick={resetZoom}
-        className="absolute top-[20px] right-[20px] text-white bg-grey hover:text-black hover:bg-lightGrey px-3 rounded-lg"
+        onClick={() => resetZoom()}
+        className="absolute top-[20px] right-[20px] text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
       >
-        Reiniciar Zoom
+        {t("min.reiniciarZoom")}
       </Button>
     </div>
   );
 };
 
-export default GraficoC;
+export default React.memo(GraficoC);

@@ -13,11 +13,11 @@ import {
   Button,
 } from "@heroui/react";
 import Link from "next/link";
+import { GoDotFill } from "react-icons/go";
+import { useTranslation } from "react-i18next";
 
 import LayoutCompleto from "@/components/completoLayout/completo";
 import { useAuth } from "@/context/AuthContext";
-import { GoDotFill } from "react-icons/go";
-import { useTranslation } from "react-i18next";
 
 interface Alarma {
   id_alarma: number;
@@ -59,12 +59,13 @@ const Completo = () => {
     if (!Array.isArray(data.alarms)) {
       setError("No se pudieron obtener los datos");
       setIsLoading(false);
+
       return;
     }
 
     const filteredItems = data.alarms.filter(
       (alarma: Alarma) =>
-        alarma.tipoAlarma === "Error" || alarma.tipoAlarma === "Alerta"
+        alarma.tipoAlarma === "Error" || alarma.tipoAlarma === "Alerta",
     );
 
     setItems(
@@ -78,7 +79,7 @@ const Completo = () => {
           alarma.estadoAlarma === "Activo" && alarma.fechaInicio
             ? alarma.fechaInicio
             : "",
-      }))
+      })),
     );
 
     setIsLoading(false);
@@ -96,13 +97,13 @@ const Completo = () => {
   const totalPages = Math.ceil(totalRows / rowsPerPage);
   const paginatedRows = useMemo(
     () => items.slice((page - 1) * rowsPerPage, page * rowsPerPage),
-    [items, page, rowsPerPage]
+    [items, page, rowsPerPage],
   );
 
   const handlePageChange = (newPage: number) => setPage(newPage);
 
   const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     setRowsPerPage(Number(event.target.value));
     setPage(1);
@@ -114,6 +115,7 @@ const Completo = () => {
     } else if (state === "Inactivo" || state === false) {
       return <GoDotFill className="text-[#00FF00]" />;
     }
+
     return state;
   };
 
@@ -130,10 +132,7 @@ const Completo = () => {
         <Table aria-label="Tabla de alertas">
           <TableHeader columns={columns}>
             {(column) => (
-              <TableColumn
-                key={column.key}
-                className=""
-              >
+              <TableColumn key={column.key} className="">
                 {column.label}
               </TableColumn>
             )}
@@ -160,32 +159,25 @@ const Completo = () => {
         {error && (
           <div className="">
             <div className="">{error}</div>
-            <Button
-              onClick={() => window.location.reload()}
-              className=""
-            >
+            <Button className="" onClick={() => window.location.reload()}>
               Reintentar
             </Button>
           </div>
         )}
       </div>
 
-
       <div className="">
         <Pagination
           showControls
-          total={totalPages}
-          page={page}
-          onChange={handlePageChange}
           color="default"
+          page={page}
           size="md"
+          total={totalPages}
+          onChange={handlePageChange}
         />
 
-        <Link href="/alertas" className="">
-          <Button
-            className=""
-            radius="full"
-          >
+        <Link className="" href="/alertas">
+          <Button className="" radius="full">
             Ver más
           </Button>
         </Link>
