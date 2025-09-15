@@ -65,14 +65,22 @@ const LayoutCompleto = () => {
   };
 
   return (
-    <div className="relative w-full mx-auto">
-      <div className="w-full h-auto rounded-lg overflow-hidden">
+    <div className="relative w-auto h-[83vh]">
+      <div className="relative w-full h-full">
         <Image
           priority
           alt="Layout"
-          height={1920}
           src="/Layout/layoutcompleto.png"
-          width={1080}
+          className="object-contain"
+          sizes="83vh"
+          width={1920}
+          height={1080}
+          style={{
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+          }}
         />
       </div>
 
@@ -82,7 +90,7 @@ const LayoutCompleto = () => {
             className={getSectionClasses(section.styleClass)}
             style={section.position}
           >
-            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black text-[#D9D9D9] p-[5px] rounded-lg text-xs opacity-0 transition-opacity ease-in-out group-hover:opacity-100">
+            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-lg text-xs opacity-0 transition-opacity ease-in-out group-hover:opacity-100">
               {section.name}
             </span>
 
@@ -94,7 +102,7 @@ const LayoutCompleto = () => {
       ))}
 
       <div
-        className="absolute p-0 bg-transparent rounded-lg z-10 flex gap-2.5 shadow-none cursor-default hover:bg-transparent"
+        className="absolute rounded-lg z-10 flex gap-2.5"
         style={sections[3].position}
       >
         <DatosDesmoldeo />
