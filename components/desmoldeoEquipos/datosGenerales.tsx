@@ -94,14 +94,11 @@ const DatosGenerales = () => {
 
   return (
     <>
-      <div className="w-full bg-[#131313] rounded-[15px] py-[10px] px-[20px] pb-[20px] mb-[10px] flex flex-col text-[#D9D9D9]">
+      <div className="w-full bg-background2 rounded-lg flex flex-col p-5">
         <h1 className="text-xl font-bold">{t("mayus.datosGenerales")}</h1>
-        <ul className="w-full list-none">
+        <ul className="w-full list-none flex flex-col gap-5">
           {datosGenerales.map(({ id, texto, dato, icono: IconComponent }) => (
-            <li
-              key={id}
-              className="w-full p-[10px_20px] mt-[10px] bg-[#1F1F1F] rounded-[15px]"
-            >
+            <li key={id} className="w-full bg-background3 rounded-lg p-3">
               <div className="w-full flex justify-between items-center">
                 <div>
                   <h3 className="font-semibold">{texto}</h3>
@@ -111,7 +108,7 @@ const DatosGenerales = () => {
                 </div>
                 <IconComponent
                   size={40}
-                  className="text-[#D9D9D9] m-[5px] -mr-[5px] ml-auto drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
+                  className="text-texto p-[0.3rem] drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
                 />
               </div>
             </li>
