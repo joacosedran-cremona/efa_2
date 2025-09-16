@@ -11,13 +11,13 @@ import { useTranslation } from "react-i18next";
 const Equipos = () => {
   const { t } = useTranslation();
   return (
-    <div className="flex gap-6 items-start h-full">
-      <div className="w-1/4 space-y-4">
+    <div className="flex p-5 gap-5">
+      <div className="w-1/4">
         <DatosGenerales />
         <SectorIO />
       </div>
 
-      <div className="flex-1 space-y-4">
+      <div className="w-2/4 flex flex-col justify-between">
         <span className="block text-xl font-bold tracking-wide uppercase">
           {t("mayus.datosDesmoldeo")}
         </span>
