@@ -100,47 +100,45 @@ const EquiposImg = () => {
   }
 
   return (
-    <div className="text-center bg-[#131313] p-0 rounded-[15px] text-white h-full flex flex-col justify-start">
-      <h1 className="mt-[5px] py-[10px] text-[21px] font-bold tracking-[1px]">
+    <div className="text-center bg-background2 rounded-lg h-full flex flex-col p-5 justify-between">
+      <h1 className="text-[21px] font-bold tracking-[1px]">
         {title}
       </h1>
 
-      <div className="mx-auto w-[85%] max-w-[600px] overflow-hidden rounded-[15px] relative">
+      <div className="max-w-[600px] overflow-hidden rounded-lg relative">
         {totalImages > 0 ? (
           <>
             {totalImages > 1 && (
               <button
                 onClick={prevImage}
-                className="bg-transparent border-none text-white text-[2rem] cursor-pointer absolute top-1/2 left-0 -translate-y-1/2 z-10 focus:outline-none"
+                className="bg-transparent border-none text-[2rem] cursor-pointer absolute top-1/2 left-0 -translate-y-1/2 z-10 focus:outline-none"
                 aria-label="Anterior imagen"
               >
                 ❮
               </button>
             )}
 
-            <div className="ml-[5%] w-[90%] h-full relative overflow-hidden mx-auto">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  transform: `translateX(-${currentIndex * 100}%)`,
-                }}
-              >
-                {images.map((image: ImageItem, index: number) => (
-                  <div key={index} className="w-full flex-shrink-0">
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      className="w-full max-h-[30%] object-contain rounded-[15px]"
-                    />
-                  </div>
-                ))}
-              </div>
+            <div
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}
+            >
+              {images.map((image: ImageItem, index: number) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full max-h-full object-contain rounded-lg"
+                  />
+                </div>
+              ))}
             </div>
 
             {totalImages > 1 && (
               <button
                 onClick={nextImage}
-                className="bg-transparent border-none text-white text-[2rem] cursor-pointer absolute top-1/2 right-0 -translate-y-1/2 z-10 focus:outline-none"
+                className="bg-transparent border-none text-[2rem] cursor-pointer absolute top-1/2 right-0 -translate-y-1/2 z-10 focus:outline-none"
                 aria-label="Siguiente imagen"
               >
                 ❯
@@ -153,14 +151,14 @@ const EquiposImg = () => {
       </div>
 
       {totalImages > 1 && (
-        <div className="flex justify-center gap-2 mb-4 mt-3">
+        <div className="flex justify-center gap-5">
           {images.map((_, index: number) => {
             const isActive = index === currentIndex;
             return (
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full cursor-pointer transition-colors duration-300 ${
-                  isActive ? "bg-white" : "bg-[#777] hover:bg-[#aaa]"
+                  isActive ? "bg-textohover" : "bg-textodesac hover:bg-[#aaa]"
                 }`}
                 onClick={() => setCurrentIndex(index)}
                 role="button"
