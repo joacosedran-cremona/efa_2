@@ -56,37 +56,27 @@ const DatosSDDAComponent = () => {
   };
 
   const baseCard =
-    "w-full bg-[#131313] rounded-[15px] p-[10px] pb-[20px] mb-7 flex flex-col text-[#D9D9D9] transition-transform transition-shadow duration-300 ease cursor-pointer hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)] hover:scale-[1.01]";
+    "w-full bg-background2 p-5 rounded-lg flex flex-col transition-transform transition-shadow duration-300 cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
   const selectedCard =
     "scale-[1.03] shadow-[0_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c]";
 
   return (
     <div
-      className={`${baseCard} ${
-        equipoSeleccionado === "SDDA" ? selectedCard : ""
-      }`}
+      className={`${baseCard} ${equipoSeleccionado === "SDDA" ? selectedCard : ""}`}
       onClick={handleClick}
     >
-      <h1 className="text-[16px] font-bold tracking-[1px] m-0 p-0 uppercase text-[#D9D9D9]">
+      <h1 className="text-[16px] font-bold tracking-[1px] m-0">
         {t("mayus.datosSDDA")}
       </h1>
 
-      <div className="flex flex-row justify-between mt-2 mb-2 w-full">
-        {datosSdda.map(({ id, texto, texto2, dato }) => (
+      <div className="flex flex-row justify-between gap-5">
+        {datosSdda.map(({ id, texto, dato }) => (
           <div
             key={id}
-            className="w-[32%] p-[10px] bg-[#1F1F1F] rounded-[15px] flex flex-col justify-center"
+            className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
-            <div className="flex flex-row justify-between items-center">
-              <div>
-                <h3 className="text-[0.8vw] font-bold m-0 p-0 text-[#D9D9D9]">
-                  {texto}
-                </h3>
-                <h4 className="text-[0.7vw] m-0 p-0 text-[#D9D9D9]">
-                  {dato === null ? "null" : `${dato.toString()}${texto2 ?? ""}`}
-                </h4>
-              </div>
-            </div>
+            <h3 className="text-md font-medium">{texto}</h3>
+            <h4 className="text-sm">{dato === null ? "null" : `${dato} mm`}</h4>
           </div>
         ))}
       </div>

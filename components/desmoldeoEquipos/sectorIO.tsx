@@ -72,21 +72,15 @@ const SectorIOComponent = () => {
   }, [data]);
 
   return (
-    <div className="w-full bg-[#131313] rounded-xl p-4 pb-5 mt-5 text-gray-300">
-      <h1 className="text-base font-bold tracking-wide mb-3">
+    <div className="w-full bg-background2 rounded-lg p-5">
+      <h1 className="font-bold">
         {t("mayus.sectorIO")}
       </h1>
       <div className="w-full grid grid-cols-2 gap-5">
         {sector_IO.map(({ id, texto, dato, icono }) => (
-          <div key={id} className="w-full p-5 mt-2 bg-[#1f1f1f] rounded-lg">
-            <div className="w-full flex flex-row justify-between items-center">
-              <div className="">
-                <h3 className="text-base font-bold m-0 p-0">{texto}</h3>
-              </div>
-              <div className="w-5 h-5 ml-auto" aria-hidden="true">
-                {icono}
-              </div>
-            </div>
+          <div key={id} className="w-full p-5 bg-background3 rounded-lg flex items-center justify-between">
+            <h3 className="text-base font-bold m-0 p-0">{texto}</h3>
+            {icono}
           </div>
         ))}
       </div>

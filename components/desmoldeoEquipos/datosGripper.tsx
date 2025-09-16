@@ -55,7 +55,7 @@ const DatosGripperComponent = () => {
     equipoSeleccionado === "Estación de grippers";
 
   const baseClasses =
-    "w-full bg-[#131313] rounded-[15px] px-5 pt-2.5 pb-5 flex flex-col text-[#D9D9D9] transition-transform transition-shadow duration-300 ease-in-out cursor-pointer";
+    "w-full bg-background2 p-5 rounded-lg flex flex-col transition-transform transition-shadow duration-300 cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
   const hoverClasses =
     "hover:scale-[1.01] hover:shadow-[0px_4px_8px_rgba(255,255,255,0.2)]";
   const selectedClasses =
@@ -67,21 +67,17 @@ const DatosGripperComponent = () => {
       className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""}`}
       onClick={handleClick}
     >
-      <h1 className="text-xl font-semibold">{t("mayus.datosGripper")}</h1>
-      <div className="flex flex-row mt-2.5 mb-2.5 gap-2.5">
+      <h1 className="text-[16px] font-bold tracking-[1px] m-0">
+        {t("mayus.datosGripper")}
+      </h1>
+      <div className="flex flex-row justify-between gap-5">
         {datosGripper.map(({ id, texto, dato }) => (
           <div
             key={id}
-            className="h-[120%] w-1/2 px-5 py-2.5 bg-[#1F1F1F] rounded-[15px] flex flex-col justify-center"
+            className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
-            <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-col">
-                <h3 className="text-sm font-medium">{texto}</h3>
-                <h4 className="text-sm">
-                  {dato === null ? "null" : String(dato)}
-                </h4>
-              </div>
-            </div>
+            <h3 className="text-md font-medium">{texto}</h3>
+            <h4 className="text-sm">{dato === null ? "null" : `${dato} mm`}</h4>
           </div>
         ))}
       </div>

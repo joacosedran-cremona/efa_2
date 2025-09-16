@@ -12,7 +12,7 @@ const Equipos = () => {
   const { t } = useTranslation();
   return (
     <div className="flex p-5 gap-5">
-      <div className="w-1/4">
+      <div className="w-1/4 gap-5 flex flex-col">
         <DatosGenerales />
         <SectorIO />
       </div>
