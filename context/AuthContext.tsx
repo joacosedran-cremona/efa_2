@@ -13,8 +13,8 @@ import { WebSocketResponse } from "../interfaces/websocket";
 import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
 
 interface AuthContextType {
-  equipoSeleccionado: string;
-  setEquipoSeleccionado: (equipo: string) => void;
+  equipoSeleccionado: string | null;
+  setEquipoSeleccionado: (equipo: string | null) => void;
   streamInitialized: boolean;
   websocketData: {
     data: WebSocketResponse | null;
@@ -29,7 +29,7 @@ interface AuthProviderProps {
 }
 
 const AuthContext = createContext<AuthContextType>({
-  equipoSeleccionado: "Default",
+  equipoSeleccionado: null,
   setEquipoSeleccionado: () => {},
   streamInitialized: false,
   websocketData: {
@@ -43,8 +43,9 @@ const AuthContext = createContext<AuthContextType>({
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProviderInner = ({ children }: { children: ReactNode }) => {
-  const [equipoSeleccionado, setEquipoSeleccionado] =
-    useState<string>("Default");
+  const [equipoSeleccionado, setEquipoSeleccionado] = useState<string | null>(
+    "Default"
+  );
   const pathname = usePathname();
   const [streamInitialized, setStreamInitialized] = useState<boolean>(false);
 
@@ -67,7 +68,7 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
   }, [streamInitialized, pathname]);
 
   useEffect(() => {
-    if (pathname !== "/desmoldeo/equipox") {
+    if (pathname !== "/desmoldeo/equipos") {
       setEquipoSeleccionado("Default");
     }
   }, [pathname]);

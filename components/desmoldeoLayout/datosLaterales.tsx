@@ -4,14 +4,14 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { BiReceipt } from "react-icons/bi"; // Receta
-import { PiChefHat } from "react-icons/pi"; // Receta 2
-import { BiCabinet } from "react-icons/bi"; // Torre
-import { GrResources } from "react-icons/gr"; // Nivel
-import { TbBowl } from "react-icons/tb"; // Molde
-import { FaWeightHanging } from "react-icons/fa"; // Peso
-import { FaRegClock } from "react-icons/fa"; // Reloj
-import { MdPrecisionManufacturing } from "react-icons/md"; // Gripper
+import { BiReceipt } from "react-icons/bi";
+import { PiChefHat } from "react-icons/pi";
+import { BiCabinet } from "react-icons/bi";
+import { GrResources } from "react-icons/gr";
+import { TbBowl } from "react-icons/tb";
+import { FaWeightHanging } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
+import { MdPrecisionManufacturing } from "react-icons/md";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -235,7 +235,7 @@ const DatosLaterales: React.FC = () => {
         </p>
         <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
           {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
-            <Link key={id} className="block" href="/desmoldeo/equipox">
+            <Link key={id} className="block" href="/desmoldeo/equipos">
               <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-background4 rounded-lg bg-background3 min-h-[55px] max-h-[5vh]">
                 <div className="w-[90%] flex flex-col no-underline">
                   <h3 className="text-base p-0 m-0 font-semibold overflow-hidden text-ellipsis whitespace-nowrap">

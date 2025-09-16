@@ -65,7 +65,7 @@ const equipmentStatusMap = {
   robot: (data: any): EquipmentStatus => {
     const robotAlarms =
       data?.alarms?.filter(
-        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT",
+        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT"
       ) || [];
     const lastRobotAlarm = robotAlarms.length > 0 ? robotAlarms[0] : null;
 
@@ -133,7 +133,7 @@ const Layout: React.FC = () => {
       id: 1,
       identifier: "Posicionador de torres",
       translationKey: "min.posicionadorDeTorres",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "8.6%", left: "73%", width: "10.1%", height: "66%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(243,127,208,0.5)]",
       statusKey: "posicionador",
@@ -142,7 +142,7 @@ const Layout: React.FC = () => {
       id: 2,
       identifier: "SDDA",
       translationKey: "mayus.SDDA",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "30.65%", left: "59.9%", width: "12.3%", height: "21.8%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(7,222,136,0.5)]",
       statusKey: "sdda",
@@ -151,7 +151,7 @@ const Layout: React.FC = () => {
       id: 3,
       identifier: "Robot",
       translationKey: "min.robot",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "33.4%", left: "48.3%", width: "7.8%", height: "16.3%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(222,154,7,0.5)]",
       statusKey: "robot",
@@ -160,7 +160,7 @@ const Layout: React.FC = () => {
       id: 4,
       identifier: "Gripper",
       translationKey: "min.gripper",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "9.7%", left: "54.2%", width: "7.8%", height: "17.3%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(255,0,0,0.5)]",
       rotate: "rotate-[30deg]",
@@ -171,7 +171,7 @@ const Layout: React.FC = () => {
       id: 5,
       identifier: "Estación de grippers",
       translationKey: "min.estacionDeGrippers",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "68.6%", left: "47.55%", width: "8.8%", height: "19.5%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(255,0,0,0.5)]",
       statusKey: "estacionGrippers",
@@ -180,7 +180,7 @@ const Layout: React.FC = () => {
       id: 6,
       identifier: "BandaA",
       translationKey: "min.bandaA",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "2.9%", left: "47%", width: "9.6%", height: "23%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(62,29,253,0.5)]",
       zIndex: "z-9",
@@ -190,7 +190,7 @@ const Layout: React.FC = () => {
       id: 7,
       identifier: "BandaB",
       translationKey: "min.bandaB",
-      path: "/desmoldeo/equipox",
+      path: "/desmoldeo/equipos",
       style: { top: "12.3%", left: "34.3%", width: "8.5%", height: "27%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(62,29,253,0.5)]",
       rotate: "rotate-[61deg]",
@@ -209,7 +209,7 @@ const Layout: React.FC = () => {
   };
 
   const getEquipmentStatus = (
-    section: LayoutSection,
+    section: LayoutSection
   ): EquipmentStatus | null => {
     if (!equipmentData || !section.statusKey) return null;
 

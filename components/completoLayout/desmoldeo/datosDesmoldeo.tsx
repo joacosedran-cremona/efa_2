@@ -110,7 +110,7 @@ const DatosDesmoldeo = () => {
               className={
                 isActive ? "max-h-[55px] w-full h-full" : "flex w-full h-full"
               }
-              href="/desmoldeo/equipox"
+              href="/desmoldeo/equipos"
             >
               {isActive ? (
                 <div className="w-full h-full">

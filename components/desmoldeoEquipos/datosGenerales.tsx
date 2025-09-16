@@ -1,6 +1,5 @@
 "use client";
 
-// React Icons
 import { BiReceipt } from "react-icons/bi";
 import { PiChefHat } from "react-icons/pi";
 import { FaWeightHanging } from "react-icons/fa";
@@ -33,7 +32,6 @@ const DatosGenerales = () => {
   const { websocketData } = useAuth();
   const data = websocketData.data;
 
-  // Add type assertion to match the expected structure
   const machineStatus: MachineStatus = data?.machineStatus || {};
 
   const {

@@ -9,16 +9,13 @@ import type { ChartData, ChartOptions, ChartEvent } from "chart.js";
 
 Chart.register(...registerables);
 
-// Add theme color hook - similar to productosRealizados.tsx
 const useThemeColors = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check initial theme
     const isDark = document.documentElement.classList.contains("dark");
     setIsDarkMode(isDark);
 
-    // Set up a mutation observer to detect theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "class") {
@@ -33,13 +30,13 @@ const useThemeColors = () => {
   }, []);
 
   return {
-    textColor: isDarkMode ? "#EEE" : "#222", // texto
-    secondaryTextColor: isDarkMode ? "#AAA" : "#555", // texto2
-    headingColor: isDarkMode ? "#FFF" : "#111", // textoheader
-    gridColor: isDarkMode ? "#393939" : "#E0E0E0", // background3/5 equivalent
-    borderColor: isDarkMode ? "#666" : "#D9D9D9", // border color
-    gridLineColor: isDarkMode ? "#333" : "#8C8C8C", // grid lines
-    accentColor: "#ffa500", // Keeping accent color the same for both themes
+    textColor: isDarkMode ? "#EEE" : "#222",
+    secondaryTextColor: isDarkMode ? "#AAA" : "#555",
+    headingColor: isDarkMode ? "#FFF" : "#111",
+    gridColor: isDarkMode ? "#393939" : "#E0E0E0",
+    borderColor: isDarkMode ? "#666" : "#D9D9D9",
+    gridLineColor: isDarkMode ? "#333" : "#8C8C8C",
+    accentColor: "#ffa500",
   };
 };
 
@@ -65,7 +62,6 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
   const [chartData, setChartData] = useState({ ciclos: [], pesoProducto: [] });
   const [loading, setLoading] = useState(true);
 
-  // Get theme colors
   const colors = useThemeColors();
 
   const fetchData = async () => {
@@ -78,7 +74,6 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
     console.log("endDate:", endDate);
     setLoading(true);
 
-    // Safe sessionStorage access
     const storedUser =
       typeof window !== "undefined"
         ? sessionStorage.getItem("user_data")
@@ -124,11 +119,9 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
   }, [startDate, endDate]);
 
   useEffect(() => {
-    // Only run on client side
     if (typeof window === "undefined") return;
 
     (async () => {
-      // Register registerables + zoom plugin once on client
       if (!registeredRef.current) {
         const mod = await import("chartjs-plugin-zoom");
         const zoom = (mod && (mod as any).default) || mod;
@@ -246,7 +239,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
             title: {
               display: true,
               text: t("min.ciclosRealizados"),
-              color: "#EF8225", // Keep this color constant for clarity
+              color: "#EF8225",
             },
             grid: { color: colors.gridColor, tickColor: "#EF8225" },
             border: { color: "#EF8225" },
@@ -260,7 +253,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
             title: {
               display: true,
               text: t("min.pesoProducto") + " (Tn)",
-              color: "#3AF", // Keep this color constant for clarity
+              color: "#3AF",
             },
             grid: { color: colors.gridColor, tickColor: "#3AF" },
             border: { color: "#3AF" },
@@ -292,7 +285,6 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
         },
       } as any;
 
-      // Create a new chart with existing data if available
       const chartDataToUse =
         chartData && chartData.ciclos.length > 0
           ? {

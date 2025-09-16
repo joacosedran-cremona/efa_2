@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoDotFill } from "react-icons/go"; //Punto
+import { GoDotFill } from "react-icons/go";
 import { useTranslation } from "react-i18next";
 
 const SubNav = () => {
@@ -18,7 +18,7 @@ const SubNav = () => {
     },
     {
       id: 2,
-      path: ["/desmoldeo", "/desmoldeo/equipox"],
+      path: ["/desmoldeo", "/desmoldeo/equipos"],
       text: t("mayus.desmoldeo"),
       styleClass: "",
     },

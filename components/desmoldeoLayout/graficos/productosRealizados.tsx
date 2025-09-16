@@ -19,11 +19,9 @@ const useThemeColors = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check initial theme
     const isDark = document.documentElement.classList.contains("dark");
     setIsDarkMode(isDark);
 
-    // Set up a mutation observer to detect theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "class") {
@@ -38,11 +36,11 @@ const useThemeColors = () => {
   }, []);
 
   return {
-    textColor: isDarkMode ? "#EEE" : "#222", // texto
-    secondaryTextColor: isDarkMode ? "#AAA" : "#555", // texto2
-    headingColor: isDarkMode ? "#FFF" : "#111", // textoheader
-    gridColor: isDarkMode ? "#393939" : "#E0E0E0", // background3/5 equivalent
-    accentColor: "#ffa500", // Keeping accent color the same for both themes
+    textColor: isDarkMode ? "#EEE" : "#222",
+    secondaryTextColor: isDarkMode ? "#AAA" : "#555",
+    headingColor: isDarkMode ? "#FFF" : "#111",
+    gridColor: isDarkMode ? "#393939" : "#E0E0E0",
+    accentColor: "#ffa500",
   };
 };
 
@@ -69,7 +67,6 @@ const GraficoC = ({
   const [loading, setLoading] = useState<boolean>(true);
   const totalsRef = useRef<Map<number, number>>(new Map());
 
-  // Get theme colors
   const colors = useThemeColors();
 
   const colores = [
@@ -154,7 +151,6 @@ const GraficoC = ({
     }
   };
 
-  // Precálculo de totales para tooltips
   useEffect(() => {
     const totals = new Map<number, number>();
     chartData.datasets.forEach((dataset) => {
@@ -165,7 +161,6 @@ const GraficoC = ({
     totalsRef.current = totals;
   }, [chartData]);
 
-  // Memoizar fechas formateadas
   const formatDate = useMemo(
     () => (date?: string | number) => {
       if (date == null) return "";
@@ -189,7 +184,6 @@ const GraficoC = ({
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
 
   useEffect(() => {
@@ -205,7 +199,6 @@ const GraficoC = ({
     }
 
     const options: ChartOptions<"bar"> = {
-      // cast to any later where types are strict (plugins extend Chart API)
       responsive: true,
       maintainAspectRatio: false,
       interaction: {
@@ -217,7 +210,7 @@ const GraficoC = ({
           align: "start",
           display: true,
           text: t("mayus.productosRealizados"),
-          color: colors.textColor, // Use theme-aware color
+          color: colors.textColor,
           font: {
             size: 20,
             family: "system-ui",
@@ -241,15 +234,13 @@ const GraficoC = ({
           position: "top",
           labels: {
             usePointStyle: true,
-            color: colors.textColor, // Use theme-aware color
+            color: colors.textColor,
           },
           onHover: (event: any) => {
-            // event.native can be null; guard it
             if (event?.native?.target) {
               try {
                 (event.native.target as HTMLElement).style.cursor = "pointer";
               } catch {
-                /* ignore */
               }
             }
           },
@@ -297,12 +288,12 @@ const GraficoC = ({
           title: {
             display: true,
             text: t("min.pesoProducto") + " (Kg)",
-            color: colors.textColor, // Use theme-aware color
+            color: colors.textColor,
           },
           beginAtZero: true,
-          border: { color: colors.textColor }, // Use theme-aware color
-          grid: { color: colors.gridColor, tickColor: colors.textColor }, // Use theme-aware colors
-          ticks: { color: colors.textColor }, // Use theme-aware color
+          border: { color: colors.textColor },
+          grid: { color: colors.gridColor, tickColor: colors.textColor },
+          ticks: { color: colors.textColor },
         },
         x: {
           stacked: true,
@@ -318,37 +309,34 @@ const GraficoC = ({
           title: {
             display: true,
             text: t("min.tiempo"),
-            color: colors.textColor, // Use theme-aware color
+            color: colors.textColor,
           },
-          border: { color: colors.textColor }, // Use theme-aware color
+          border: { color: colors.textColor },
           grid: {
             color: colors.secondaryTextColor,
             tickColor: colors.textColor,
-          }, // Use theme-aware colors
+          },
           ticks: {
             autoSkip: true,
             maxTicksLimit: 20,
-            color: colors.textColor, // Use theme-aware color
+            color: colors.textColor,
           },
         },
       },
     };
 
-    // Chart constructor - use current chartData instead of empty datasets
     const newChart = new Chart(ctx, {
       type: "bar",
-      data: chartData, // <-- Use existing chart data instead of empty datasets
+      data: chartData,
       options: options as any,
     });
 
-    // <-- cast al mismo genérico `any` para mantener consistencia
     chartInstanceRef.current = newChart as Chart<"bar", any, unknown>;
 
     return () => {
       newChart.destroy();
       chartInstanceRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, formattedStartDate, formattedEndDate, t, colors]);
 
   useEffect(() => {
@@ -364,7 +352,6 @@ const GraficoC = ({
 
   const resetZoom = () => {
     if (chartInstanceRef.current) {
-      // resetZoom added by plugin; cast to any to avoid TS error
       (chartInstanceRef.current as any).resetZoom?.();
     }
   };

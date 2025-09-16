@@ -1,5 +1,4 @@
 "use client";
-//components
 import DatosGenerales from "@/components/desmoldeoEquipos/datosGenerales";
 import DatosGripper from "@/components/desmoldeoEquipos/datosGripper";
 import DatosTorre from "@/components/desmoldeoEquipos/datosTorre";
@@ -9,30 +8,30 @@ import EquipoImg from "@/components/desmoldeoEquipos/equipoImg";
 import SectorIO from "@/components/desmoldeoEquipos/sectorIO";
 import { useTranslation } from "react-i18next";
 
-import style from "./EquipoX.module.css";
-
-const EquipoX = () => {
+const Equipos = () => {
   const { t } = useTranslation();
   return (
-    <div className={style.all}>
-      <div className={style.Izq}>
+    <div className="flex gap-6 items-start h-full">
+      <div className="w-1/4 space-y-4">
         <DatosGenerales />
         <SectorIO />
       </div>
 
-      <div className={style.Med}>
-        <span className={style.titulo}>{t("mayus.datosDesmoldeo")}</span>
+      <div className="flex-1 space-y-4">
+        <span className="block text-xl font-bold tracking-wide uppercase">
+          {t("mayus.datosDesmoldeo")}
+        </span>
         <DatosRobot />
         <DatosSDDA />
         <DatosTorre />
         <DatosGripper />
       </div>
 
-      <div className={style.Der}>
+      <div className="w-1/4">
         <EquipoImg />
       </div>
     </div>
   );
 };
 
-export default EquipoX;
+export default Equipos;

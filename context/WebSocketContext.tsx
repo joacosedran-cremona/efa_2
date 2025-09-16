@@ -78,7 +78,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
           const rawData = JSON.parse(event.data);
 
           if (typeof rawData === "object" && rawData !== null) {
-            // If the data is already in the expected format, use it directly
             if (
               rawData.machineStatus &&
               rawData.processData &&
@@ -87,7 +86,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
             ) {
               setData(rawData as WebSocketResponse);
             }
-            // If the data is an array (as in your current implementation)
             else if (Array.isArray(rawData) && rawData.length >= 5) {
               const formattedData: WebSocketResponse = {
                 machineStatus: rawData[0] as MachineStatus,

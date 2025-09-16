@@ -57,16 +57,14 @@ export default function BotonesDescarga({
       const pdfWidth = 287;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      // Calculate the height of the PDF dynamically based on the image height plus the margin
-      const pdfHeightWithMargin = pdfHeight + 10; // 50px margin + 5px top margin
+      const pdfHeightWithMargin = pdfHeight + 10;
 
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: [pdfHeightWithMargin, 297], // Use calculated height
+        format: [pdfHeightWithMargin, 297],
       });
 
-      // Add the image to the PDF
       pdf.addImage(
         imgDataProduct,
         "PNG",
@@ -83,24 +81,23 @@ export default function BotonesDescarga({
 
       pdf.addImage(logoDataURL, "PNG", 245, 15, logoWidth, logoHeight);
 
-      // Añadir texto "EFA - Proyecto" debajo del logo
       pdf.setFontSize(12);
       pdf.text("EFA - MXEF-04", 253, 32);
       pdf.text("Celda de desmoldeo", 247, 37);
 
-      pdf.addImage(webIcon, "PNG", 240, 60, 5, 5); // Icono de ubicación de 5x5 px
-      pdf.text("creminox.com", 247, 64); // Texto al lado del icono
+      pdf.addImage(webIcon, "PNG", 240, 60, 5, 5);
+      pdf.text("creminox.com", 247, 64);
 
       pdf.link(240, 60, 30, 5, {
         url: "https://creminox.com",
         target: "_blank",
       });
 
-      pdf.addImage(telIcon, "PNG", 240, 66, 5, 5); // Icono de teléfono de 10x10 px
-      pdf.text("+54 11 4918-3944", 247, 70); // Texto al lado del icono
+      pdf.addImage(telIcon, "PNG", 240, 66, 5, 5);
+      pdf.text("+54 11 4918-3944", 247, 70);
 
-      pdf.addImage(mailIcon, "PNG", 240, 72, 5, 5); // Icono de teléfono de 10x10 px
-      pdf.text("soporte@creminox.com", 247, 76); // Texto al lado del icono
+      pdf.addImage(mailIcon, "PNG", 240, 72, 5, 5);
+      pdf.text("soporte@creminox.com", 247, 76);
 
       pdf.save(`Reporte_Graficos_CeldaDesmoldeo_${fechaLocal}.pdf`);
     }
