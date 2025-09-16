@@ -18,7 +18,7 @@ export default function LayoutClient({
   ].includes(pathname);
 
   const showHeader2 =
-    pathname === "/completo" ||
+    pathname === "/" ||
     pathname === "/desmoldeo" ||
     pathname === "/" ||
     pathname.startsWith("/desmoldeo/");

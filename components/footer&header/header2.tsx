@@ -12,7 +12,7 @@ const SubNav = () => {
   const opcionesBotones = [
     {
       id: 1,
-      path: "/completo",
+      path: "/",
       text: t("mayus.completo"),
       styleClass: "",
     },
