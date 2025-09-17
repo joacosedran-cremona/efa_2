@@ -64,11 +64,13 @@ const DatosGripperComponent = () => {
   const selectedHover = "hover:scale-[1.02]";
 
   return (
-    <div
-      className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""}`}
+    <button
+      aria-pressed={isSelected}
+      className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""} text-left`}
+      type="button"
       onClick={handleClick}
     >
-      <h1 className="text-[16px] font-bold tracking-[1px] m-0">
+      <h1 className="w-full text-[16px] font-bold tracking-[1px] m-0">
         {t("mayus.datosGripper")}
       </h1>
       <div className="flex flex-row justify-between gap-5">
@@ -82,7 +84,7 @@ const DatosGripperComponent = () => {
           </div>
         ))}
       </div>
-    </div>
+    </button>
   );
 };
 

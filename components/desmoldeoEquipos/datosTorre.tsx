@@ -19,7 +19,7 @@ const DatosTorreComponent = () => {
 
   const initialDatosTorre: DatoTorre[] = [
     { id: 1, texto: t("min.nroTorreActual"), dato: null },
-    { id: 2, texto: t("mayus.totalNiveles"), dato: null },
+    { id: 2, texto: t("min.totalNiveles"), dato: null },
     { id: 3, texto: t("min.nroTorreProxima"), dato: null },
   ];
 
@@ -37,7 +37,7 @@ const DatosTorreComponent = () => {
         },
         {
           id: 2,
-          texto: t("mayus.totalNiveles"),
+          texto: t("min.totalNiveles"),
           dato: (torreData.TotalNiveles ?? null) as number | null,
         },
         {
@@ -59,14 +59,20 @@ const DatosTorreComponent = () => {
     );
   };
 
-  const baseCard =
+  const isSelected = equipoSeleccionado === "Posicionador de torres";
+
+  const baseClasses =
     "w-full bg-background2 p-5 rounded-lg flex flex-col transition-transform transition-shadow duration-300 cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
-  const selectedCard =
-    "scale-[1.03] shadow-[0_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c]";
+  const hoverClasses =
+    "hover:scale-[1.01] hover:shadow-[0px_4px_8px_rgba(255,255,255,0.2)]";
+  const selectedClasses =
+    "scale-[1.03] shadow-[0px_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c]";
+  const selectedHover = "hover:scale-[1.02]";
 
   return (
-    <div
-      className={`${baseCard} ${equipoSeleccionado === "Posicionador de torres" ? selectedCard : ""}`}
+    <button
+      className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""} text-left`}
+      type="button"
       onClick={handleClick}
     >
       <h1 className="text-[16px] font-bold tracking-[1px] m-0">
@@ -84,7 +90,7 @@ const DatosTorreComponent = () => {
           </div>
         ))}
       </div>
-    </div>
+    </button>
   );
 };
 

@@ -151,14 +151,19 @@ const EquiposImg = () => {
             const isActive = index === currentIndex;
 
             return (
-              <div
+              <button
                 key={index}
                 aria-label={`Ir a imagen ${index + 1}`}
                 className={`w-2 h-2 rounded-full cursor-pointer transition-colors duration-300 ${
                   isActive ? "bg-textohover" : "bg-textodesac hover:bg-[#aaa]"
                 }`}
-                role="button"
+                tabIndex={0}
                 onClick={() => setCurrentIndex(index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setCurrentIndex(index);
+                  }
+                }}
               />
             );
           })}

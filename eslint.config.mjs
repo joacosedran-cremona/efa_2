@@ -43,7 +43,7 @@ export default defineConfig([
     "!**/plopfile.js",
     "!**/react-shim.js",
     "!**/tsup.config.ts",
-    "app/error.tsx"
+    "app/error.tsx",
   ]),
   {
     extends: fixupConfigRules(

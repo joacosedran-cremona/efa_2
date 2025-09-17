@@ -58,17 +58,23 @@ const DatosRobotComponent = () => {
     setEquipoSeleccionado(equipoSeleccionado === "Robot" ? null : "Robot");
   };
 
-  const baseCardClasses =
+  const isSelected = equipoSeleccionado === "Robot";
+
+  const baseClasses =
     "w-full bg-background2 p-5 rounded-lg flex flex-col transition-transform transition-shadow duration-300 cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
+  const hoverClasses =
+    "hover:scale-[1.01] hover:shadow-[0px_4px_8px_rgba(255,255,255,0.2)]";
   const selectedClasses =
-    "scale-[1.03] shadow-[0_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c] hover:scale-[1.02]";
+    "scale-[1.03] shadow-[0px_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c]";
+  const selectedHover = "hover:scale-[1.02]";
 
   return (
-    <div
-      className={`${baseCardClasses} ${equipoSeleccionado === "Robot" ? selectedClasses : ""}`}
+    <button
+      className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""} text-left`}
+      type="button"
       onClick={handleClick}
     >
-      <h1 className="text-[16px] font-bold tracking-[1px] m-0">
+      <h1 className="w-full text-[16px] font-bold tracking-[1px] m-0">
         {t("mayus.datosRobot")}
       </h1>
       <div className="flex flex-row justify-between gap-5">
@@ -82,7 +88,7 @@ const DatosRobotComponent = () => {
           </div>
         ))}
       </div>
-    </div>
+    </button>
   );
 };
 
