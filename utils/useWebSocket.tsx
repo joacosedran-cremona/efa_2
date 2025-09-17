@@ -31,7 +31,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
       socketRef.current = socket;
 
       socket.onopen = () => {
-        console.log(`WebSocket connected: ${wsUrl}`);
         setIsConnected(true);
         setError(null);
 
@@ -62,11 +61,8 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
             };
 
             setData(formattedData);
-          } else {
-            console.warn("WebSocket data format unexpected:", rawData);
           }
         } catch (err) {
-          console.error("Error parsing WebSocket message:", err);
           setError(new Error(`Failed to parse WebSocket data: ${err}`));
         }
       };
@@ -81,7 +77,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         socketRef.current = null;
 
         reconnectTimeoutRef.current = setTimeout(() => {
-          console.log("Attempting to reconnect WebSocket...");
           connect();
         }, 3000);
       };
@@ -91,7 +86,6 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         setError(new Error("WebSocket connection error"));
       };
     } catch (err) {
-      console.error("Failed to create WebSocket connection:", err);
       setError(err instanceof Error ? err : new Error(String(err)));
     }
   }, [pollId]);

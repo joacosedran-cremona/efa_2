@@ -66,7 +66,6 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formattedToday;
     const endDate = formattedToday;
 
-    setLoading(true);
     try {
       const response = await fetch(
         `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
@@ -87,8 +86,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
 
       onDataUpdate(data, startDate, endDate);
     } catch (error) {
-    } finally {
-      setLoading(false);
+      console.error("Error fetching data:", error);
     }
   };
 
@@ -102,7 +100,6 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formatDate(dateRange.start) || formattedToday;
     const endDate = formatDate(dateRange.end) || formattedToday;
 
-    setLoading(true);
     try {
       const response = await fetch(
         `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
@@ -123,8 +120,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
 
       onDataUpdate(data, startDate, endDate);
     } catch (error) {
-    } finally {
-      setLoading(false);
+      console.error("Error fetching data:", error);
     }
   };
 

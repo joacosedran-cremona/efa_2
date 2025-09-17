@@ -124,8 +124,7 @@ const equipmentStatusMap = {
 
 const Layout: React.FC = () => {
   const { t } = useTranslation();
-  const { equipoSeleccionado, setEquipoSeleccionado, websocketData } =
-    useContext(AuthContext);
+  const { setEquipoSeleccionado, websocketData } = useContext(AuthContext);
   const [equipmentData, setEquipmentData] = useState<any>(null);
 
   const sections: LayoutSection[] = [

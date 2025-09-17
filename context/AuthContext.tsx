@@ -15,7 +15,6 @@ import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
 interface AuthContextType {
   equipoSeleccionado: string | null;
   setEquipoSeleccionado: (equipo: string | null) => void;
-  streamInitialized: boolean;
   websocketData: {
     data: WebSocketResponse | null;
     isConnected: boolean;
@@ -31,7 +30,6 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType>({
   equipoSeleccionado: null,
   setEquipoSeleccionado: () => {},
-  streamInitialized: false,
   websocketData: {
     data: null,
     isConnected: false,
@@ -47,25 +45,8 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
     "Default",
   );
   const pathname = usePathname();
-  const [streamInitialized, setStreamInitialized] = useState<boolean>(false);
 
   const websocketData = useWebSocketContext();
-
-  useEffect(() => {
-    const initializeStream = async () => {
-      if (!streamInitialized) {
-        try {
-          await fetch("/api/cleanup", { method: "POST" });
-          await fetch("/api/stream");
-          setStreamInitialized(true);
-        } catch (error) {
-          console.error("Error initializing stream:", error);
-        }
-      }
-    };
-
-    initializeStream();
-  }, [streamInitialized, pathname]);
 
   useEffect(() => {
     if (pathname !== "/desmoldeo/equipos") {
@@ -76,7 +57,6 @@ const AuthProviderInner = ({ children }: { children: ReactNode }) => {
   const contextValue: AuthContextType = {
     equipoSeleccionado,
     setEquipoSeleccionado,
-    streamInitialized,
     websocketData,
   };
 

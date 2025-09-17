@@ -56,7 +56,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
       socketRef.current = socket;
 
       socket.onopen = () => {
-        console.log(`WebSocket connected: ${wsUrl}`);
         setIsConnected(true);
         setError(null);
 
@@ -95,14 +94,9 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
               };
 
               setData(formattedData);
-            } else {
-              console.warn("WebSocket data format unexpected:", rawData);
             }
-          } else {
-            console.warn("WebSocket data is not a valid object:", rawData);
           }
         } catch (err) {
-          console.error("Error parsing WebSocket message:", err);
           setError(new Error(`Failed to parse WebSocket data: ${err}`));
         }
       };
@@ -112,23 +106,18 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
           return;
         }
 
-        console.log(`WebSocket disconnected: ${event.code} - ${event.reason}`);
         setIsConnected(false);
         socketRef.current = null;
 
         reconnectTimeoutRef.current = setTimeout(() => {
-          console.log("Attempting to reconnect WebSocket...");
           connect();
         }, 3000);
       };
 
       socket.onerror = (event: Event) => {
-        console.error("WebSocket error:", event);
         setError(new Error("WebSocket connection error"));
       };
-    } catch (err) {
-      console.error("Failed to create WebSocket connection:", err);
-      setError(err instanceof Error ? err : new Error(String(err)));
+    } finally {
     }
   }, [pollId]);
 
