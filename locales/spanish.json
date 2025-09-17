@@ -118,6 +118,7 @@
     "recuperarcontra": "Recuperar contraseña",
     "recordo": "¿Recordó su contraseña? Inicie sesión aquí",
     "reinicio": "Reinicio automático de las cámaras en:",
-    "forzar": "Forzar reinicio"
+    "forzar": "Forzar reinicio",
+    "inactivo": "Inactivo"
   }
 }

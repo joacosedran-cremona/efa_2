@@ -9,7 +9,7 @@ import EstadoDesmoldeo from "./desmoldeo/estadoDesmoldeo";
 import DatosEncajonado from "./encajonado/datosEncajonado";
 import EstadoEncajonado from "./encajonado/estadoEncajonado";
 import DatosPaletizado from "./paletizado/datosPaletizado";
-import EstadoPaletizado from "./paletizado/estadoDesmoldeo";
+import EstadoPaletizado from "./paletizado/estadoPaletizado";
 
 const LayoutCompleto = () => {
   const sections = [
@@ -80,6 +80,7 @@ const LayoutCompleto = () => {
             height: "100%",
             top: 0,
             left: 0,
+            borderRadius: "lg",
           }}
         />
       </div>

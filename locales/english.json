@@ -119,6 +119,7 @@
     "recuperarcontra": "Recover password",
     "recordo": "Did you remember your password? Log in here.",
     "reinicio": "Automatic restart of the cameras in:",
-    "forzar": "Force restart"
+    "forzar": "Force restart",
+    "inactivo": "Inactive"
   }
 }

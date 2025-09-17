@@ -9,6 +9,8 @@ const SubNav = () => {
   const { t } = useTranslation();
   const pathname = usePathname();
 
+  const DESAC_CLASS = "opacity-50 cursor-not-allowed pointer-events-none";
+
   const opcionesBotones = [
     {
       id: 1,
@@ -49,10 +51,10 @@ const SubNav = () => {
               key={id}
               className={`relative py-3 transition-colors ${
                 isActive ? "font-semibold" : "font-normal"
-              } ${styleClass}`}
+              } ${styleClass === "desac" ? DESAC_CLASS : styleClass}`}
             >
               <Link
-                className="flex items-center gap-2 hover:text-gray-900"
+                className="flex items-center gap-2 hover:text-texto2"
                 href={Array.isArray(path) ? path[0] : path}
               >
                 {isActive ? (

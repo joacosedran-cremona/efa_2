@@ -4,6 +4,7 @@ import { useContext } from "react";
 import Link from "next/link";
 
 import AuthContext from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 interface MachineStatus {
   estadoMaquina?: string;
@@ -44,6 +45,7 @@ interface WebSocketData {
 const DatosDesmoldeo = () => {
   const { websocketData } = useContext(AuthContext);
   const data = websocketData?.data as WebSocketData | null;
+  const { t } = useTranslation();
 
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
   const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
@@ -67,7 +69,7 @@ const DatosDesmoldeo = () => {
   const datosTiempoReal = [
     {
       id: 1,
-      nombre: "Nombre receta",
+      nombre: t('min.nombreReceta'),
       dato:
         NombreActual !== undefined && NombreActual !== null
           ? NombreActual
@@ -75,7 +77,7 @@ const DatosDesmoldeo = () => {
     },
     {
       id: 2,
-      nombre: "Peso por fila",
+      nombre: t("min.pesoFila"),
       dato:
         PesoProducto !== undefined && PesoProducto !== null
           ? PesoProducto + " kg"
@@ -83,7 +85,7 @@ const DatosDesmoldeo = () => {
     },
     {
       id: 3,
-      nombre: "Total desmoldado",
+      nombre: t("min.totalDesmoldado"),
       dato:
         PesoActualDesmoldado !== undefined && PesoActualDesmoldado !== null
           ? PesoActualDesmoldado + " kg"

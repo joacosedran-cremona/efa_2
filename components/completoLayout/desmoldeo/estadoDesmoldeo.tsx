@@ -1,8 +1,8 @@
 "use client";
 
 import { useContext } from "react";
-
 import AuthContext from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 interface MachineStatus {
   estadoMaquina?: string;
@@ -43,6 +43,7 @@ interface WebSocketData {
 const DatosEstadoDesmoldeo = () => {
   const { websocketData } = useContext(AuthContext);
   const data = websocketData?.data as WebSocketData | null;
+  const { t } = useTranslation();
 
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
   const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
@@ -59,13 +60,15 @@ const DatosEstadoDesmoldeo = () => {
   return (
     <>
       <div className="h-full w-full">
-        <ul className="w-full h-full flex flex-col p-0 m-0 gap-2 list-none">
+        <ul className="w-full h-full flex flex-col p-0 m-0 gap-2 list-none text-[#d9d9d9]">
           {estadoMaquina === "CICLO ACTIVO" ? (
             <li className="flex flex-col px-[0.8vw] py-[0.4vw] rounded-lg bg-[#581420] max-h-[65px] h-full w-full transition-colors  shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]">
               <div className="w-full h-full">
-                <h1 className="text-[1vw] font-semibold mb-1">Desmoldeo</h1>
+                <h1 className="text-[1vw] font-semibold mb-1">
+                  {t("min.desmoldeo")}
+                </h1>
                 <h3 className="text-[0.9vw] font-semibold text-white">
-                  {String(estadoMaquina).toUpperCase()}
+                  {t("mayus.cicloActivo")}
                 </h3>
                 <h4 className="text-[0.8vw] text-gray-200">
                   {TiempoTrancurrido}
@@ -75,9 +78,11 @@ const DatosEstadoDesmoldeo = () => {
           ) : estadoMaquina === "CICLO PAUSADO" ? (
             <li className="flex flex-col p-[0.4vw_0.8vw] rounded-lg bg-[#8B6B00] max-h-[65px] h-full w-full transition-colors  shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]">
               <div className="w-full h-full">
-                <h1 className="text-[1vw] font-semibold mb-1">Desmoldeo</h1>
+                <h1 className="text-[1vw] font-semibold mb-1">
+                  {t("min.desmoldeo")}
+                </h1>
                 <h3 className="text-[0.9vw] font-semibold text-yellow-100">
-                  {String(estadoMaquina).toUpperCase()}
+                  {t("mayus.cicloPausado")}
                 </h3>
                 <h4 className="text-[0.8vw] text-gray-200">
                   {TiempoTrancurrido}
@@ -87,9 +92,11 @@ const DatosEstadoDesmoldeo = () => {
           ) : (
             <li className="flex flex-col p-[0.4vw_0.8vw] rounded-lg bg-[#5a5a5a] max-h-[65px] h-full w-full transition-colors  shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]">
               <div className="w-full h-full">
-                <h1 className="text-[1vw] font-semibold mb-1">Desmoldeo</h1>
+                <h1 className="text-[1vw] font-semibold mb-1">
+                  {t("min.desmoldeo")}
+                </h1>
                 <h3 className="text-[0.9vw] font-semibold text-gray-300">
-                  {String(estadoMaquina).toUpperCase()}
+                  {t("mayus.cicloInactivo")}
                 </h3>
               </div>
             </li>
