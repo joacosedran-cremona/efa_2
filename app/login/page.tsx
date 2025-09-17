@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
@@ -11,7 +10,6 @@ const Spinner = () => (
 );
 
 const Login = () => {
-  const router = useRouter();
   const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
@@ -36,10 +34,6 @@ const Login = () => {
 
     setTimeout(() => {
       setLoading(false);
-
-      console.log("Login functionality will be implemented later");
-      console.log(`Username: ${username}, Password: ${password}`);
-
       sessionStorage.setItem("username", username);
 
       /*

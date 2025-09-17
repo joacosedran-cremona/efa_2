@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
 import { useTranslation } from "react-i18next";
+
+import { useAuth } from "@/context/AuthContext";
 
 const DatosSDDAComponent = () => {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ const DatosSDDAComponent = () => {
 
   useEffect(() => {
     const sdda = data?.technicalData?.datosSdda;
+
     if (sdda) {
       const updateddatosSdda = [
         {
@@ -47,6 +49,7 @@ const DatosSDDAComponent = () => {
           texto2: " mm",
         },
       ];
+
       setdatosSdda(updateddatosSdda);
     }
   }, [data, t]);

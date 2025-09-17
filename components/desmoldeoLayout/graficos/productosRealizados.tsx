@@ -20,18 +20,21 @@ const useThemeColors = () => {
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
+
     setIsDarkMode(isDark);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "class") {
           const isDark = document.documentElement.classList.contains("dark");
+
           setIsDarkMode(isDark);
         }
       });
     });
 
     observer.observe(document.documentElement, { attributes: true });
+
     return () => observer.disconnect();
   }, []);
 
@@ -94,6 +97,7 @@ const GraficoC = ({
 
   const groupByDay = (cycles: ProductoAPI["ListaDeCiclos"]) => {
     const groups = new Map<number, number>();
+
     cycles.forEach((ciclo) => {
       const date = new Date(ciclo.fecha_fin * 1000);
       const day = new Date(
@@ -101,8 +105,10 @@ const GraficoC = ({
         date.getMonth(),
         date.getDate(),
       ).getTime();
+
       groups.set(day, (groups.get(day) || 0) + ciclo.pesoDesmontado);
     });
+
     return Array.from(groups.entries())
       .map(([x, y]) => ({ x, y }))
       .sort((a, b) => a.x - b.x);
@@ -111,6 +117,7 @@ const GraficoC = ({
   const fetchData = async () => {
     if (!startDate || !endDate) {
       setLoading(false);
+
       return;
     }
     setLoading(true);
@@ -153,6 +160,7 @@ const GraficoC = ({
 
   useEffect(() => {
     const totals = new Map<number, number>();
+
     chartData.datasets.forEach((dataset) => {
       (dataset.data as Point[] | undefined)?.forEach((point) => {
         totals.set(point.x, (totals.get(point.x) || 0) + point.y);
@@ -168,6 +176,7 @@ const GraficoC = ({
       const year = d.getUTCFullYear();
       const month = String(d.getUTCMonth() + 1).padStart(2, "0");
       const day = String(d.getUTCDate()).padStart(2, "0");
+
       return `${year}-${month}-${day}`;
     },
     [],
@@ -188,9 +197,11 @@ const GraficoC = ({
 
   useEffect(() => {
     const canvas = chartRef.current;
+
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
+
     if (!ctx) return;
 
     if (chartInstanceRef.current) {
@@ -259,11 +270,11 @@ const GraficoC = ({
           callbacks: {
             label: (context: any) => {
               const raw = context.raw as Point | undefined;
-              const datasetLabel = context.dataset?.label || "Peso";
               const peso = raw ? parseFloat(String(raw.y)).toFixed(2) : "0.00";
               const date = raw ? formatDate(raw.x) : "";
               const totalStacked = raw ? totalsRef.current.get(raw.x) || 0 : 0;
               const totalStackedTn = (totalStacked / 1000).toFixed(2);
+
               return [
                 `${t("min.peso")}: ${peso} kg`,
                 `${t("min.fecha")}: ${date}`,
@@ -367,6 +378,7 @@ const GraficoC = ({
         </div>
       )}
       <Button
+        className="absolute top-[20px] right-[20px] text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -374,7 +386,6 @@ const GraficoC = ({
           fontSize: "17px",
         }}
         onClick={() => resetZoom()}
-        className="absolute top-[20px] right-[20px] text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
       >
         {t("min.reiniciarZoom")}
       </Button>

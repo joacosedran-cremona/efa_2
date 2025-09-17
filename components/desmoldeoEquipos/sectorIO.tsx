@@ -1,13 +1,11 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-
 import React, { useState, useEffect } from "react";
-
 import { GoDotFill } from "react-icons/go";
 import { TbCircleLetterAFilled, TbCircleLetterBFilled } from "react-icons/tb";
-
 import { useTranslation } from "react-i18next";
+
+import { useAuth } from "@/context/AuthContext";
 
 const SectorIOComponent = () => {
   const { t } = useTranslation();
@@ -33,6 +31,7 @@ const SectorIOComponent = () => {
 
   useEffect(() => {
     const sector = data?.technicalData?.sector_IO;
+
     if (sector) {
       const estadoCiclo = sector.estado_ciclo;
       const bandaDesmoldeo = sector.banda_desmoldeo;
@@ -75,7 +74,7 @@ const SectorIOComponent = () => {
     <div className="w-full bg-background2 rounded-lg p-5">
       <h1 className="font-bold">{t("mayus.sectorIO")}</h1>
       <div className="w-full grid grid-cols-2 gap-5">
-        {sector_IO.map(({ id, texto, dato, icono }) => (
+        {sector_IO.map(({ id, texto, icono }) => (
           <div
             key={id}
             className="w-full p-5 bg-background3 rounded-lg flex items-center justify-between"

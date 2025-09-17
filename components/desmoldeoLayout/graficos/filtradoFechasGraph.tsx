@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { DateRangePicker, DateValue, RangeValue } from "@heroui/react";
+import { useTranslation } from "react-i18next";
+
+import CiclosRealizados from "./ciclosRealizados";
+import ProductosRealizados from "./productosRealizados";
 
 import BotonesDescarga from "@/components/botones/descargaExcelPDF/ExcelPDFGraph";
 import BotonFiltro from "@/components/botones/aplicarFiltro";
-import CiclosRealizados from "./ciclosRealizados";
-import ProductosRealizados from "./productosRealizados";
-import { useTranslation } from "react-i18next";
 
 const FiltradoFechasGraph = () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const FiltradoFechasGraph = () => {
   const formattedToday = today.toISOString().split("T")[0];
 
   const lastMonth = new Date(today);
+
   lastMonth.setMonth(today.getMonth() - 1);
   const formattedLastMonth = lastMonth.toISOString().split("T")[0];
 
@@ -58,10 +60,6 @@ const FiltradoFechasGraph = () => {
             {t("mayus.filtradoFechaGraficos")}
           </h2>
           <DateRangePicker
-            label={t("min.seleccionaPeriodo")}
-            onChange={handleDateChange}
-            firstDayOfWeek="sun"
-            size="sm"
             classNames={{
               base: "w-full",
               inputWrapper: "date-range-wrapper max-w-[calc(100%-2.5rem)]",
@@ -72,6 +70,10 @@ const FiltradoFechasGraph = () => {
               selectorIcon: "text-default-500",
               label: "truncate overflow-hidden text-ellipsis whitespace-nowrap",
             }}
+            firstDayOfWeek="sun"
+            label={t("min.seleccionaPeriodo")}
+            size="sm"
+            onChange={handleDateChange}
           />
           <BotonFiltro onClick={handleButtonClick} />
 

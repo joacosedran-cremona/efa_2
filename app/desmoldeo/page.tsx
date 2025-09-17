@@ -16,7 +16,7 @@ function Desmoldeo() {
           <Productividad />
         </section>
 
-        <section id="section3" className="">
+        <section className="" id="section3">
           <FiltradoFechasGraph />
         </section>
       </div>

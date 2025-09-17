@@ -1,11 +1,12 @@
 "use client";
 
+import type { ChartData, ChartOptions, ChartEvent } from "chart.js";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Chart, registerables } from "chart.js";
 import "chartjs-adapter-date-fns";
 import { Button, Spinner } from "@heroui/react";
 import { useTranslation } from "react-i18next";
-import type { ChartData, ChartOptions, ChartEvent } from "chart.js";
 
 Chart.register(...registerables);
 
@@ -14,18 +15,21 @@ const useThemeColors = () => {
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
+
     setIsDarkMode(isDark);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === "class") {
           const isDark = document.documentElement.classList.contains("dark");
+
           setIsDarkMode(isDark);
         }
       });
     });
 
     observer.observe(document.documentElement, { attributes: true });
+
     return () => observer.disconnect();
   }, []);
 
@@ -67,11 +71,9 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
   const fetchData = async () => {
     if (!startDate || !endDate) {
       setLoading(false);
+
       return;
     }
-    console.log("Fechas recibidas en grafico_ciclos:");
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
     setLoading(true);
 
     const storedUser =
@@ -97,6 +99,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
       }
 
       const datos = await response.json();
+
       setChartData(datos);
     } finally {
       setLoading(false);
@@ -108,6 +111,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
     const year = d.getUTCFullYear();
     const month = String(d.getUTCMonth() + 1).padStart(2, "0");
     const day = String(d.getUTCDate()).padStart(2, "0");
+
     return `${year}-${month}-${day}`;
   };
 
@@ -125,11 +129,13 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
       if (!registeredRef.current) {
         const mod = await import("chartjs-plugin-zoom");
         const zoom = (mod && (mod as any).default) || mod;
+
         Chart.register(...registerables, zoom);
         registeredRef.current = true;
       }
 
       const ctx = chartRef.current?.getContext("2d");
+
       if (!ctx) return;
 
       if (chartInstanceRef.current) {
@@ -171,6 +177,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
             },
             onHover: (event: ChartEvent) => {
               const target = event.native?.target as HTMLElement | undefined;
+
               if (target) target.style.cursor = "pointer";
             },
           },
@@ -204,6 +211,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
                 const datasetLabel = context.dataset.label || "Dato";
                 const value = context.raw.y;
                 const date = formatDate(context.raw.x);
+
                 return [`Fecha: ${date}`, `${datasetLabel}: ${value}`];
               },
               title: () => "",
@@ -329,9 +337,10 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
           <Spinner label={t("min.cargando")} />
         </div>
       ) : (
-        <canvas ref={chartRef} className="w-full max-h-[37vh]"></canvas>
+        <canvas ref={chartRef} className="w-full max-h-[37vh]" />
       )}
       <Button
+        className="text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
         style={{
           display: "flex",
           justifyContent: "center",
@@ -339,7 +348,6 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
           fontSize: "17px",
         }}
         onClick={resetZoom}
-        className="text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
       >
         {t("min.reiniciarZoom")}
       </Button>

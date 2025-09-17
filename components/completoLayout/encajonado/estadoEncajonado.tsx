@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const EstadoEncajonado = () => {
   const { t } = useTranslation();
+
   return (
     <>
       <div className="h-full w-full">

@@ -136,7 +136,7 @@ export default function BotonesDescarga({
         link.parentNode.removeChild(link);
       }
       window.URL.revokeObjectURL(url);
-    } catch (error) {}
+    } catch {}
   };
 
   return (

@@ -37,6 +37,7 @@ const DatosGripperComponent = () => {
           dato: gripperData.NGripperProximo ?? null,
         },
       ];
+
       setdatosGripper(updateddatosGripper);
     }
   }, [data, t]);

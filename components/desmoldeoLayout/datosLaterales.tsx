@@ -34,13 +34,11 @@ const DatosLaterales: React.FC = () => {
 
   const machineStatus = websocketData?.data?.machineStatus;
 
-  const idRecetaActual = machineStatus?.idRecetaActual ?? null;
   const idRecetaProxima = machineStatus?.idRecetaProxima ?? null;
   const CodigoProducto = machineStatus?.CodigoProducto ?? null;
   const TotalNiveles = machineStatus?.TotalNiveles ?? null;
   const TipoMolde = machineStatus?.TipoMolde ?? null;
   const estadoMaquina = machineStatus?.estadoMaquina ?? null;
-  const desmoldeoBanda = machineStatus?.desmoldeoBanda ?? null;
   const PesoProducto = machineStatus?.PesoProducto ?? null;
   const TiempoTranscurrido = machineStatus?.TiempoTranscurrido ?? null;
   const sdda_nivel_actual = machineStatus?.sdda_nivel_actual ?? null;
@@ -233,7 +231,7 @@ const DatosLaterales: React.FC = () => {
           {t("mayus.datosGenerales")}
         </p>
         <ul className="flex flex-col gap-2" lang="es">
-          {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
+          {datosTiempoReal.map(({ id, nombre, dato, icono }) => (
             <Link key={id} className="block" href="/desmoldeo/equipos">
               <li className="flex flex-row items-center justify-between border border-background6 bg-background3 rounded-lg p-[5px]">
                 <div>

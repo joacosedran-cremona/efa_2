@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
 import { useAuth } from "@/context/AuthContext";
 
 const DatosRobotComponent = () => {
@@ -48,6 +49,7 @@ const DatosRobotComponent = () => {
           texto2: " mm",
         },
       ];
+
       setDatosRobot(updatedDatosRobot);
     }
   }, [data, t]);

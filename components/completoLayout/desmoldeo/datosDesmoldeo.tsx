@@ -2,9 +2,9 @@
 
 import { useContext } from "react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import AuthContext from "@/context/AuthContext";
-import { useTranslation } from "react-i18next";
 
 interface MachineStatus {
   estadoMaquina?: string;

@@ -48,7 +48,7 @@ const Completo = () => {
   const { websocketData } = useAuth();
   const { data } = websocketData;
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage] = useState(5);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [items, setItems] = useState<ProcessedAlarma[]>([]);
@@ -101,13 +101,6 @@ const Completo = () => {
   );
 
   const handlePageChange = (newPage: number) => setPage(newPage);
-
-  const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    setRowsPerPage(Number(event.target.value));
-    setPage(1);
-  };
 
   const renderState = (state: string | boolean) => {
     if (state === "Activo" || state === true) {

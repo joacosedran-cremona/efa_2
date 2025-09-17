@@ -1,8 +1,9 @@
 "use client";
 
 import { useContext } from "react";
-import AuthContext from "@/context/AuthContext";
 import { useTranslation } from "react-i18next";
+
+import AuthContext from "@/context/AuthContext";
 
 interface MachineStatus {
   estadoMaquina?: string;

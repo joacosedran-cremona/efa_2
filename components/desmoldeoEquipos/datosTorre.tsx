@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+
 import { useAuth } from "@/context/AuthContext";
 
 const DatosTorreComponent = () => {
@@ -26,6 +27,7 @@ const DatosTorreComponent = () => {
 
   useEffect(() => {
     const torreData = data?.technicalData?.datosTorre;
+
     if (torreData) {
       const updatedDatosTorre = [
         {
@@ -44,6 +46,7 @@ const DatosTorreComponent = () => {
           dato: (torreData.N_torre_proxima ?? null) as number | null,
         },
       ];
+
       setDatosTorre(updatedDatosTorre);
     }
   }, [data, t]);

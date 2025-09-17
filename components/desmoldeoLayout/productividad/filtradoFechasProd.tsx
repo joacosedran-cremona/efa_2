@@ -139,10 +139,6 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       </h2>
       <div className="w-full h-full flex flex-col items-center gap-5 rounded-lg">
         <DateRangePicker
-          label={t("min.seleccionaPeriodo")}
-          onChange={handleDateChange}
-          firstDayOfWeek="sun"
-          size="sm"
           classNames={{
             base: "w-full",
             inputWrapper: "date-range-wrapper max-w-[calc(100%-2.5rem)]",
@@ -153,6 +149,10 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             selectorIcon: "text-default-500",
             label: "truncate overflow-hidden text-ellipsis whitespace-nowrap",
           }}
+          firstDayOfWeek="sun"
+          label={t("min.seleccionaPeriodo")}
+          size="sm"
+          onChange={handleDateChange}
         />
         <AplicarFiltro onClick={handleButtonClick} />
         <ExcelPDF

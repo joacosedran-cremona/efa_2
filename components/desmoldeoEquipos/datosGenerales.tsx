@@ -6,25 +6,18 @@ import { FaWeightHanging } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
 import { FaRegClock } from "react-icons/fa";
 import { TbBowl } from "react-icons/tb";
-
 import React from "react";
 import { useTranslation } from "react-i18next";
+
 import { useAuth } from "@/context/AuthContext";
 
 interface MachineStatus {
-  idRecetaActual?: number;
   idRecetaProxima?: string;
   CodigoProducto?: string;
-  TotalNiveles?: number;
   TipoMolde?: string;
   estadoMaquina?: string;
-  desmoldeoBanda?: string;
-  PesoProducto?: number;
   TiempoTranscurrido?: string;
-  sdda_nivel_actual?: number;
-  NGripperActual?: number;
   PesoActualDesmoldado?: number;
-  TorreActual?: number;
 }
 
 const DatosGenerales = () => {
@@ -35,19 +28,12 @@ const DatosGenerales = () => {
   const machineStatus: MachineStatus = data?.machineStatus || {};
 
   const {
-    idRecetaActual,
     idRecetaProxima,
     CodigoProducto,
-    TotalNiveles,
     TipoMolde,
     estadoMaquina,
-    desmoldeoBanda,
-    PesoProducto,
     TiempoTranscurrido,
-    sdda_nivel_actual,
-    NGripperActual,
     PesoActualDesmoldado,
-    TorreActual,
   } = machineStatus;
 
   const datosGenerales = [
@@ -107,8 +93,8 @@ const DatosGenerales = () => {
                   </h4>
                 </div>
                 <IconComponent
-                  size={40}
                   className="text-texto p-[0.3rem] drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
+                  size={40}
                 />
               </div>
             </li>

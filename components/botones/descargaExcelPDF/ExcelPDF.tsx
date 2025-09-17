@@ -135,9 +135,7 @@ export default function BotonesDescarga({
       }
 
       window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error downloading Excel:", error);
-    }
+    } catch {}
   };
 
   return (
