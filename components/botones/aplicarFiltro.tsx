@@ -14,20 +14,13 @@ const BotonFiltro = ({ onClick, isDisabled }: BotonFiltroProps) => {
 
   return (
     <Button
-      className="bg-background3 hover:bg-background4"
+      className="flex flex-row justify-evenly bg-background3 p-2 w-full hover:bg-background4"
       isDisabled={isDisabled}
       radius="sm"
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontSize: "17px",
-      }}
       variant="bordered"
       onClick={onClick}
     >
-      {t("min.aplicarCambios")}
+      <p className="w-full text-lg">{t("min.aplicarCambios")}</p>
       <FaSearch />
     </Button>
   );

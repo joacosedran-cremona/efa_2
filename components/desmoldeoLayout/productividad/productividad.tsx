@@ -78,7 +78,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -87,14 +87,14 @@ const Productividad = () => {
   const Cant_Dias = Math.ceil(
     (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) /
       (1000 * 3600 * 24) +
-      1,
+      1
   );
 
   const cantidadCiclosF =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0,
+          0
         )
       : t("min.cargando");
 
@@ -107,13 +107,13 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + prod.tiempoTotal,
-          0,
+          0
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number,
+    cantDias: number
   ): string =>
     horasUso !== t("min.cargando")
       ? ((horasUso as number) / 60 / cantDias).toFixed(2)
@@ -159,8 +159,11 @@ const Productividad = () => {
     }) ?? [];
 
   return (
-    <div className="flex flex-row gap-5 w-full" id="ProductividadSection">
-      <div className="w-4/5 flex flex-col bg-background2 rounded-lg p-5 relative">
+    <div
+      className="flex flex-col-reverse md:flex-row gap-5 w-full"
+      id="ProductividadSection"
+    >
+      <div className="w-full md:w-4/5 flex flex-col bg-background2 rounded-lg p-5 relative">
         <h2 className="text-left text-[1vw] font-semibold">
           {t("mayus.productividad")}
         </h2>
@@ -209,7 +212,7 @@ const Productividad = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/5 flex flex-col gap-5 ocultar-en-pdf">
+      <div className="w-full md:w-1/5 flex flex-col gap-5 ocultar-en-pdf">
         <FiltradoFechasProd onDataUpdate={handleDataUpdate} />
       </div>
     </div>

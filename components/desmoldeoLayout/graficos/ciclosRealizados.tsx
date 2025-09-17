@@ -177,25 +177,12 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
           title: {
             align: "start",
             display: true,
-            text: t("mayus.ciclosDia"),
-            color: colors.textColor,
-            font: {
-              size: 20,
-              family: "system-ui",
-            },
-          },
-          subtitle: {
-            align: "start",
-            display: true,
             text: `${formattedStartDate} - ${formattedEndDate}`,
             color: colors.accentColor,
             font: {
               size: 16,
               weight: "normal",
               family: "system-ui",
-            },
-            padding: {
-              top: -10,
             },
           },
           zoom: {
@@ -336,18 +323,16 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
   };
 
   return (
-    <div
-      className="relative bg-background2 p-[20px] h-full w-full rounded-lg"
-      style={{ height: "500px", width: "100%" }}
-    >
-      <canvas
-        ref={chartRef}
-        className="block w-full h-full max-h-screen"
-      ></canvas>
-      {loading && (
-        <div className="absolute inset-0 flex justify-center items-center bg-background2 bg-opacity-75 rounded-lg">
+    <>
+      {loading ? (
+        <div className="w-full h-full flex justify-center items-center bg-background2 rounded-lg">
           <Spinner label={t("min.cargando")} />
         </div>
+      ) : (
+        <canvas
+          ref={chartRef}
+          className="w-full max-h-[37vh]"
+        ></canvas>
       )}
       <Button
         style={{
@@ -357,11 +342,11 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
           fontSize: "17px",
         }}
         onClick={resetZoom}
-        className="absolute top-[20px] right-[20px] text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
+        className="text-texto bg-background3 hover:bg-background4 px-3 rounded-lg"
       >
         {t("min.reiniciarZoom")}
       </Button>
-    </div>
+    </>
   );
 };
 

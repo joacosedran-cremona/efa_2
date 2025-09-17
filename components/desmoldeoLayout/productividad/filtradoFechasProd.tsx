@@ -33,7 +33,7 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ) => void;
 }
 
@@ -76,7 +76,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        },
+        }
       );
 
       if (!response.ok) {
@@ -112,7 +112,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        },
+        }
       );
 
       if (!response.ok) {
@@ -134,13 +134,22 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
 
   return (
     <div className="h-full flex flex-col items-center p-5 gap-5 rounded-lg bg-background2 FiltroPeriodo">
-      <h2 className="text-[1.5rem] font-semibold text-center break-words">
+      <h2 className="text-2xl font-bold text-center break-words w-full">
         {t("mayus.filtradoFechaProductividad")}
       </h2>
-      <div className="h-full flex flex-col items-center gap-5 rounded-lg">
+      <div className="w-full h-full flex flex-col items-center gap-5 rounded-lg">
         <DateRangePicker
           label={t("min.seleccionaPeriodo")}
           onChange={handleDateChange}
+          firstDayOfWeek="sun"
+          classNames={{
+            base: "w-full",
+            inputWrapper: "max-w-full",
+            input: "truncate",
+            segment: "truncate max-w-[3rem]",
+            separator: "mx-0",
+            selectorButton: "ml-0",
+          }}
         />
         <AplicarFiltro onClick={handleButtonClick} />
         <ExcelPDF
