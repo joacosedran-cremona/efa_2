@@ -249,9 +249,7 @@ const GraficoC = ({
           },
           onHover: (event: any) => {
             if (event?.native?.target) {
-              try {
-                (event.native.target as HTMLElement).style.cursor = "pointer";
-              } catch {}
+              (event.native.target as HTMLElement).style.cursor = "pointer";
             }
           },
         },

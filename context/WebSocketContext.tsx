@@ -101,7 +101,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         }
       };
 
-      socket.onclose = (event: CloseEvent) => {
+      socket.onclose = () => {
         if (socketRef.current !== socket) {
           return;
         }
@@ -114,7 +114,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         }, 3000);
       };
 
-      socket.onerror = (event: Event) => {
+      socket.onerror = () => {
         setError(new Error("WebSocket connection error"));
       };
     } finally {

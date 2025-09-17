@@ -67,12 +67,10 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         }
       };
 
-      socket.onclose = (event: CloseEvent) => {
+      socket.onclose = () => {
         if (socketRef.current !== socket) {
           return;
         }
-
-        console.log(`WebSocket disconnected: ${event.code} - ${event.reason}`);
         setIsConnected(false);
         socketRef.current = null;
 
@@ -81,8 +79,7 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
         }, 3000);
       };
 
-      socket.onerror = (event: Event) => {
-        console.error("WebSocket error:", event);
+      socket.onerror = () => {
         setError(new Error("WebSocket connection error"));
       };
     } catch (err) {

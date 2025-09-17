@@ -49,7 +49,6 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     start: formattedToday,
     end: formattedToday,
   });
-  const [loading, setLoading] = useState(false);
 
   const formatDate = (date: DateObject | null | string): string | null => {
     if (!date) return null;
@@ -66,28 +65,24 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formattedToday;
     const endDate = formattedToday;
 
-    try {
-      const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
+    const response = await fetch(
+      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
         },
-      );
+      },
+    );
 
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      onDataUpdate(data, startDate, endDate);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
     }
+
+    const data = await response.json();
+
+    onDataUpdate(data, startDate, endDate);
   };
 
   const handleDateChange = (value: RangeValueType<DateValue> | null) => {
@@ -100,28 +95,24 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formatDate(dateRange.start) || formattedToday;
     const endDate = formatDate(dateRange.end) || formattedToday;
 
-    try {
-      const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
+    const response = await fetch(
+      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
         },
-      );
+      },
+    );
 
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      onDataUpdate(data, startDate, endDate);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
     }
+
+    const data = await response.json();
+
+    onDataUpdate(data, startDate, endDate);
   };
 
   useEffect(() => {

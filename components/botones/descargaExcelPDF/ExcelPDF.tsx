@@ -101,41 +101,39 @@ export default function BotonesDescarga({
   };
 
   const handleExcelDownload = async () => {
-    try {
-      const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
+    const response = await fetch(
+      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
         },
-      );
+      },
+    );
 
-      if (!response.ok) {
-        throw new Error(`Error en la descarga: ${response.statusText}`);
-      }
+    if (!response.ok) {
+      throw new Error(`Error en la descarga: ${response.statusText}`);
+    }
 
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
+    const link = document.createElement("a");
 
-      link.href = url;
-      link.setAttribute(
-        "download",
-        `Productividad_${startDate}_to_${endDate}.xlsx`,
-      );
-      document.body.appendChild(link);
-      link.click();
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `Productividad_${startDate}_to_${endDate}.xlsx`,
+    );
+    document.body.appendChild(link);
+    link.click();
 
-      if (link.parentNode) {
-        link.parentNode.removeChild(link);
-      }
+    if (link.parentNode) {
+      link.parentNode.removeChild(link);
+    }
 
-      window.URL.revokeObjectURL(url);
-    } catch {}
+    window.URL.revokeObjectURL(url);
   };
 
   return (
