@@ -1,3 +1,16 @@
 @import "tailwindcss";
 
 @config "../tailwind.config.js";
+
+.date-segment-truncate {
+  max-width: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.date-range-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}

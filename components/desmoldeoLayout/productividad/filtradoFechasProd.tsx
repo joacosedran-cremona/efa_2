@@ -142,13 +142,16 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
           label={t("min.seleccionaPeriodo")}
           onChange={handleDateChange}
           firstDayOfWeek="sun"
+          size="sm"
           classNames={{
             base: "w-full",
-            inputWrapper: "max-w-full",
-            input: "truncate",
-            segment: "truncate max-w-[3rem]",
-            separator: "mx-0",
-            selectorButton: "ml-0",
+            inputWrapper: "date-range-wrapper max-w-[calc(100%-2.5rem)]",
+            input: "overflow-hidden",
+            segment: "date-segment-truncate",
+            separator: "mx-0 flex-shrink-0",
+            selectorButton: "ml-0 flex-shrink-0 min-w-[2rem] !px-0",
+            selectorIcon: "text-default-500",
+            label: "truncate overflow-hidden text-ellipsis whitespace-nowrap",
           }}
         />
         <AplicarFiltro onClick={handleButtonClick} />
