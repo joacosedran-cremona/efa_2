@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import Image from "next/image";
 import { BiReceipt } from "react-icons/bi";
 import { PiChefHat } from "react-icons/pi";
 import { BiCabinet } from "react-icons/bi";
@@ -233,34 +232,20 @@ const DatosLaterales: React.FC = () => {
         <p className="font-semibold block text-center">
           {t("mayus.datosGenerales")}
         </p>
-        <ul className="list-none p-0 m-0 flex flex-col gap-2" lang="es">
+        <ul className="flex flex-col gap-2" lang="es">
           {datosTiempoReal.map(({ id, nombre, dato, icono, isReactIcon }) => (
             <Link key={id} className="block" href="/desmoldeo/equipos">
-              <li className="flex items-start justify-between py-[10px] px-[15px] gap-2 border-2 border-background4 rounded-lg bg-background3 min-h-[55px] max-h-[5vh]">
-                <div className="w-[90%] flex flex-col no-underline">
-                  <h3 className="text-base p-0 m-0 font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
-                    {nombre}
-                  </h3>
-                  <h4 className="text-[15px] p-0 m-0 overflow-hidden text-ellipsis whitespace-nowrap">
+              <li className="flex flex-row items-center justify-between border border-background6 bg-background3 rounded-lg p-[5px]">
+                <div>
+                  <h3 className="text-md font-bold">{nombre}</h3>
+                  <h4 className="text-sm">
                     {nombre === t("min.pesoFila") ||
                     nombre === t("min.pesoDesmoldado")
                       ? `${dato} kg`
                       : dato}
                   </h4>
                 </div>
-                <div className="w-[10%] flex items-start justify-center">
-                  {isReactIcon ? (
-                    <div className="text-2xl flex-shrink-0 mt-[3px]">
-                      {React.createElement(icono)}
-                    </div>
-                  ) : (
-                    <Image
-                      alt={`Estado: ${id}`}
-                      className="max-w-[25px] max-h-[25px] flex-shrink-0 mt-[3px]"
-                      src={icono}
-                    />
-                  )}
-                </div>
+                {React.createElement(icono, { size: 24 })}
               </li>
             </Link>
           ))}
