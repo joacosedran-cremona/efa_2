@@ -150,7 +150,8 @@ export default function BotonesDescarga({
         width: "100%",
       }}
     >
-      <Button className="bg-[#f3126020] border border-[#F31260] text-[#F31260] flex justify-center items-center text-[1rem] w-full h-[3rem]"
+      <Button
+        className="bg-[#f3126020] border border-[#F31260] text-[#F31260] flex justify-center items-center text-[1rem] w-full h-[3rem]"
         onClick={handlePdfDownload}
       >
         <FaFilePdf style={{ marginRight: "8px" }} />

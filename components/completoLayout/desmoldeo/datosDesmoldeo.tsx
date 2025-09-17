@@ -69,7 +69,7 @@ const DatosDesmoldeo = () => {
   const datosTiempoReal = [
     {
       id: 1,
-      nombre: t('min.nombreReceta'),
+      nombre: t("min.nombreReceta"),
       dato:
         NombreActual !== undefined && NombreActual !== null
           ? NombreActual

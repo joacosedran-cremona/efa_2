@@ -22,8 +22,7 @@ export default function LayoutClient({
     pathname === "/desmoldeo" ||
     pathname.startsWith("/desmoldeo/");
 
-  const isDesmoldeoPage =
-    pathname === "/desmoldeo";
+  const isDesmoldeoPage = pathname === "/desmoldeo";
 
   return (
     <div className="flex flex-col flex-grow min-h-screen">

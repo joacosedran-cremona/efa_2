@@ -85,8 +85,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
               rawData.alarms
             ) {
               setData(rawData as WebSocketResponse);
-            }
-            else if (Array.isArray(rawData) && rawData.length >= 5) {
+            } else if (Array.isArray(rawData) && rawData.length >= 5) {
               const formattedData: WebSocketResponse = {
                 machineStatus: rawData[0] as MachineStatus,
                 processData: rawData[1] as ProcessData,

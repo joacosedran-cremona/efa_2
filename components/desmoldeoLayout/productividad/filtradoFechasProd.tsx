@@ -33,7 +33,7 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) => void;
 }
 
@@ -76,7 +76,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -112,7 +112,7 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {

@@ -44,7 +44,7 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProviderInner = ({ children }: { children: ReactNode }) => {
   const [equipoSeleccionado, setEquipoSeleccionado] = useState<string | null>(
-    "Default"
+    "Default",
   );
   const pathname = usePathname();
   const [streamInitialized, setStreamInitialized] = useState<boolean>(false);

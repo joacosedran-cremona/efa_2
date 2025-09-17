@@ -89,7 +89,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -329,10 +329,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
           <Spinner label={t("min.cargando")} />
         </div>
       ) : (
-        <canvas
-          ref={chartRef}
-          className="w-full max-h-[37vh]"
-        ></canvas>
+        <canvas ref={chartRef} className="w-full max-h-[37vh]"></canvas>
       )}
       <Button
         style={{

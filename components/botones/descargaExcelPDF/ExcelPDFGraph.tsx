@@ -73,7 +73,7 @@ export default function BotonesDescarga({
         pdfWidth,
         pdfHeight,
         undefined,
-        "FAST"
+        "FAST",
       );
 
       const logoWidth = 40;
@@ -113,7 +113,7 @@ export default function BotonesDescarga({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -128,7 +128,7 @@ export default function BotonesDescarga({
       link.href = url;
       link.setAttribute(
         "download",
-        `productividad_${startDate}_to_${endDate}.xlsx`
+        `productividad_${startDate}_to_${endDate}.xlsx`,
       );
       document.body.appendChild(link);
       link.click();

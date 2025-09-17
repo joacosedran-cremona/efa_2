@@ -46,7 +46,7 @@ const DatosGripperComponent = () => {
       equipoSeleccionado === "Gripper" ||
         equipoSeleccionado === "Estación de grippers"
         ? null
-        : "Gripper"
+        : "Gripper",
     );
   };
 

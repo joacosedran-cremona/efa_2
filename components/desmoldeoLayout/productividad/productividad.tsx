@@ -78,7 +78,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -87,14 +87,14 @@ const Productividad = () => {
   const Cant_Dias = Math.ceil(
     (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) /
       (1000 * 3600 * 24) +
-      1
+      1,
   );
 
   const cantidadCiclosF =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -107,13 +107,13 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + prod.tiempoTotal,
-          0
+          0,
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number
+    cantDias: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? ((horasUso as number) / 60 / cantDias).toFixed(2)

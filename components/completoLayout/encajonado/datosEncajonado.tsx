@@ -8,15 +8,15 @@ const DatosEncajonado = () => {
   const datosTiempoReal = [
     {
       id: 1,
-      nombre: `${t('min.encajonado')} - N°1`,
+      nombre: `${t("min.encajonado")} - N°1`,
     },
     {
       id: 2,
-      nombre: `${t('min.encajonado')} - N°2`,
+      nombre: `${t("min.encajonado")} - N°2`,
     },
     {
       id: 3,
-      nombre: `${t('min.encajonado')} - N°3`,
+      nombre: `${t("min.encajonado")} - N°3`,
     },
   ];
 
