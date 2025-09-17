@@ -242,8 +242,8 @@ const Layout: React.FC = () => {
               style={section.style}
             >
               <span
-                className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-lg 
-                text-xs opacity-0 transition-opacity whitespace-nowrap overflow-hidden text-ellipsis 
+                className="absolute -top-5 left-1/2 -translate-x-1/2 bg-background p-2 rounded-lg 
+                text-md opacity-0 transition-opacity whitespace-nowrap
                 group-hover:opacity-100"
               >
                 {t(section.translationKey)}
@@ -252,7 +252,7 @@ const Layout: React.FC = () => {
               {status && (
                 <div
                   className={`absolute -bottom-6 left-1/2 -translate-x-1/2 ${status.statusClass} 
-                  p-1 rounded text-[10px] text-white whitespace-nowrap opacity-0 group-hover:opacity-100`}
+                  p-2 rounded text-md text-[#FFF] whitespace-nowrap opacity-0 group-hover:opacity-100`}
                 >
                   {status.statusText}
                 </div>
