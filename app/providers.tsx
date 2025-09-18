@@ -8,7 +8,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { HeroUIProvider } from "@heroui/system";
 import { I18nextProvider } from "react-i18next";
 
-import { AuthProvider } from "../context/AuthContext";
+import { AppProvider } from "../context/AppContext";
 
 import { i18n } from "@/i18n";
 
@@ -32,7 +32,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <HeroUIProvider navigate={router.push}>
       <NextThemesProvider {...themeProps}>
         <I18nextProvider i18n={i18n}>
-          <AuthProvider>{children}</AuthProvider>
+          <AppProvider>{children}</AppProvider>
         </I18nextProvider>
       </NextThemesProvider>
     </HeroUIProvider>

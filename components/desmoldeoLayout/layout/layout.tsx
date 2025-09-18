@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import EstadosLayout from "./estadosLayout";
 
-import AuthContext from "@/context/AuthContext";
+import AppContext from "@/context/AppContext";
 import LayoutIMG from "@/public/layout/LAYOUT.png";
 
 interface SectionStyle {
@@ -124,7 +124,7 @@ const equipmentStatusMap = {
 
 const Layout: React.FC = () => {
   const { t } = useTranslation();
-  const { setEquipoSeleccionado, websocketData } = useContext(AuthContext);
+  const { setEquipoSeleccionado, websocketData } = useContext(AppContext);
   const [equipmentData, setEquipmentData] = useState<any>(null);
 
   const sections: LayoutSection[] = [

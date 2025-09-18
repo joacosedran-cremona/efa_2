@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 export default function MachineMonitor() {
-  const { websocketData } = useAuth();
+  const { websocketData } = useApp();
   const { data, isConnected, error, reconnect } = websocketData;
   const [showRawData, setShowRawData] = useState(true);
 

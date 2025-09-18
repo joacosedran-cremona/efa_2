@@ -31,7 +31,8 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   }, []);
 
   const handleLogout = () => {
-    router.push("/login");
+    // No longer handles actual logout logic since authentication was removed
+    router.push("/");
   };
 
   return (
@@ -62,7 +63,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
           </div>
         </div>
 
-        {/* Botón de cerrar sesión - Updated styles */}
+        {/* Botón de acción - ahora solo redirige a la página principal */}
         <div className="bg-cerrarsesion rounded-b-lg text-[#FFF]">
           <button
             className="w-[100%] text-left px-[10px] py-[8px] text-sm font-semibold
@@ -72,7 +73,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
                                  cursor-pointer"
             onClick={handleLogout}
           >
-            <span>{t("min.cerrarSesion")}</span>
+            <span>Página Principal</span>
           </button>
         </div>
       </div>

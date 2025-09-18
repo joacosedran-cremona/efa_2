@@ -12,7 +12,7 @@ import { FaWeightHanging } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
 import { MdPrecisionManufacturing } from "react-icons/md";
 
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 interface NavOption {
   id: number;
@@ -30,7 +30,7 @@ interface DatoTiempoReal {
 const DatosLaterales: React.FC = () => {
   const { t } = useTranslation();
 
-  const { websocketData } = useAuth();
+  const { websocketData } = useApp();
 
   const machineStatus = websocketData?.data?.machineStatus;
 

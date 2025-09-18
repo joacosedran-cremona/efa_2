@@ -5,11 +5,11 @@ import { GoDotFill } from "react-icons/go";
 import { TbCircleLetterAFilled, TbCircleLetterBFilled } from "react-icons/tb";
 import { useTranslation } from "react-i18next";
 
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 const SectorIOComponent = () => {
   const { t } = useTranslation();
-  const { websocketData } = useAuth();
+  const { websocketData } = useApp();
   const data = websocketData?.data ?? null;
 
   const initialSectorIO = [

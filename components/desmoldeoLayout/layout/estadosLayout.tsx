@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { GoDotFill } from "react-icons/go";
 
-import AuthContext from "@/context/AuthContext";
+import AppContext from "@/context/AppContext";
 
 interface MachineStatusData {
   estadoMaquina?: string;
@@ -13,7 +13,7 @@ interface MachineStatusData {
 const EstadosLayout: React.FC = () => {
   const { t } = useTranslation();
 
-  const { websocketData } = useContext(AuthContext);
+  const { websocketData } = useContext(AppContext);
 
   const machineStatus: MachineStatusData = {
     estadoMaquina:

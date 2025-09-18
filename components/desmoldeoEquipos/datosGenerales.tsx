@@ -9,7 +9,7 @@ import { TbBowl } from "react-icons/tb";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 interface MachineStatus {
   idRecetaProxima?: string;
@@ -22,7 +22,7 @@ interface MachineStatus {
 
 const DatosGenerales = () => {
   const { t } = useTranslation();
-  const { websocketData } = useAuth();
+  const { websocketData } = useApp();
   const data = websocketData.data;
 
   const machineStatus: MachineStatus = data?.machineStatus || {};

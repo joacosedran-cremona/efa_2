@@ -3,11 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 const DatosGripperComponent = () => {
-  const { equipoSeleccionado, setEquipoSeleccionado, websocketData } =
-    useAuth();
+  const { equipoSeleccionado, setEquipoSeleccionado, websocketData } = useApp();
   const { t } = useTranslation();
 
   const data = websocketData?.data ?? null;

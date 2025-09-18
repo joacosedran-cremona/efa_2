@@ -17,7 +17,7 @@ import { GoDotFill } from "react-icons/go";
 import { useTranslation } from "react-i18next";
 
 import LayoutCompleto from "@/components/completoLayout/completo";
-import { useAuth } from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
 interface Alarma {
   id_alarma: number;
@@ -45,7 +45,7 @@ interface Column {
 
 const Completo = () => {
   const { t } = useTranslation();
-  const { websocketData } = useAuth();
+  const { websocketData } = useApp();
   const { data } = websocketData;
   const [page, setPage] = useState(1);
   const [rowsPerPage] = useState(5);

@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import Image, { type StaticImageData } from "next/image";
 import { useTranslation } from "react-i18next";
 
-import AuthContext from "@/context/AuthContext";
+import AppContext from "@/context/AppContext";
 import ImgCeldaGeneral1 from "@/public/equipos/CELDAGENERAL.png";
 import ImgGripper1 from "@/public/equipos/Equipo_Gripper1.png";
 import ImgGripper2 from "@/public/equipos/Equipo_Gripper2.png";
@@ -61,7 +61,7 @@ const imageSets: Record<string, ImageItem[]> = {
 
 const EquiposImg = () => {
   const { t } = useTranslation();
-  const { equipoSeleccionado } = useContext(AuthContext);
+  const { equipoSeleccionado } = useContext(AppContext);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {

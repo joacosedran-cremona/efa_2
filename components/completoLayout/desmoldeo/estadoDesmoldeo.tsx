@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
-import AuthContext from "@/context/AuthContext";
+import AppContext from "@/context/AppContext";
 
 interface MachineStatus {
   estadoMaquina?: string;
@@ -42,7 +42,7 @@ interface WebSocketData {
 }
 
 const DatosEstadoDesmoldeo = () => {
-  const { websocketData } = useContext(AuthContext);
+  const { websocketData } = useContext(AppContext);
   const data = websocketData?.data as WebSocketData | null;
   const { t } = useTranslation();
 

@@ -1,34 +1,7 @@
-import type { NextRequest } from "next/server";
-
 import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get("token");
-  const pathname = request.nextUrl.pathname;
-
-  // Permitir acceso a archivos estáticos como imágenes
-  if (
-    pathname.startsWith("/logo/") ||
-    pathname.includes(".png") ||
-    pathname.includes(".svg") ||
-    pathname.includes(".jpg")
-  ) {
-    return NextResponse.next();
-  }
-
-  const isPublicRoute =
-    pathname === "/login" ||
-    pathname.startsWith("/login/recuperacion") ||
-    pathname === "/signup";
-
-  if (!token && !isPublicRoute) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (token && isPublicRoute) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
+export function middleware() {
+  // Allow all requests to pass through without authentication checks
   return NextResponse.next();
 }
 
