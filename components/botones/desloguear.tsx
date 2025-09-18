@@ -5,6 +5,8 @@ import { VscAccount } from "react-icons/vsc";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 
+import { useApp } from "@/context/AppContext";
+
 interface DesloguearProps {
   _username?: string;
 }
@@ -13,9 +15,18 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const { logout } = useApp();
   const router = useRouter();
 
+  // Get username from session storage if available
+  const [username, setUsername] = useState(_username);
+
   useEffect(() => {
+    const storedUsername = sessionStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -31,8 +42,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   }, []);
 
   const handleLogout = () => {
-    // No longer handles actual logout logic since authentication was removed
-    router.push("/");
+    logout(); // Use the logout function from AppContext
   };
 
   return (
@@ -57,13 +67,13 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
         <div className="px-[10px] py-[14px] border-b border-gray-200">
           <div className="flex items-center">
             <div className="ml-3">
-              <p className="text-sm font-medium ">Creminox</p>
-              <p className="text-xs text-gray-600">{t("deslogueo.estado")}</p>
+              <p className="text-sm font-medium ">{username}</p>
+              <p className="text-xs text-gray-600">{t("min.estadosesion")}</p>
             </div>
           </div>
         </div>
 
-        {/* Botón de acción - ahora solo redirige a la página principal */}
+        {/* Botón de cerrar sesión */}
         <div className="bg-cerrarsesion rounded-b-lg text-[#FFF]">
           <button
             className="w-[100%] text-left px-[10px] py-[8px] text-sm font-semibold
@@ -73,7 +83,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
                                  cursor-pointer"
             onClick={handleLogout}
           >
-            <span>Página Principal</span>
+            <span>{t("min.cerrarSesion")}</span>
           </button>
         </div>
       </div>

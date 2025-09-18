@@ -1,21 +1,82 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 
 import LogoBase64 from "@/components/LogoBase64";
-//import AuthContext from "@/context/AuthContext";
+import { useApp } from "@/context/AppContext";
 
-{
-  /*const Spinner = () => (
+const Spinner = () => (
   <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin" />
-);*/
-}
+);
 
 const Login = () => {
   const { t } = useTranslation();
-  //const router = useRouter();
+  const router = useRouter();
+  const { login } = useApp();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const storedUsername = sessionStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      await login(username, password);
+      sessionStorage.setItem("username", username);
+      sessionStorage.setItem("acceso", "true");
+      router.push("/");
+    } catch (error: any) {
+      console.error("Error completo:", error);
+
+      if (error.message === "Credenciales inválidas") {
+        toast.error(t("min.credencialesInvalidas"), {
+          position: "bottom-center",
+        });
+      } else if (error.response) {
+        // Error con respuesta del servidor
+        console.error("Respuesta del servidor:", error.response.data);
+        console.error("Código de estado:", error.response.status);
+        toast.error(
+          `Error ${error.response.status}: ${JSON.stringify(error.response.data)}`,
+          {
+            position: "bottom-center",
+          }
+        );
+      } else if (error.request) {
+        // No se recibió respuesta
+        console.error("No se recibió respuesta:", error.request);
+        toast.error(
+          t("min.errorCredenciales") + " (Sin respuesta del servidor)",
+          {
+            position: "bottom-center",
+          }
+        );
+      } else {
+        // Error en la configuración de la solicitud
+        console.error("Error de configuración:", error.message);
+        toast.error(t("min.errorCredenciales"), {
+          position: "bottom-center",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section className="flex h-full w-full items-center justify-center">
@@ -25,7 +86,7 @@ const Login = () => {
 
         <form
           className="flex flex-col w-[100%] justify-between h-[60%] gap-[10px]"
-          //onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-[5px] h-1/3">
             <label className="flex font-semibold text-[17px] tracking-[0.5px]">
@@ -34,8 +95,8 @@ const Login = () => {
             <input
               className="bg-background2 p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="text"
-              //value={username}
-              //onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -46,19 +107,19 @@ const Login = () => {
             <input
               className="bg-background2 p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="password"
-              //value={password}
-              //onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          {/*{message && <div className="text-red-500 text-sm">{message}</div>}*/}
+          {message && <div className="text-red-500 text-sm">{message}</div>}
 
           <button
             className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/5 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
-            //disabled={loading}
+            disabled={loading}
             type="submit"
           >
-            {/*{loading ? <Spinner /> : t("min.acceder")}*/}
+            {loading ? <Spinner /> : t("min.acceder")}
           </button>
         </form>
 
