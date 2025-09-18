@@ -76,11 +76,13 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
     }
     setLoading(true);
 
-    const storedUser =
-      typeof window !== "undefined"
-        ? sessionStorage.getItem("user_data")
-        : null;
-    const token = storedUser ? JSON.parse(storedUser).access_token : null;
+    let token = null;
+
+    if (typeof window !== "undefined") {
+      const storedUser = sessionStorage.getItem("user_data");
+
+      token = storedUser ? JSON.parse(storedUser).access_token : null;
+    }
 
     try {
       const response = await fetch(

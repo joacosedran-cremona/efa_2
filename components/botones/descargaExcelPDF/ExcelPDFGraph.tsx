@@ -38,12 +38,12 @@ export default function BotonesDescarga({
       const canvasProduct = await html2canvas(graphSection, {
         scale: 3,
         ignoreElements: (element) => {
-          return (
+          return !!(
             element.classList &&
             (element.classList.contains("FiltroPeriodoGraficos") ||
               (element.tagName === "BUTTON" &&
-                (element.textContent.includes("Reiniciar zoom") ||
-                  element.textContent.includes("Reset zoom"))))
+                (element.textContent?.includes("Reiniciar zoom") ||
+                  element.textContent?.includes("Reset zoom"))))
           );
         },
       });

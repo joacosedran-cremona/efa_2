@@ -4,6 +4,7 @@ import { Metadata, Viewport } from "next";
 import { Providers } from "./providers";
 import LayoutClient from "./layout-client";
 
+import { AuthProvider } from "@/context/AuthContext";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 
@@ -37,7 +38,9 @@ export default function RootLayout({
         className={`min-h-screen text-foreground bg-background font-sans antialiased text-texto ${fontSans.variable}`}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <LayoutClient>{children}</LayoutClient>
+          <AuthProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </AuthProvider>
         </Providers>
       </body>
     </html>

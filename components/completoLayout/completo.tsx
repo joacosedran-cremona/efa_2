@@ -70,7 +70,7 @@ const LayoutCompleto = () => {
         <Image
           priority
           alt="Layout"
-          className="object-contain"
+          className="object-contain rounded-lg"
           height={1080}
           sizes="83vh"
           src="/Layout/layoutcompleto.png"
@@ -79,7 +79,6 @@ const LayoutCompleto = () => {
             height: "100%",
             top: 0,
             left: 0,
-            borderRadius: "lg",
           }}
           width={1920}
         />

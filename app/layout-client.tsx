@@ -30,7 +30,9 @@ export default function LayoutClient({
         {!hideHeaderFooter && <Header />}
         {!hideHeaderFooter && showHeader2 && <Header2 />}
       </div>
-      <main className={`flex-grow ${isDesmoldeoPage ? "pl-[270px]" : ""}`}>
+      <main
+        className={`flex-grow ${isDesmoldeoPage ? "pl-[270px]" : ""} ${pathname === "/login" || pathname === "/login/recuperacion" ? "flex justify-center items-center" : ""}`}
+      >
         {children}
       </main>
       <div className={isDesmoldeoPage ? "pl-[270px]" : ""}>

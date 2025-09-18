@@ -86,6 +86,7 @@ npm install html2canvas jspdf
 npm install --save-dev @types/js-cookie
 npm install --save-dev @types/axios
 npm install --save-dev @next/eslint-plugin-next
+npm install sonner
 ```
 
 ## Graficos

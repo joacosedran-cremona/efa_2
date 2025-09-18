@@ -39,8 +39,14 @@ interface FiltradoFechasProdProps {
 
 const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
   const { t } = useTranslation();
-  const storedUser = sessionStorage.getItem("user_data");
-  const token = storedUser ? JSON.parse(storedUser).access_token : null;
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUser = sessionStorage.getItem("user_data");
+    const userToken = storedUser ? JSON.parse(storedUser).access_token : null;
+
+    setToken(userToken);
+  }, []);
 
   const today = new Date();
   const formattedToday = today.toISOString().split("T")[0];
@@ -65,12 +71,16 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formattedToday;
     const endDate = formattedToday;
 
+    if (!token && typeof window === "undefined") {
+      return;
+    }
+
     const response = await fetch(
       `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token ? `Bearer ${token}` : "",
           Accept: "application/json",
         },
       },
@@ -95,6 +105,10 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
     const startDate = formatDate(dateRange.start) || formattedToday;
     const endDate = formatDate(dateRange.end) || formattedToday;
 
+    if (!token) {
+      return;
+    }
+
     const response = await fetch(
       `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
       {
@@ -116,8 +130,10 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
   };
 
   useEffect(() => {
-    fetchInitialData();
-  }, []);
+    if (typeof window !== "undefined") {
+      fetchInitialData();
+    }
+  }, [token]);
 
   return (
     <div className="h-full flex flex-col items-center p-5 gap-5 rounded-lg bg-background2 FiltroPeriodo">

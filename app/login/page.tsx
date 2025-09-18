@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { Toaster, toast } from "sonner";
+
+import AuthContext from "@/context/AuthContext";
 
 const Spinner = () => (
   <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin" />
@@ -11,6 +15,8 @@ const Spinner = () => (
 
 const Login = () => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const { login } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -32,42 +38,36 @@ const Login = () => {
     setLoading(true);
     setMessage("");
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      await login(username, password);
       sessionStorage.setItem("username", username);
-
-      /*
-      try {
-        await login(username, password);
-        sessionStorage.setItem("username", username);
-        sessionStorage.setItem("acceso", "true");
-        router.push("/");
-      } catch (error: any) {
-        if (error.message === "Credenciales inválidas") {
-          toast.error(t("min.credencialesInvalidas"), {
-            position: "bottom-center",
-          });
-        } else {
-          toast.error(t("min.errorCredenciales"), {
-            position: "bottom-center",
-          });
-        }
-      } finally {
-        setLoading(false);
+      sessionStorage.setItem("acceso", "true");
+      router.push("/");
+    } catch (error: any) {
+      if (error.message === "Credenciales inválidas") {
+        toast.error(t("min.credencialesInvalidas"), {
+          position: "bottom-center",
+        });
+      } else {
+        toast.error(t("min.errorCredenciales"), {
+          position: "bottom-center",
+        });
       }
-      */
-    }, 1000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <section className="flex h-full w-full items-center justify-center">
-      {/* <Toaster position="bottom-center" richColors={true} /> */}
+      <Toaster position="bottom-center" richColors={true} />
       <div className="w-auto h-[60vh] gap-[15px] flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-[1920px]  bg-black rounded-lg">
         <Image
+          priority
           alt="Creminox"
           className="flex w-[65%] p-[0px] h-auto"
           height={2000}
-          src="/logo/creminox.png"
+          src="/logo/creminox.svg"
           width={2000}
         />
 
@@ -80,7 +80,7 @@ const Login = () => {
               {t("min.usuario")}
             </label>
             <input
-              className="bg-grey p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
+              className="bg-background2 p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -92,7 +92,7 @@ const Login = () => {
               {t("min.contra")}
             </label>
             <input
-              className="bg-[#1f1f1f] p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
+              className="bg-background2 p-[4px] rounded-lg w-[100%] h-[60%] flex items-center justify-center border-none px-[1rem]"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

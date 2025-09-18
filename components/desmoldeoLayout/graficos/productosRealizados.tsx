@@ -121,8 +121,13 @@ const GraficoC = ({
       return;
     }
     setLoading(true);
-    const storedUser = sessionStorage.getItem("user_data");
-    const token = storedUser ? JSON.parse(storedUser).access_token : null;
+    let token = null;
+
+    if (typeof window !== "undefined") {
+      const storedUser = sessionStorage.getItem("user_data");
+
+      token = storedUser ? JSON.parse(storedUser).access_token : null;
+    }
 
     try {
       const response = await fetch(
