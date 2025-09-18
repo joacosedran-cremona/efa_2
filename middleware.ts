@@ -6,6 +6,16 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
   const pathname = request.nextUrl.pathname;
 
+  // Permitir acceso a archivos estáticos como imágenes
+  if (
+    pathname.startsWith("/logo/") ||
+    pathname.includes(".png") ||
+    pathname.includes(".svg") ||
+    pathname.includes(".jpg")
+  ) {
+    return NextResponse.next();
+  }
+
   const isPublicRoute =
     pathname === "/login" ||
     pathname.startsWith("/login/recuperacion") ||
@@ -23,5 +33,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|favicon.ico|api).*)"],
+  matcher: ["/((?!_next/static|favicon.ico|api|logo).*)"],
 };

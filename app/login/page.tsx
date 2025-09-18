@@ -3,10 +3,10 @@
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { Toaster, toast } from "sonner";
 
+import LogoBase64 from "@/components/LogoBase64";
 import AuthContext from "@/context/AuthContext";
 
 const Spinner = () => (
@@ -32,7 +32,7 @@ const Login = () => {
   }, []);
 
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
     setLoading(true);
@@ -44,11 +44,34 @@ const Login = () => {
       sessionStorage.setItem("acceso", "true");
       router.push("/");
     } catch (error: any) {
+      console.error("Error completo:", error);
+
       if (error.message === "Credenciales inválidas") {
         toast.error(t("min.credencialesInvalidas"), {
           position: "bottom-center",
         });
+      } else if (error.response) {
+        // Error con respuesta del servidor
+        console.error("Respuesta del servidor:", error.response.data);
+        console.error("Código de estado:", error.response.status);
+        toast.error(
+          `Error ${error.response.status}: ${JSON.stringify(error.response.data)}`,
+          {
+            position: "bottom-center",
+          }
+        );
+      } else if (error.request) {
+        // No se recibió respuesta
+        console.error("No se recibió respuesta:", error.request);
+        toast.error(
+          t("min.errorCredenciales") + " (Sin respuesta del servidor)",
+          {
+            position: "bottom-center",
+          }
+        );
       } else {
+        // Error en la configuración de la solicitud
+        console.error("Error de configuración:", error.message);
         toast.error(t("min.errorCredenciales"), {
           position: "bottom-center",
         });
@@ -62,14 +85,7 @@ const Login = () => {
     <section className="flex h-full w-full items-center justify-center">
       <Toaster position="bottom-center" richColors={true} />
       <div className="w-auto h-[60vh] gap-[15px] flex flex-col items-center p-[3rem_4rem_2rem_4rem] max-w-[1920px]  bg-black rounded-lg">
-        <Image
-          priority
-          alt="Creminox"
-          className="flex w-[65%] p-[0px] h-auto"
-          height={2000}
-          src="/logo/creminox.svg"
-          width={2000}
-        />
+        <LogoBase64 className="flex w-[65%] p-[0px] h-auto" />
 
         <form
           className="flex flex-col w-[100%] justify-between h-[60%] gap-[10px]"
