@@ -21,6 +21,7 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "next-themes";
 import * as XLSX from "xlsx";
 
 type AlertItem = {
@@ -36,6 +37,99 @@ type SortConfig = {
   direction: "asc" | "desc";
 };
 
+const useCustomTheme = () => {
+  const { theme: currentTheme } = useTheme();
+  const isDark = currentTheme === "dark";
+
+  return createTheme({
+    palette: {
+      mode: isDark ? "dark" : "light",
+      primary: {
+        main: isDark ? "#30A0F0" : "#30A0F0",
+      },
+      secondary: {
+        main: "#EF8225",
+      },
+      background: {
+        default: isDark ? "#1B1B1B" : "#FDFDFD",
+        paper: isDark ? "#222" : "#EDEDED",
+      },
+      text: {
+        primary: isDark ? "#EEE" : "#222",
+        secondary: isDark ? "#AAA" : "#555",
+      },
+      error: {
+        main: isDark ? "#f15b5f" : "#f15b5f",
+      },
+    },
+    components: {
+      MuiTableHead: {
+        styleOverrides: {
+          root: {
+            backgroundColor: isDark ? "#292929" : "#E0E0E0",
+            "& .MuiTableCell-root": {
+              color: isDark ? "#FFF" : "#111",
+              fontWeight: "bold",
+            },
+          },
+        },
+      },
+      MuiTableRow: {
+        styleOverrides: {
+          root: {
+            "&:nth-of-type(odd)": {
+              backgroundColor: isDark ? "#222" : "#EDEDED",
+            },
+            "&:nth-of-type(even)": {
+              backgroundColor: isDark ? "#1B1B1B" : "#FDFDFD",
+            },
+            "&:hover": {
+              backgroundColor: isDark ? "#333" : "#D8D8D8",
+            },
+          },
+        },
+      },
+      MuiTableCell: {
+        styleOverrides: {
+          root: {
+            borderBottom: `1px solid ${isDark ? "#393939" : "#D3D3D3"}`,
+          },
+        },
+      },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textTransform: "none",
+          },
+          containedPrimary: {
+            backgroundColor: "#581420",
+            "&:hover": {
+              backgroundColor: "#761122",
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundColor: isDark ? "#222" : "#EDEDED",
+            color: isDark ? "#EEE" : "#222",
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            "&:hover": {
+              backgroundColor: isDark ? "#333" : "#D8D8D8",
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 const Tabla = () => {
   const [page, setPage] = useState(1);
   const { t } = useTranslation();
@@ -47,6 +141,8 @@ const Tabla = () => {
     key: "",
     direction: "asc",
   });
+  const { theme: themeMode } = useTheme(); // Track theme changes
+  const theme = useCustomTheme();
 
   const [exportMenuAnchorEl, setExportMenuAnchorEl] =
     useState<HTMLElement | null>(null);
@@ -79,7 +175,7 @@ const Tabla = () => {
           alarmas.forEach((alarma: Alarm) => {
             if (alarma.descripcion && alarma.descripcion.trim() !== "") {
               const index = updatedItems.findIndex(
-                (item) => item.key === alarma.id_alarma.toString(),
+                (item) => item.key === alarma.id_alarma.toString()
               );
 
               const newItem: AlertItem = {
@@ -99,7 +195,7 @@ const Tabla = () => {
           });
 
           return updatedItems.filter(
-            (item) => item.description && item.description.trim() !== "",
+            (item) => item.description && item.description.trim() !== ""
           );
         });
         setIsLoading(false);
@@ -119,6 +215,12 @@ const Tabla = () => {
   useEffect(() => {
     connectWebSocket();
   }, [wsUrl]);
+
+  // Force re-render when theme changes
+  const [_, forceUpdate] = useState({});
+  useEffect(() => {
+    forceUpdate({});
+  }, [themeMode]);
 
   const columns = useMemo(
     () => [
@@ -160,7 +262,7 @@ const Tabla = () => {
         },
       },
     ],
-    [t],
+    [t]
   );
 
   const sortedItems = useMemo(() => {
@@ -194,11 +296,11 @@ const Tabla = () => {
   const totalRows = sortedItems.length;
   const paginatedRows = useMemo(
     () => sortedItems.slice((page - 1) * rowsPerPage, page * rowsPerPage),
-    [sortedItems, page, rowsPerPage],
+    [sortedItems, page, rowsPerPage]
   );
 
   const handleExportRowsToPDF = (
-    rows: Array<{ original: Record<string, any> }>,
+    rows: Array<{ original: Record<string, any> }>
   ) => {
     try {
       const doc = new jsPDF({
@@ -292,7 +394,7 @@ const Tabla = () => {
 
   const handleExportExcel = (
     rows: Array<{ original: Record<string, any> }>,
-    fileName: string,
+    fileName: string
   ) => {
     try {
       const excelData = rows.map((row) => {
@@ -337,62 +439,6 @@ const Tabla = () => {
 
     handleExportMenuClose();
   };
-  const customTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#761122",
-      },
-      background: {
-        paper: "#131313",
-        default: "#131313",
-      },
-      text: {
-        primary: "#D9D9D9",
-        secondary: "#AAAAAA",
-      },
-    },
-    components: {
-      MuiPaper: {
-        styleOverrides: {
-          root: {
-            backgroundColor: "#131313 !important",
-          },
-        },
-      },
-      MuiTablePagination: {
-        styleOverrides: {
-          selectLabel: { color: "#ffffff" },
-          selectRoot: { color: "#ffffff" },
-          selectIcon: { color: "#ffffff" },
-          displayedRows: { color: "#ffffff" },
-        },
-      },
-      MuiMenuItem: {
-        styleOverrides: {
-          root: {
-            color: "#d9d9d9",
-            "&:hover": {
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
-            },
-            "&.Mui-selected": {
-              backgroundColor: "rgba(255, 255, 255, 0.12)",
-              "&:hover": {
-                backgroundColor: "rgba(255, 255, 255, 0.15)",
-              },
-            },
-          },
-        },
-      },
-      MuiMenu: {
-        styleOverrides: {
-          paper: {
-            backgroundColor: "#131313 !important",
-          },
-        },
-      },
-    },
-  });
 
   const table = useMaterialReactTable({
     columns,
@@ -404,6 +450,51 @@ const Tabla = () => {
         pageSize: rowsPerPage,
       },
     },
+    muiTableHeadCellProps: {
+      sx: {
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+        fontWeight: "bold",
+        "& .MuiDivider-root": {
+          backgroundColor:
+            theme.palette.mode === "dark"
+              ? "#FFF5 !important"
+              : "#0005 !important",
+          height: "20px",
+          "&:hover": {
+            backgroundColor:
+              theme.palette.mode === "dark"
+                ? "rgb(129, 129, 129) !important"
+                : "rgb(200, 200, 200) !important",
+          },
+        },
+      },
+    },
+    muiTableHeadRowProps: {
+      sx: {
+        backgroundColor: theme.palette.background.paper,
+      },
+    },
+    muiTableBodyProps: {
+      sx: {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+    muiTableBodyRowProps: ({ row }) => ({
+      sx: {
+        backgroundColor:
+          row.index % 2 === 0
+            ? theme.palette.mode === "dark"
+              ? "#222"
+              : "#f9f9f9"
+            : theme.palette.mode === "dark"
+              ? "#1B1B1B"
+              : "#ffffff",
+        "&:hover": {
+          backgroundColor: theme.palette.mode === "dark" ? "#333" : "#eaeaea",
+        },
+      },
+    }),
     manualPagination: true,
     rowCount: totalRows,
     onPaginationChange: (updater) => {
@@ -423,7 +514,7 @@ const Tabla = () => {
         sx={{
           textAlign: "center",
           padding: "2rem",
-          color: "#d9d9d9",
+          color: theme.palette.text.primary,
         }}
       >
         {t("min.noExistenDatosParaLaFechaIndicada")}
@@ -441,125 +532,70 @@ const Tabla = () => {
       },
       showColumnFilters: true,
     },
-
-    muiTableHeadCellProps: {
+    muiPaginationProps: {
+      SelectProps: {
+        sx: {
+          color: theme.palette.text.primary,
+        },
+      },
       sx: {
-        backgroundColor: "#131313",
-        color: "#d9d9d9",
-        fontWeight: "bold",
-        "& .MuiDivider-root": {
-          backgroundColor: "#FFF5 !important",
-          height: "20px",
-          "&:hover": {
-            backgroundColor: "rgb(129, 129, 129) !important",
-          },
+        color: theme.palette.text.primary,
+      },
+    },
+    muiSearchTextFieldProps: {
+      sx: {
+        "& .MuiInputBase-input": {
+          color: theme.palette.text.primary,
+        },
+        "& .MuiInputLabel-root": {
+          color: theme.palette.text.secondary,
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.mode === "dark" ? "#555" : "#ddd",
         },
       },
     },
-
-    muiTableHeadRowProps: {
+    muiFilterTextFieldProps: {
       sx: {
-        backgroundColor: "#131313",
+        "& .MuiInputBase-input": {
+          color: theme.palette.text.primary,
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.mode === "dark" ? "#555" : "#ddd",
+        },
+        "&:hover .MuiOutlinedInput-notchedOutline": {
+          borderColor: theme.palette.mode === "dark" ? "#777" : "#bbb",
+        },
       },
     },
-
     muiTopToolbarProps: {
       sx: {
-        backgroundColor: "#131313",
-        position: "relative",
-        "& .MuiInputBase-root": {
-          color: "#d9d9d9",
-        },
-        "& .MuiInputBase-input": {
-          color: "#d9d9d9",
-        },
-        "& .MuiSvgIcon-root": {
-          color: "#d9d9d9",
-        },
-      },
-    },
-
-    muiTableBodyCellProps: {
-      sx: {
-        backgroundColor: "#131313",
-        color: "#d9d9d9",
-      },
-    },
-    muiTableBodyRowProps: {
-      sx: {
-        backgroundColor: "#131313",
-        "&:nth-of-type(odd)": {
-          backgroundColor: "#131313",
-        },
-      },
-    },
-    muiTableFooterProps: {
-      sx: {
-        "& .MuiInputLabel-root": {
-          color: "#d9d9d9",
-        },
-        "& .MuiFormLabel-root": {
-          color: "#d9d9d9",
-        },
+        backgroundColor: theme.palette.background.paper,
+        borderBottom: `1px solid ${theme.palette.mode === "dark" ? "#333" : "#ddd"}`,
       },
     },
     muiBottomToolbarProps: {
       sx: {
-        backgroundColor: "#131313",
-        color: "#d9d9d9",
-        "& .MuiTablePagination-root": {
-          color: "#d9d9d9",
-        },
-        "& .MuiSelect-icon": {
-          color: "#d9d9d9",
-        },
-        "& .MuiInputBase-input": {
-          color: "#d9d9d9",
-        },
-        "& .MuiSvgIcon-root": {
-          color: "#d9d9d9",
-        },
-        "& .MuiInputLabel-root": {
-          color: "#d9d9d9 !important",
-        },
-        "& .MuiFormLabel-root": {
-          color: "#d9d9d9 !important",
-        },
-      },
-    },
-    muiTableProps: {
-      sx: {
-        "& .MuiInputLabel-root": {
-          color: "#d9d9d9 !important",
-        },
-        "& .MuiSelect-select, & .MuiSelect-icon": {
-          color: "#d9d9d9",
-        },
-      },
-    },
-    muiTablePaperProps: {
-      elevation: 0,
-      sx: {
-        backgroundColor: "#131313 !important",
-        borderRadius: "8px",
+        backgroundColor: theme.palette.background.paper,
+        borderTop: `1px solid ${theme.palette.mode === "dark" ? "#333" : "#ddd"}`,
       },
     },
     muiTableContainerProps: {
       sx: {
-        backgroundColor: "#131313",
+        backgroundColor: theme.palette.background.default,
       },
     },
-    muiSkeletonProps: {
+    muiTableBodyCellProps: {
       sx: {
-        backgroundColor: "#131313",
+        color: theme.palette.text.primary,
       },
     },
-    muiColumnActionsButtonProps: {
+    muiTablePaperProps: {
+      elevation: 3,
       sx: {
-        color: "#d9d9d9",
-        "&:hover": {
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
-        },
+        border: `1px solid ${theme.palette.mode === "dark" ? "#333" : "#ddd"}`,
+        borderRadius: "8px",
+        overflow: "hidden",
       },
     },
 
@@ -590,7 +626,7 @@ const Tabla = () => {
             id="export-button"
             startIcon={<FileDownloadIcon />}
             sx={{
-              backgroundColor: "#761122",
+              backgroundColor: theme.palette.error.main,
               width: "305px",
               "&:hover": {
                 backgroundColor: "#761122",
@@ -615,7 +651,7 @@ const Tabla = () => {
             <MenuItem
               onClick={() =>
                 handleExportRowsToPDF(
-                  sortedItems.map((item) => ({ original: item })),
+                  sortedItems.map((item) => ({ original: item }))
                 )
               }
             >
@@ -630,7 +666,7 @@ const Tabla = () => {
               onClick={() =>
                 handleExportExcel(
                   sortedItems.map((item) => ({ original: item })),
-                  "Todas_Alertas",
+                  "Todas_Alertas"
                 )
               }
             >
@@ -659,7 +695,7 @@ const Tabla = () => {
         >
           <Typography
             sx={{
-              color: "#d9d9d9",
+              color: theme.palette.text.primary,
               fontSize: "1.5rem",
               fontWeight: "bold",
               marginBottom: "-5px",
@@ -668,7 +704,10 @@ const Tabla = () => {
           >
             {t("mayus.historialDeAlertas")}
           </Typography>
-          <Typography sx={{ color: "#d9d9d9" }} variant="subtitle1">
+          <Typography
+            sx={{ color: theme.palette.text.secondary }}
+            variant="subtitle1"
+          >
             {t("mayus.extendido")}
           </Typography>
         </Box>
@@ -683,7 +722,7 @@ const Tabla = () => {
           <div className="mb-2">{error}</div>
           <Button
             color="error"
-            sx={{ backgroundColor: "#761122" }}
+            sx={{ backgroundColor: theme.palette.error.main }}
             variant="contained"
             onClick={connectWebSocket}
           >
@@ -691,7 +730,7 @@ const Tabla = () => {
           </Button>
         </div>
       ) : (
-        <ThemeProvider theme={customTheme}>
+        <ThemeProvider theme={theme}>
           <MaterialReactTable table={table} />
         </ThemeProvider>
       )}
