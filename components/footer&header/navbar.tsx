@@ -55,7 +55,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
             icon: (
               <Link
                 className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
-                href="/alertas"
+                href="/configuraciones"
               >
                 <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
 

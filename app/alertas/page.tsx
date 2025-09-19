@@ -141,7 +141,7 @@ const Tabla = () => {
     key: "",
     direction: "asc",
   });
-  const { theme: themeMode } = useTheme(); // Track theme changes
+  const { theme: themeMode } = useTheme();
   const theme = useCustomTheme();
 
   const [exportMenuAnchorEl, setExportMenuAnchorEl] =
@@ -216,7 +216,6 @@ const Tabla = () => {
     connectWebSocket();
   }, [wsUrl]);
 
-  // Force re-render when theme changes
   const [, forceUpdate] = useState({});
 
   useEffect(() => {
