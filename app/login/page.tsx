@@ -48,7 +48,6 @@ const Login = () => {
           position: "bottom-center",
         });
       } else if (error.response) {
-        // Error con respuesta del servidor
         console.error("Respuesta del servidor:", error.response.data);
         console.error("Código de estado:", error.response.status);
         toast.error(
@@ -58,7 +57,6 @@ const Login = () => {
           }
         );
       } else if (error.request) {
-        // No se recibió respuesta
         console.error("No se recibió respuesta:", error.request);
         toast.error(
           t("min.errorCredenciales") + " (Sin respuesta del servidor)",
@@ -67,7 +65,6 @@ const Login = () => {
           }
         );
       } else {
-        // Error en la configuración de la solicitud
         console.error("Error de configuración:", error.message);
         toast.error(t("min.errorCredenciales"), {
           position: "bottom-center",

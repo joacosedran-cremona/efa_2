@@ -18,7 +18,6 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   const { logout } = useApp();
   const router = useRouter();
 
-  // Get username from session storage if available
   const [username, setUsername] = useState(_username);
 
   useEffect(() => {
@@ -42,7 +41,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   }, []);
 
   const handleLogout = () => {
-    logout(); // Use the logout function from AppContext
+    logout();
   };
 
   return (

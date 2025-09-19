@@ -53,7 +53,6 @@ const AppContext = createContext<AppContextType>({
   },
 });
 
-// Helper hook for components to easily access the context
 export const useApp = () => useContext(AppContext);
 
 const AppProviderInner = ({ children }: { children: ReactNode }) => {
@@ -68,7 +67,6 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   const websocketData = useWebSocketContext();
 
   useEffect(() => {
-    // Check if user data exists in session storage when the component mounts
     if (typeof window !== "undefined") {
       const storedUser = sessionStorage.getItem("user_data");
       const storedToken = sessionStorage.getItem("token");
@@ -84,7 +82,6 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    // Route protection logic
     const publicRoutes = ["/login", "/", "/login/recuperacion"];
     const acceso = sessionStorage.getItem("acceso");
 
@@ -105,39 +102,31 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     const { role, access_token, token_type } = response.data;
 
-    // Set the token in axios headers for future requests
     axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
-    // Save user data in session storage
     sessionStorage.setItem(
       "user_data",
       JSON.stringify({ access_token, token_type, role })
     );
     
-    // Set a cookie for the middleware to use
     Cookies.set("token", access_token, { secure: false, sameSite: "lax" });
 
-    // Update state
     setUser({ access_token, token_type, role });
     setToken(access_token);
   };
 
   const logout = () => {
-    // Clear user data
     setUser(null);
     setToken(null);
     
-    // Remove authorization header
     delete axios.defaults.headers.common["Authorization"];
     
-    // Clear storage
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user_data");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("acceso");
     Cookies.remove("token");
 
-    // Redirect to login page
     router.push("/login");
   };
 

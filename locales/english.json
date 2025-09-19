@@ -120,6 +120,8 @@
     "recordo": "Did you remember your password? Log in here.",
     "reinicio": "Automatic restart of the cameras in:",
     "forzar": "Force restart",
-    "inactivo": "Inactive"
+    "inactivo": "Inactive",
+    "correo": "Email address",
+    "enviar": "Send"
   }
 }
