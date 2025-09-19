@@ -16,7 +16,9 @@ article,
 aside,
 button,
 a {
-  transition: background-color 0.3s ease-out, border-color 0.3s ease-out;
+  transition:
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out;
   /* Evitar transición en propiedades que puedan causar reflow */
   transition-property: background-color, border-color;
 }
