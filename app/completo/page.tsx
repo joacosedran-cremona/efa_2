@@ -116,7 +116,6 @@ const Completo = () => {
     <section className="flex flex-col p-6 gap-6 w-full h-full items-center">
       <LayoutCompleto />
 
-      {/* Título */}
       <h2 className="">LISTADO ALERTAS</h2>
 
       <div className="">

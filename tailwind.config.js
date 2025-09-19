@@ -45,6 +45,7 @@ const config = {
       themes: {
         light: {
           colors: {
+            backgroundoscuro: "#EDEDED",
             background: "#FDFDFD",
             background2: "#EDEDED",
             background3: "#E0E0E0",
@@ -65,6 +66,7 @@ const config = {
 
         dark: {
           colors: {
+            backgroundoscuro: "#111",
             background: "#1B1B1B",
             background2: "#222",
             background3: "#292929",

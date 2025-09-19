@@ -10,6 +10,7 @@ import Image from "next/image";
 import { ThemeSwitch } from "@/components/theme-switch";
 import DropdownBanderas from "@/components/traduccion/dropdownBanderas";
 import Desloguear from "@/components/botones/desloguear";
+import { useApp } from "@/context/AppContext";
 
 interface Header1Props {
   currentPath: string;
@@ -27,41 +28,46 @@ interface OpcionMenu {
   text: string;
 }
 
-const opcionesIconos: OpcionIcono[] = [
-  { id: 1, icon: <Desloguear /> },
-  {
-    id: 2,
-    url: "/alertas",
-    icon: (
-      <Link
-        className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
-        href="/alertas"
-      >
-        <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
-
-        <VscBell className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
-      </Link>
-    ),
-  },
-  {
-    id: 3,
-    icon: (
-      <Link
-        className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
-        href="/alertas"
-      >
-        <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
-
-        <GoGear className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
-      </Link>
-    ),
-  },
-  { id: 4, icon: <DropdownBanderas /> },
-  { id: 5, icon: <ThemeSwitch /> },
-];
-
 export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const { t } = useTranslation();
+  const { user } = useApp();
+
+  const opcionesIconos: OpcionIcono[] = [
+    { id: 1, icon: <Desloguear /> },
+    ...(user && user.role === "ADMIN"
+      ? [
+          {
+            id: 2,
+            url: "/alertas",
+            icon: (
+              <Link
+                className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
+                href="/alertas"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
+
+                <VscBell className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
+              </Link>
+            ),
+          },
+          {
+            id: 3,
+            icon: (
+              <Link
+                className="group relative flex items-center justify-center w-[25px] h-[25px] ease-in-out"
+                href="/alertas"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gray-400/0 group-hover:bg-gray-400/20 ease-in-out group-hover:scale-150 pointer-events-none" />
+
+                <GoGear className="w-[25px] h-[25px] header transition-transform ease-in-out group-hover:scale-110" />
+              </Link>
+            ),
+          },
+        ]
+      : []),
+    { id: 4, icon: <DropdownBanderas /> },
+    { id: 5, icon: <ThemeSwitch /> },
+  ];
 
   const opcionesMenu: OpcionMenu[] = [{ id: 1, url: "/", text: t("min.home") }];
 

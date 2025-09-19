@@ -1,4 +1,6 @@
 "use client";
+import type { Alarm } from "@/interfaces/websocket";
+
 import { useState } from "react";
 
 import { useApp } from "@/context/AppContext";
@@ -20,7 +22,6 @@ export default function MachineMonitor() {
     <div className="machine-monitor">
       <p>Estado de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
-      {/* Toggle button for raw data display */}
       <button
         style={{ marginBottom: "1rem" }}
         onClick={() => setShowRawData(!showRawData)}
@@ -28,7 +29,6 @@ export default function MachineMonitor() {
         {showRawData ? "Ocultar datos crudos" : "Mostrar datos crudos"}
       </button>
 
-      {/* Raw JSON data display */}
       {data && showRawData && (
         <div className="raw-data" style={{ marginBottom: "2rem" }}>
           <h2>Datos JSON Completos</h2>
@@ -46,7 +46,6 @@ export default function MachineMonitor() {
         </div>
       )}
 
-      {/* Formatted data display */}
       {data && (
         <>
           <div className="machine-status">
@@ -73,11 +72,12 @@ export default function MachineMonitor() {
 
           <div className="alarms">
             <h2>Alarmas activas</h2>
-            {data.alarms.filter((alarm) => alarm.estadoAlarma).length > 0 ? (
+            {data.alarms.filter((alarm: Alarm) => alarm.estadoAlarma).length >
+            0 ? (
               <ul>
                 {data.alarms
-                  .filter((alarm) => alarm.estadoAlarma)
-                  .map((alarm) => (
+                  .filter((alarm: Alarm) => alarm.estadoAlarma)
+                  .map((alarm: Alarm) => (
                     <li key={alarm.id_alarma}>
                       <strong>{alarm.tipoAlarma}</strong>: {alarm.descripcion}
                       <span className="timestamp">{alarm.fechaRegistro}</span>

@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { toast, Toaster } from "sonner";
 import axios from "axios";
+
 import LogoBase64 from "@/components/LogoBase64";
 
 const ForgotPassword = () => {
@@ -21,19 +22,18 @@ const ForgotPassword = () => {
     try {
       await axios.post(
         `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/usuario/recuperar-password`,
-        { email }
+        { email },
       );
-      
+
       toast.success("Correo de recuperación enviado correctamente", {
         position: "bottom-center",
         duration: 3000,
       });
-      
+
       setTimeout(() => {
         router.push("/login");
       }, 3000);
-    } catch (error) {
-      console.error("Error al recuperar contraseña:", error);
+    } catch {
       toast.error("Error al enviar el correo de recuperación", {
         position: "bottom-center",
       });
@@ -57,21 +57,21 @@ const ForgotPassword = () => {
               {t("min.correo")}
             </label>
             <input
+              required
               className="bg-[#1f1f1f] p-[4px] rounded-lg w-[100%] h-[50%] flex items-center justify-center border-none px-[1rem]"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
 
           <button
             className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/4 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
-            type="submit"
             disabled={loading}
+            type="submit"
           >
             {loading ? (
-              <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-lg w-[20px] h-[20px] animate-spin" />
+              <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-[100%] w-[20px] h-[20px] animate-spin" />
             ) : (
               t("min.enviar")
             )}

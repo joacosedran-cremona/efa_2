@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { VscAccount } from "react-icons/vsc";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/navigation";
 
 import { useApp } from "@/context/AppContext";
 
@@ -16,12 +15,12 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const { logout } = useApp();
-  const router = useRouter();
 
   const [username, setUsername] = useState(_username);
 
   useEffect(() => {
     const storedUsername = sessionStorage.getItem("username");
+
     if (storedUsername) {
       setUsername(storedUsername);
     }
@@ -62,7 +61,6 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
                     : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
                 } bg-background3 z-[999]`}
       >
-        {/* Header del perfil */}
         <div className="px-[10px] py-[14px] border-b border-gray-200">
           <div className="flex items-center">
             <div className="ml-3">
@@ -72,7 +70,6 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
           </div>
         </div>
 
-        {/* Botón de cerrar sesión */}
         <div className="bg-cerrarsesion rounded-b-lg text-[#FFF]">
           <button
             className="w-[100%] text-left px-[10px] py-[8px] text-sm font-semibold

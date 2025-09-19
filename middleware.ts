@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+
 import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
@@ -15,8 +16,7 @@ export function middleware(request: NextRequest) {
   }
 
   const isPublicRoute =
-    pathname === "/login" ||
-    pathname.startsWith("/login/recuperacion");
+    pathname === "/login" || pathname.startsWith("/login/recuperacion");
 
   if (!token && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", request.url));

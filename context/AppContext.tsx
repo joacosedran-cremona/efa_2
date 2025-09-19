@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, useContext, ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -74,7 +80,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
-      
+
       if (storedToken) {
         setToken(storedToken);
       }
@@ -92,12 +98,13 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
   const login = async (username: string, password: string): Promise<void> => {
     const formData = new FormData();
+
     formData.append("username", username);
     formData.append("password", password);
 
     const response = await axios.post<LoginResponse>(
       `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/usuario/login`,
-      formData
+      formData,
     );
 
     const { role, access_token, token_type } = response.data;
@@ -106,9 +113,9 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     sessionStorage.setItem(
       "user_data",
-      JSON.stringify({ access_token, token_type, role })
+      JSON.stringify({ access_token, token_type, role }),
     );
-    
+
     Cookies.set("token", access_token, { secure: false, sameSite: "lax" });
 
     setUser({ access_token, token_type, role });
@@ -118,9 +125,9 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    
+
     delete axios.defaults.headers.common["Authorization"];
-    
+
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user_data");
     sessionStorage.removeItem("username");
