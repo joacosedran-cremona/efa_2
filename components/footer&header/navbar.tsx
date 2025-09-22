@@ -45,12 +45,8 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
     const userData = sessionStorage.getItem("user_data");
     const url = process.env.NEXT_PUBLIC_CAMARAS_URL;
 
-    if (!url) {
-      console.error("NEXT_PUBLIC_CAMARAS_URL no está definida.");
-      return;
-    }
-
     const params = new URLSearchParams();
+
     if (userData) params.append("userData", encodeURIComponent(userData));
 
     window.open(`${url}?${params.toString()}`, "_blank");
@@ -94,10 +90,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   ];
 
   const opcionesMenu: OpcionMenu[] = [
-    { id: 1,
-      url: "/",
-      text: t("min.home")
-    },
+    { id: 1, url: "/", text: t("min.home") },
     {
       id: 2,
       onClick: handleCamarasClick,
@@ -133,9 +126,13 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
           {opcionesMenu.map(({ id, url, text, onClick }) => (
             <li key={id} className="h-[100%]">
               {onClick ? (
-                <a href="#" onClick={onClick} className="header">
+                <button
+                  className="header bg-transparent border-none p-0 m-0 cursor-pointer"
+                  type="button"
+                  onClick={onClick}
+                >
                   {text}
-                </a>
+                </button>
               ) : (
                 url && (
                   <Link
