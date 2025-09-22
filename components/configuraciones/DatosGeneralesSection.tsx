@@ -14,8 +14,8 @@ const DatosGeneralesSection: React.FC<DatosGeneralesSectionProps> = ({
   datosGeneralesDer,
 }) => {
   return (
-    <div className="flex flex-col min-w-1/6 h-full bg-background2 p-5 rounded-lg gap-5">
-      <ul className="flex flex-col gap-2 w-full">
+    <div className="flex flex-col w-1/3 h-full bg-background2 p-5 rounded-lg gap-5">
+      <ul className="flex flex-col h-full justify-between w-full">
         {datosGeneralesDer.map(({ id, texto, dato }) => (
           <li key={id} className="">
             <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">
@@ -30,7 +30,7 @@ const DatosGeneralesSection: React.FC<DatosGeneralesSectionProps> = ({
                   <h4 className="">{dato}</h4>
                 </div>
               )}
-              <BiCabinet className="flex h-[10%] w-[10%]" />
+              <BiCabinet className="flex h-[7%] w-[7%]" />
             </div>
           </li>
         ))}

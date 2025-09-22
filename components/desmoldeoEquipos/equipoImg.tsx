@@ -114,7 +114,7 @@ const EquiposImg = () => {
             )}
 
             <div
-              className="flex transition-transform duration-500 ease-in-out"
+              className="flex transition-transform"
               style={{
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
@@ -154,7 +154,7 @@ const EquiposImg = () => {
               <button
                 key={index}
                 aria-label={`Ir a imagen ${index + 1}`}
-                className={`w-2 h-2 rounded-full cursor-pointer transition-colors duration-300 ${
+                className={`w-2 h-2 rounded-full cursor-pointer transition-colors ${
                   isActive ? "bg-textohover" : "bg-textodesac hover:bg-[#aaa]"
                 }`}
                 tabIndex={0}

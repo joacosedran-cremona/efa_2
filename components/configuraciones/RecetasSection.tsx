@@ -22,13 +22,13 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
   onRecetaApply,
 }) => {
   return (
-    <div className="flex flex-col min-w-1/6 h-full bg-background2 p-5 rounded-lg gap-5">
+    <div className="flex flex-col w-1/3 h-full bg-background2 p-5 rounded-lg gap-5">
       <SelectConfiguracion
         disabled={loading}
         onChange={onRecetaChange}
         onClick={onRecetaApply}
       />
-      <ul className="flex flex-col gap-2 w-full">
+      <ul className="flex flex-col h-full justify-between w-full">
         {datosGeneralesIzq.map(({ id, texto, dato }) => (
           <li key={id} className="">
             <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">
@@ -43,7 +43,7 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
                   <h4 className="">{dato}</h4>
                 </div>
               )}
-              <BiReceipt className="flex h-[10%] w-[10%]"/>
+              <BiReceipt className="flex h-[7%] w-[7%]" />
             </div>
           </li>
         ))}

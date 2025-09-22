@@ -94,11 +94,14 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   ];
 
   const opcionesMenu: OpcionMenu[] = [
-    { id: 1, url: "/", text: t("min.home") },
+    { id: 1,
+      url: "/",
+      text: t("min.home")
+    },
     {
       id: 2,
       onClick: handleCamarasClick,
-      text: t("mayus.camaras") || "Camaras",
+      text: t("min.camaras"),
     },
   ];
 

@@ -32,7 +32,7 @@ const Configuraciones = () => {
   }
 
   return (
-    <div className="flex flex-row justify-between p-5">
+    <div className="flex flex-row justify-between gap-5 p-5 h-[83vh]">
       <RecetasSection
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
         loading={configuracionData.loading}
@@ -42,11 +42,11 @@ const Configuraciones = () => {
         }
         onRecetaChange={configuracionData.handleRecetaChange}
       />
-      
+
       <DatosGeneralesSection
         datosGeneralesDer={configuracionData.datosGeneralesDer}
       />
-      
+
       <CorreccionesSection
         datosActuales={configuracionData.datosActuales}
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
