@@ -113,65 +113,8 @@ const Completo = () => {
   };
 
   return (
-    <section className="flex flex-col p-6 gap-6 w-full h-full items-center">
+    <section className="flex flex-col bg-background2 p-5 w-full h-full items-center">
       <LayoutCompleto />
-
-      <h2 className="">LISTADO ALERTAS</h2>
-
-      <div className="">
-        <Table aria-label="Tabla de alertas">
-          <TableHeader columns={columns}>
-            {(column) => (
-              <TableColumn key={column.key} className="">
-                {column.label}
-              </TableColumn>
-            )}
-          </TableHeader>
-          <TableBody
-            isLoading={isLoading}
-            items={paginatedRows}
-            loadingContent={<Spinner label={t("min.recetaActual")} />}
-          >
-            {(item: ProcessedAlarma) => (
-              <TableRow key={item.key}>
-                {(columnKey) => (
-                  <TableCell className="">
-                    {columnKey === "state"
-                      ? renderState(item.state)
-                      : item[String(columnKey) as keyof ProcessedAlarma]}
-                  </TableCell>
-                )}
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-
-        {error && (
-          <div className="">
-            <div className="">{error}</div>
-            <Button className="" onClick={() => window.location.reload()}>
-              Reintentar
-            </Button>
-          </div>
-        )}
-      </div>
-
-      <div className="">
-        <Pagination
-          showControls
-          color="default"
-          page={page}
-          size="md"
-          total={totalPages}
-          onChange={handlePageChange}
-        />
-
-        <Link className="" href="/alertas">
-          <Button className="" radius="full">
-            Ver más
-          </Button>
-        </Link>
-      </div>
     </section>
   );
 };

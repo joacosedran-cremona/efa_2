@@ -47,7 +47,6 @@ const Configuraciones = () => {
         datosGeneralesDer={configuracionData.datosGeneralesDer}
       />
       
-      {/*
       <CorreccionesSection
         datosActuales={configuracionData.datosActuales}
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
@@ -64,7 +63,7 @@ const Configuraciones = () => {
         selectedReceta={configuracionData.selectedReceta}
         selectedTorre={configuracionData.selectedTorre}
         validarTAGDuplicado={configuracionData.validarTAGDuplicado}
-      />*/}
+      />
     </div>
   );
 };

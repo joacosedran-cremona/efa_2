@@ -9,18 +9,43 @@ const SelectNivel: React.FC<SelectNivelProps> = ({
 }) => {
   return (
     <select
-      className="border rounded px-2 py-1"
+      className="border rounded px-2 py-1 text-texto"
       defaultValue="HN"
       disabled={disabled}
       onChange={(e) =>
         onChange(e.target.value as "HN" | "ChG" | "ChB" | "FA" | "uHN")
       }
     >
-      <option value="HN">Altura Nivel</option>
-      <option value="ChG">Corr. Guardado</option>
-      <option value="ChB">Corr. Búsqueda</option>
-      <option value="FA">Fallas</option>
-      <option value="uHN">Último Nivel</option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="HN"
+      >
+        Altura Nivel
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="ChG"
+      >
+        Corr. Guardado
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="ChB"
+      >
+        Corr. Búsqueda
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="FA"
+      >
+        Fallas
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="uHN"
+      >
+        Último Nivel
+      </option>
     </select>
   );
 };

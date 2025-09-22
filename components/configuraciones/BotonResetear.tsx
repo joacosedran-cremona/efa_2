@@ -9,7 +9,7 @@ const BotonResetear: React.FC<BotonResetearProps> = ({
 }) => {
   return (
     <button
-      className={`bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 ${className}`}
+      className={`bg-red-500   px-3 py-1 rounded text-sm hover:bg-red-600 ${className}`}
       onClick={onClick}
     >
       Reset

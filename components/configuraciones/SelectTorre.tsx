@@ -20,10 +20,30 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
       value={selectedTorre || ""}
       onChange={(e) => onChange(e.target.value)}
     >
-      <option value="">Seleccionar Torre</option>
-      <option value="T1">Torre 1</option>
-      <option value="T2">Torre 2</option>
-      <option value="T3">Torre 3</option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value=""
+      >
+        Seleccionar Torre
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="T1"
+      >
+        Torre 1
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="T2"
+      >
+        Torre 2
+      </option>
+      <option
+        className="text-texto bg-background4 hover:bg-background5"
+        value="T3"
+      >
+        Torre 3
+      </option>
     </select>
   );
 };

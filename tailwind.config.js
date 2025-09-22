@@ -24,6 +24,7 @@ const config = {
         bluet: "#06E5",
         water: "#33A7FD",
         red: "#F00",
+        red2: "#dd1e1eff",
         green: "#54C42D",
         lightgrey: "#8C8C8C",
         grey: "#1F1F1F",

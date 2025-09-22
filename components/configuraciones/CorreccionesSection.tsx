@@ -59,7 +59,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5,
+      5
     );
 
     const finalData = {
@@ -89,7 +89,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11,
+      11
     );
 
     const finalData = {
@@ -126,7 +126,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0,
+      0
     );
 
     const datos = {
@@ -150,7 +150,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) => {
     if (selectedOption === 1) {
       if (index === 4) {
@@ -159,12 +159,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         e.target.value = tagValidado;
       } else {
         e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value,
+          e.target.value
         );
       }
     } else {
       e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value,
+        e.target.value
       );
     }
   };
@@ -177,73 +177,65 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         selectedNivel === "ChB")
     ) {
       return (
-        <ul className="bg-gray-900 rounded-lg p-5 flex flex-col gap-4">
+        <ul className="bg-background2 rounded-lg min-w-1/3 h-full flex flex-col gap-5">
           {datosActuales.map(({ id, texto, dato }, index) => (
-            <li key={id} className="p-4 bg-gray-800 rounded-lg">
-              <div className="flex items-center">
-                <div className="text-gray-300">
-                  <h3 className="text-sm font-bold">{texto}</h3>
-                  <h4 className="text-base">
-                    {dato === "null" || dato === undefined || dato === null ? (
-                      <EjemploSkeleton2 />
-                    ) : (
-                      <>
-                        {dato}
-                        <span> - </span>
-                        <input
-                          ref={(el) => {
-                            if (inputRefs.current) {
-                              inputRefs.current[index] = el;
-                            }
-                          }}
-                          className="bg-gray-700 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          pattern="\d+"
-                          type="number"
-                          onChange={(e) => handleInputChange(e, index)}
-                        />
-                      </>
-                    )}
-                  </h4>
-                </div>
+            <li key={id} className="bg-background3 p-2 rounded-lg">
+              <div className="flex flex-col w-1/2">
+                <h3 className="">{texto}</h3>
+                <h4 className="">
+                  {dato === "null" || dato === undefined || dato === null ? (
+                    <EjemploSkeleton2 />
+                  ) : (
+                    <>
+                      {dato}
+                      <span> - </span>
+                      <input
+                        ref={(el) => {
+                          if (inputRefs.current) {
+                            inputRefs.current[index] = el;
+                          }
+                        }}
+                        className=""
+                        pattern="\d+"
+                        type="number"
+                        onChange={(e) => handleInputChange(e, index)}
+                      />
+                    </>
+                  )}
+                </h4>
               </div>
             </li>
           ))}
-          <div className="flex justify-between mt-4">
-            <BotonAplicar2
-              className="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-all duration-300"
-              onClick={handleAplicarNiveles}
-            />
-            <BotonRefresh
-              className="bg-gray-600 text-white rounded-md px-4 py-2 hover:bg-gray-700 transition-all duration-300"
-              onClick={refreshData}
-            />
+          <div className="">
+            <BotonAplicar2 className="" onClick={handleAplicarNiveles} />
+            <BotonRefresh className="" onClick={refreshData} />
           </div>
         </ul>
       );
     } else if (selectedOption === 2 && selectedNivel === "FA") {
       return (
-        <ul className="bg-gray-900 rounded-lg p-5 flex flex-col gap-4">
+        <ul className="">
           {datosActuales.map(({ id, texto, dato }, index) => (
-            <li key={id} className="p-4 bg-gray-800 rounded-lg">
-              <div className="flex items-center">
-                <div className="text-gray-300">
+            <li key={id} className="">
+              <div className="">
+                <div className="">
                   {dato === "null" || dato === undefined || dato === null ? (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">
                         <EjemploSkeleton2 />
                       </h4>
                     </>
                   ) : (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">{dato}</h4>
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">{dato}</h4>
                     </>
                   )}
                 </div>
                 {dato !== "null" && dato !== undefined && dato !== null && (
                   <BotonResetear
-                    className="ml-auto bg-red-600 text-white rounded-md px-4 py-2 hover:bg-red-700 transition-all duration-300"
+                    className=""
                     onClick={() => handleAplicarReset(index)}
                   />
                 )}
@@ -254,22 +246,22 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       );
     } else if (selectedOption === 1) {
       return (
-        <ul className="bg-gray-900 rounded-lg p-5 flex flex-col gap-4">
+        <ul className="">
           {datosActuales.map(({ id, texto, dato }, index) => (
-            <li key={id} className="p-4 bg-gray-800 rounded-lg">
-              <div className="flex items-center">
-                <div className="text-gray-300">
+            <li key={id} className="">
+              <div className="">
+                <div className="">
                   {dato === "null" || dato === undefined || dato === null ? (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">
                         <EjemploSkeleton2 />
                       </h4>
                     </>
                   ) : (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">
                         {dato}
                         <span> - </span>
                         <input
@@ -278,7 +270,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                               inputRefs.current[index] = el;
                             }
                           }}
-                          className="bg-gray-700 text-white rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className=""
                           onChange={(e) => handleInputChange(e, index)}
                         />
                       </h4>
@@ -288,37 +280,34 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               </div>
             </li>
           ))}
-          <div className="flex justify-between mt-4">
+          <div className="">
             <BotonAplicar2
-              className="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-all duration-300"
+              className=""
               isDisabled={isButtonDisabled}
               onClick={handleAplicarTorre}
             />
-            <BotonRefresh
-              className="bg-gray-600 text-white rounded-md px-4 py-2 hover:bg-gray-700 transition-all duration-300"
-              onClick={refreshData}
-            />
+            <BotonRefresh className="" onClick={refreshData} />
           </div>
         </ul>
       );
     } else {
       return (
-        <ul className="bg-gray-900 rounded-lg p-5 flex flex-col gap-4">
+        <ul className="">
           {datosActuales.map(({ id, texto, dato }) => (
-            <li key={id} className="p-4 bg-gray-800 rounded-lg">
-              <div className="flex items-center">
-                <div className="text-gray-300">
+            <li key={id} className="">
+              <div className="">
+                <div className="">
                   {dato === "null" || dato === undefined || dato === null ? (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">
                         <EjemploSkeleton2 />
                       </h4>
                     </>
                   ) : (
                     <>
-                      <h3 className="text-sm font-bold">{texto}</h3>
-                      <h4 className="text-base">{dato}</h4>
+                      <h3 className="">{texto}</h3>
+                      <h4 className="">{dato}</h4>
                     </>
                   )}
                 </div>
@@ -331,21 +320,21 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   };
 
   return (
-    <div className="p-6 bg-gray-900 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-white mb-4">CORRECCIONES</h2>
-      <ul className="flex gap-4 mb-6">
+    <div className="bg-background2 p-5 rounded-lg min-w-1/3 h-full flex flex-col gap-5">
+      <h2 className="text-xl font-semibold">CORRECCIONES</h2>
+      <ul className="flex flex-row justify-between gap-5 w-auto">
         {opcionesCorrecciones.map(({ id, nombre }) => (
-          <li key={id} className="flex-1">
+          <li key={id} className="flex flex-col flex-1 gap-5">
             <button
-              className={`w-full py-2 rounded-md font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
-                selectedOption === id
-                  ? "bg-blue-600 text-white shadow-md"
-                  : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+              className={`flex flex-col rounded-sm transition-all duration-300 ${
+                selectedOption === id ? "bg-blue text-white" : "bg-background5"
               }`}
               onClick={() => handleOptionChange(id)}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">{nombre}</span>
+              <div className="flex flex-col items-center p-2">
+                <span className="flex justify-center text-center">
+                  {nombre}
+                </span>
                 {id === 1 && (
                   <SelectTorre
                     disabled={loading || datosGeneralesIzq[0].dato === "null"}
@@ -368,7 +357,6 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
           </li>
         ))}
       </ul>
-
       {renderListaItems()}
     </div>
   );

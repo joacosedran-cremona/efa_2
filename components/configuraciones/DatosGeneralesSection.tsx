@@ -14,25 +14,23 @@ const DatosGeneralesSection: React.FC<DatosGeneralesSectionProps> = ({
   datosGeneralesDer,
 }) => {
   return (
-    <div className="md:col-span-2">
-      <ul className="list-none">
+    <div className="flex flex-col min-w-1/6 h-full bg-background2 p-5 rounded-lg gap-5">
+      <ul className="flex flex-col gap-2 w-full">
         {datosGeneralesDer.map(({ id, texto, dato }) => (
-          <li key={id} className="mb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                {dato === "null" || dato === undefined || dato === null ? (
-                  <div className="animate-pulse">
-                    <h3 className="text-sm font-bold mb-2">{texto}</h3>
-                    <EjemploSkeleton2 />
-                  </div>
-                ) : (
-                  <>
-                    <h3 className="text-sm font-bold mb-1">{texto}</h3>
-                    <h4 className="text-base">{dato}</h4>
-                  </>
-                )}
-              </div>
-              <BiCabinet className="w-6 h-6" />
+          <li key={id} className="">
+            <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">
+              {dato === "null" || dato === undefined || dato === null ? (
+                <div className="flex flex-col">
+                  <h3 className="">{texto}</h3>
+                  <EjemploSkeleton2 />
+                </div>
+              ) : (
+                <div className="flex flex-col">
+                  <h3 className="">{texto}</h3>
+                  <h4 className="">{dato}</h4>
+                </div>
+              )}
+              <BiCabinet className="flex h-[10%] w-[10%]" />
             </div>
           </li>
         ))}
