@@ -22,30 +22,28 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
   onRecetaApply,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-w-1/6 h-full bg-background2 p-5 rounded-lg gap-5">
       <SelectConfiguracion
         disabled={loading}
         onChange={onRecetaChange}
         onClick={onRecetaApply}
       />
-      <ul className="list-none p-0">
+      <ul className="flex flex-col gap-2 w-full">
         {datosGeneralesIzq.map(({ id, texto, dato }) => (
-          <li key={id} className="flex items-center justify-between py-2">
-            <div className="flex items-center">
-              <div className="mr-4">
-                {dato === "null" || dato === undefined || dato === null ? (
-                  <>
-                    <h3 className="text-sm font-bold">{texto}</h3>
-                    <EjemploSkeleton2 />
-                  </>
-                ) : (
-                  <>
-                    <h3 className="text-sm font-bold">{texto}</h3>
-                    <h4 className="text-base">{dato}</h4>
-                  </>
-                )}
-              </div>
-              <BiReceipt className="w-6 h-6" />
+          <li key={id} className="">
+            <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">
+              {dato === "null" || dato === undefined || dato === null ? (
+                <div className="flex flex-col">
+                  <h3 className="">{texto}</h3>
+                  <EjemploSkeleton2 />
+                </div>
+              ) : (
+                <div className="flex flex-col">
+                  <h3 className="">{texto}</h3>
+                  <h4 className="">{dato}</h4>
+                </div>
+              )}
+              <BiReceipt className="flex h-[10%] w-[10%]"/>
             </div>
           </li>
         ))}

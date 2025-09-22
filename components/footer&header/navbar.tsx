@@ -6,6 +6,7 @@ import { VscBell } from "react-icons/vsc";
 import { GoGear } from "react-icons/go";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { ThemeSwitch } from "@/components/theme-switch";
 import DropdownBanderas from "@/components/traduccion/dropdownBanderas";
@@ -24,13 +25,36 @@ interface OpcionIcono {
 
 interface OpcionMenu {
   id: number;
-  url: string;
+  url?: string;
   text: string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const { t } = useTranslation();
   const { user } = useApp();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleCamarasClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const userData = sessionStorage.getItem("user_data");
+    const url = process.env.NEXT_PUBLIC_CAMARAS_URL;
+
+    if (!url) {
+      console.error("NEXT_PUBLIC_CAMARAS_URL no está definida.");
+      return;
+    }
+
+    const params = new URLSearchParams();
+    if (userData) params.append("userData", encodeURIComponent(userData));
+
+    window.open(`${url}?${params.toString()}`, "_blank");
+  };
 
   const opcionesIconos: OpcionIcono[] = [
     { id: 1, icon: <Desloguear /> },
@@ -69,7 +93,18 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
     { id: 5, icon: <ThemeSwitch /> },
   ];
 
-  const opcionesMenu: OpcionMenu[] = [{ id: 1, url: "/", text: t("min.home") }];
+  const opcionesMenu: OpcionMenu[] = [
+    { id: 1, url: "/", text: t("min.home") },
+    {
+      id: 2,
+      onClick: handleCamarasClick,
+      text: t("mayus.camaras") || "Camaras",
+    },
+  ];
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <HeroUINavbar
@@ -92,14 +127,22 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
 
       <div className="flex flex-row w-[30%] justify-end">
         <ul className="flex flex-row w-full h-[100%] gap-[30px] justify-end">
-          {opcionesMenu.map(({ id, url, text }) => (
+          {opcionesMenu.map(({ id, url, text, onClick }) => (
             <li key={id} className="h-[100%]">
-              <Link
-                className={currentPath === url ? "activeLink" : ""}
-                href={url}
-              >
-                <span className="header">{text}</span>
-              </Link>
+              {onClick ? (
+                <a href="#" onClick={onClick} className="header">
+                  {text}
+                </a>
+              ) : (
+                url && (
+                  <Link
+                    className={currentPath === url ? "activeLink" : ""}
+                    href={url}
+                  >
+                    <span className="header">{text}</span>
+                  </Link>
+                )
+              )}
             </li>
           ))}
           <Link

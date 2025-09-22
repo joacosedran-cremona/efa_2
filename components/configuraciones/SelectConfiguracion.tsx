@@ -10,9 +10,9 @@ const SelectConfiguracion: React.FC<SelectConfiguracionProps> = ({
   disabled = false,
 }) => {
   return (
-    <div className="mb-4">
+    <div className="flex flex-row items-center justify-between">
       <select
-        className="border rounded px-2 py-1 mr-2"
+        className="border bg-background rounded-sm px-2 py-1"
         defaultValue="1"
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
@@ -22,7 +22,7 @@ const SelectConfiguracion: React.FC<SelectConfiguracionProps> = ({
         <option value="3">Receta 3</option>
       </select>
       <button
-        className="bg-blue-500 text-white px-4 py-1 rounded disabled:opacity-50"
+        className="bg-blue text-white px-5 py-1 rounded-sm disabled:opacity-50"
         disabled={disabled}
         onClick={onClick}
       >

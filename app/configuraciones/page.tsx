@@ -32,7 +32,7 @@ const Configuraciones = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-row justify-between p-5">
       <RecetasSection
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
         loading={configuracionData.loading}
@@ -42,11 +42,12 @@ const Configuraciones = () => {
         }
         onRecetaChange={configuracionData.handleRecetaChange}
       />
-
+      
       <DatosGeneralesSection
         datosGeneralesDer={configuracionData.datosGeneralesDer}
       />
-
+      
+      {/*
       <CorreccionesSection
         datosActuales={configuracionData.datosActuales}
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
@@ -63,7 +64,7 @@ const Configuraciones = () => {
         selectedReceta={configuracionData.selectedReceta}
         selectedTorre={configuracionData.selectedTorre}
         validarTAGDuplicado={configuracionData.validarTAGDuplicado}
-      />
+      />*/}
     </div>
   );
 };
