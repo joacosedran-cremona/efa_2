@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { GoDotFill } from "react-icons/go";
 import { useTranslation } from "react-i18next";
 
-const SubNav = () => {
+const Navbar2 = () => {
   const { t } = useTranslation();
   const pathname = usePathname();
 
@@ -75,4 +75,4 @@ const SubNav = () => {
   );
 };
 
-export default SubNav;
+export default Navbar2;

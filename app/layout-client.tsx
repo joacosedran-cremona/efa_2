@@ -1,9 +1,9 @@
 "use client";
 import { usePathname } from "next/navigation";
 
-import Header from "@/components/footer&header/header";
-import Header2 from "@/components/footer&header/header2";
-import Footer from "@/components/footer&header/footer";
+import { Navbar } from "../components/footer&header/navbar";
+import Navbar2 from "../components/footer&header/navbar2";
+import Footer from "../components/footer&header/footer";
 
 export default function LayoutClient({
   children,
@@ -27,8 +27,8 @@ export default function LayoutClient({
   return (
     <div className="flex flex-col flex-grow min-h-screen">
       <div className="sticky top-0 left-0 w-full z-[999]">
-        {!hideHeaderFooter && <Header />}
-        {!hideHeaderFooter && showHeader2 && <Header2 />}
+        {!hideHeaderFooter && <Navbar currentPath={pathname} />}
+        {!hideHeaderFooter && showHeader2 && <Navbar2 />}
       </div>
       <main
         className={`flex-grow ${isDesmoldeoPage ? "pl-[270px]" : ""} ${pathname === "/login" || pathname === "/login/recuperacion" ? "flex justify-center items-center" : ""}`}
