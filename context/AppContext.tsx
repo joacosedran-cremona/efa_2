@@ -9,7 +9,6 @@ import {
 } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 import { WebSocketProvider, useWebSocketContext } from "./WebSocketContext";
 
@@ -88,7 +87,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const publicRoutes = ["/login", "/", "/login/recuperacion"];
+    const publicRoutes = ["/login", "/login/recuperacion"];
     const acceso = sessionStorage.getItem("acceso");
 
     if (!publicRoutes.includes(pathname || "") && !acceso) {
@@ -116,7 +115,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
       JSON.stringify({ access_token, token_type, role }),
     );
 
-    Cookies.set("token", access_token, { secure: false, sameSite: "lax" });
+    sessionStorage.setItem("token", access_token);
 
     setUser({ access_token, token_type, role });
     setToken(access_token);
@@ -132,7 +131,6 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
     sessionStorage.removeItem("user_data");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("acceso");
-    Cookies.remove("token");
 
     router.push("/login");
   };
