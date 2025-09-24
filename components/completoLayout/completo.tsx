@@ -65,14 +65,14 @@ const LayoutCompleto = () => {
   };
 
   return (
-    <div className="relative w-auto h-[83vh]">
+    <div className="relative w-auto h-[80vh]">
       <div className="relative w-full h-full">
         <Image
           priority
           alt="Layout"
           className="object-contain rounded-lg"
-          height={1080}
-          sizes="83vh"
+          height={801}
+          sizes="80vh"
           src="/Layout/layoutcompleto.png"
           style={{
             width: "100%",
@@ -80,7 +80,7 @@ const LayoutCompleto = () => {
             top: 0,
             left: 0,
           }}
-          width={1920}
+          width={1287}
         />
       </div>
 

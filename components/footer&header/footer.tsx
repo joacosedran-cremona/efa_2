@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="flex flex-col align-middle bg-headerbg text-white">
+    <footer className="flex flex-col align-middle bg-headerbg">
       <div className="flex flex-row w-[100%] max-w-1920 h-[10rem] justify-between align-middle p-[40px]">
         <ul className="flex flex-col justify-center align-middle h-[100%] w-[30%]">
           {opcionesIzq.map(({ id, icono, link, texto }) => (
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
                 target="_blank"
               >
                 {icono}
-                <p className="items-center text-white">{texto}</p>
+                <p className="items-center">{texto}</p>
               </Link>
             </li>
           ))}
@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <p className="items-center text-white">{texto}</p>
+                <p className="items-center">{texto}</p>
                 {icono}
               </Link>
             </li>

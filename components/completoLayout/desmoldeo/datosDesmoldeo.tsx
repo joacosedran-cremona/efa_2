@@ -3,6 +3,7 @@
 import { useContext } from "react";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 import AppContext from "@/context/AppContext";
 
@@ -96,17 +97,19 @@ const DatosDesmoldeo = () => {
   const isActive =
     estadoMaquina === "CICLO ACTIVO" || estadoMaquina === "CICLO PAUSADO";
 
+  const baseClasses =
+    "flex flex-col justify-center items-center h-full w-full p-2 rounded-lg transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] ";
+
   return (
     <>
-      <ul className="w-full h-full flex flex-col p-0 m-0 gap-2 text-[#d9d9d9] list-none">
+      <ul className="w-full h-full flex flex-col list-none text-white gap-2">
         {datosTiempoReal.map(({ id, nombre, dato }) => (
           <li
             key={id}
-            className={
-              isActive
-                ? "flex flex-col p-[0.4vw_0.8vw] rounded-lg bg-[#581420] max-h-[65px] h-full w-full transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)]"
-                : "h-full w-full flex text-center justify-center p-[1vw] rounded-lg bg-[#555555] transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
-            }
+            className={clsx(baseClasses, {
+              "bg-[#581420]": isActive,
+              "bg-[#555555] pointer-events-none": !isActive,
+            })}
           >
             <Link
               className={

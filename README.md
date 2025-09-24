@@ -99,13 +99,9 @@ npm install date-fns chartjs-adapter-date-fns --save
 ```
 
 ## npm run build
-
 ```bash
 npx eslint --fix .
-
 npx prettier --write .
-
 npm run build
-
 npm run start
 ```
