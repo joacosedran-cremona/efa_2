@@ -26,13 +26,9 @@ const DatosPaletizado = () => {
         {datosTiempoReal.map(({ id, nombre }) => (
           <li
             key={id}
-            className="h-full w-full flex text-center justify-center p-[1vw] rounded-lg bg-[#555555] transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
+            className="h-full w-full flex items-center justify-center rounded-lg bg-[#555555] text-lightgrey transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
           >
-            <div className="flex w-full h-full">
-              <h3 className="text-[0.9vw] h-full w-full p-0 m-0 text-gray-500 transition-colors">
-                {nombre}
-              </h3>
-            </div>
+            {nombre}
           </li>
         ))}
       </ul>

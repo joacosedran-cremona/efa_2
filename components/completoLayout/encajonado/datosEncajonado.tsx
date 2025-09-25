@@ -21,22 +21,16 @@ const DatosEncajonado = () => {
   ];
 
   return (
-    <>
-      <ul className="w-full h-full flex flex-col p-0 m-0 gap-2 text-white list-none">
-        {datosTiempoReal.map(({ id, nombre }) => (
-          <li
-            key={id}
-            className="h-full w-full flex text-center justify-center p-[1vw] rounded-lg bg-[#555555] transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
-          >
-            <div className="flex w-full h-full">
-              <h3 className="text-[0.9rem] h-full w-full transition-colors">
-                {nombre}
-              </h3>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="w-full h-full flex flex-col gap-2">
+      {datosTiempoReal.map(({ id, nombre }) => (
+        <li
+          key={id}
+          className="h-full w-full flex items-center justify-center rounded-lg bg-[#555555] text-lightgrey transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
+        >
+          {nombre}
+        </li>
+      ))}
+    </ul>
   );
 };
 
