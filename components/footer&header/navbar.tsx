@@ -32,7 +32,7 @@ interface OpcionMenu {
 
 export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   const { t } = useTranslation();
-  const { user } = useApp();
+  const { user, clientIP } = useApp();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -43,7 +43,21 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
     e.preventDefault();
 
     const userData = sessionStorage.getItem("user_data");
-    const url = process.env.NEXT_PUBLIC_CAMARAS_URL;
+    let url = process.env.NEXT_PUBLIC_CAMARAS_URL; // fallback
+
+    if (clientIP) {
+      const parts = clientIP.split(".");
+
+      if (parts.length === 4) {
+        const segmento = parts[2];
+
+        if (segmento === "10") {
+          url = "http://192.168.10.255:3001";
+        } else if (segmento === "20") {
+          url = "http://192.168.20.150:3001";
+        }
+      }
+    }
 
     const params = new URLSearchParams();
 
