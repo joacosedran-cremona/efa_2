@@ -98,7 +98,14 @@ npm install date-fns chartjs-adapter-date-fns --save
 
 ```
 
+## Config Red
+
+Red Segmento Host
+IXON 192.168.10.X 8000
+Local 192.168.20.X
+
 ## npm run build
+
 ```bash
 npx eslint --fix .
 npx prettier --write .

@@ -85,8 +85,9 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
     }
 
     try {
+      const target = localStorage.getItem("targetAddress");
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/graficos-historico/ciclos-productos/?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+        `http://${target}/graficos-historico/ciclos-productos/?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
         {
           method: "GET",
           headers: {

@@ -31,6 +31,8 @@ interface AppContextType {
   logout: () => void;
   equipoSeleccionado: string | null;
   setEquipoSeleccionado: (equipo: string | null) => void;
+  clientIP: string | null;
+  targetAddress: string | null;
   websocketData: {
     data: any | null;
     isConnected: boolean;
@@ -50,6 +52,8 @@ const AppContext = createContext<AppContextType>({
   logout: () => {},
   equipoSeleccionado: null,
   setEquipoSeleccionado: () => {},
+  clientIP: null,
+  targetAddress: null,
   websocketData: {
     data: null,
     isConnected: false,
@@ -66,6 +70,8 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   );
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [clientIP, setClientIP] = useState<string | null>(null);
+  const [targetAddress, setTargetAddress] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -87,6 +93,51 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    const determineTargetFromURL = () => {
+      if (typeof window !== "undefined") {
+        // Obtener la URL desde la cual el usuario accede a la página
+        const currentURL = window.location.href;
+        const url = new URL(currentURL);
+        const hostname = url.hostname;
+
+        let target = null;
+
+        if (hostname === "192.168.10.225") {
+          // Usuario ingresó desde VLAN
+          target = "192.168.10.225:8000";
+          setClientIP("192.168.10.225");
+        } else if (hostname === "192.168.20.150") {
+          // Usuario ingresó desde LOCAL
+          target = "192.168.20.150:8000";
+          setClientIP("192.168.20.150");
+        } else if (hostname.startsWith("192.168.")) {
+          // Caso genérico para otras IPs de la red 192.168.x.x
+          const parts = hostname.split(".");
+
+          if (parts.length === 4) {
+            const segmento = parts[2];
+
+            target = `192.168.${segmento}.225:8000`;
+            setClientIP(hostname);
+          }
+        } else {
+          // Para desarrollo local (localhost) o otras situaciones
+          setClientIP(hostname);
+          // Aquí podrías establecer un target por defecto o mantenerlo null
+        }
+
+        if (target) {
+          setTargetAddress(target);
+          localStorage.setItem("targetAddress", target);
+          localStorage.setItem("clientIP", hostname);
+        }
+      }
+    };
+
+    determineTargetFromURL();
+  }, []);
+
+  useEffect(() => {
     const publicRoutes = ["/login", "/login/recuperacion"];
     const acceso = sessionStorage.getItem("acceso");
 
@@ -96,13 +147,16 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   }, [pathname, router]);
 
   const login = async (username: string, password: string): Promise<void> => {
+    if (!targetAddress) {
+      throw new Error("Target address not available");
+    }
     const formData = new FormData();
 
     formData.append("username", username);
     formData.append("password", password);
 
     const response = await axios.post<LoginResponse>(
-      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/usuario/login`,
+      `http://${targetAddress}/usuario/login`,
       formData,
     );
 
@@ -142,6 +196,8 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
     logout,
     equipoSeleccionado,
     setEquipoSeleccionado,
+    clientIP,
+    targetAddress,
     websocketData,
   };
 

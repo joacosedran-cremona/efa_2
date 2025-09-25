@@ -32,7 +32,10 @@ interface ResetFallasData {
 
 export const configuracionesApi = {
   obtenerDatosRecetas: async (idReceta: string) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/datos-recetas?id_receta=${idReceta}`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/datos-recetas?id_receta=${idReceta}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -42,7 +45,10 @@ export const configuracionesApi = {
     return response.json();
   },
   obtenerListaTorres: async (idReceta: string) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/lista-torres?id_receta=${idReceta}`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/lista-torres?id_receta=${idReceta}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -52,7 +58,10 @@ export const configuracionesApi = {
     return response.json();
   },
   obtenerNivelesTorre: async (idTorre: string) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/niveles-torre?id_torre=${idTorre}`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/niveles-torre?id_torre=${idTorre}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -62,7 +71,10 @@ export const configuracionesApi = {
     return response.json();
   },
   enviarDatosTorre: async (datos: TorreData, reintentos: number = 5) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/tomar-datos-torre`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/tomar-datos-torre`;
 
     for (let i = 1; i <= reintentos; i++) {
       const response = await fetch(url, {
@@ -79,7 +91,10 @@ export const configuracionesApi = {
     }
   },
   enviarDatosNiveles: async (datos: NivelData) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/tomar-datos-niveles`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/tomar-datos-niveles`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -94,7 +109,10 @@ export const configuracionesApi = {
     return response.text();
   },
   resetearFallasNivel: async (datos: ResetFallasData) => {
-    const url = `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/configuraciones/reset-datos-niveles`;
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/reset-datos-niveles`;
 
     const response = await fetch(url, {
       method: "POST",

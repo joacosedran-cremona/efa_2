@@ -104,8 +104,9 @@ export default function BotonesDescarga({
   };
 
   const handleExcelDownload = async () => {
+    const target = localStorage.getItem("targetAddress");
     const response = await fetch(
-      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/graficos-historico/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      `http://${target}/graficos-historico/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
       {
         method: "GET",
         headers: {

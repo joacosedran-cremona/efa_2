@@ -20,10 +20,12 @@ const ForgotPassword = () => {
     setLoading(true);
 
     try {
-      await axios.post(
-        `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/usuario/recuperar-password`,
-        { email },
-      );
+      const target = localStorage.getItem("targetAddress");
+
+      if (!target) throw new Error("Target address not available");
+      await axios.post(`http://${target}/usuario/recuperar-password`, {
+        email,
+      });
 
       toast.success("Correo de recuperación enviado correctamente", {
         position: "bottom-center",

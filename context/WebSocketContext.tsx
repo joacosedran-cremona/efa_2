@@ -50,7 +50,14 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 
   const connect = useCallback(() => {
     try {
-      const wsUrl = `ws://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/ws/${pollId}`;
+      const target = localStorage.getItem("targetAddress");
+
+      if (!target) {
+        setError(new Error("Target address not available"));
+
+        return;
+      }
+      const wsUrl = `ws://${target}/ws/${pollId}`;
       const socket = new WebSocket(wsUrl);
 
       socketRef.current = socket;

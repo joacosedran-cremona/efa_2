@@ -75,8 +75,10 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       return;
     }
 
+    const target = localStorage.getItem("targetAddress");
+
     const response = await fetch(
-      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
       {
         method: "GET",
         headers: {
@@ -109,8 +111,10 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       return;
     }
 
+    const target = localStorage.getItem("targetAddress");
+
     const response = await fetch(
-      `http://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+      `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
       {
         method: "GET",
         headers: {
