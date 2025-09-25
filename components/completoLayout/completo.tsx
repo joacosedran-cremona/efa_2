@@ -73,7 +73,7 @@ const LayoutCompleto = () => {
           className="object-contain rounded-lg"
           height={801}
           sizes="80vh"
-          src="/Layout/layoutcompleto.png"
+          src="/layout/layoutcompleto.png"
           style={{
             width: "100%",
             height: "100%",
