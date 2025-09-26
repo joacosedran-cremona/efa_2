@@ -95,7 +95,6 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const determineTargetFromURL = () => {
       if (typeof window !== "undefined") {
-        // Obtener la URL desde la cual el usuario accede a la página
         const currentURL = window.location.href;
         const url = new URL(currentURL);
         const hostname = url.hostname;
@@ -103,15 +102,12 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
         let target = null;
 
         if (hostname === "192.168.10.225") {
-          // Usuario ingresó desde VLAN
           target = "192.168.10.225:8000";
           setClientIP("192.168.10.225");
         } else if (hostname === "192.168.20.150") {
-          // Usuario ingresó desde LOCAL
           target = "192.168.20.150:8000";
           setClientIP("192.168.20.150");
         } else if (hostname.startsWith("192.168.")) {
-          // Caso genérico para otras IPs de la red 192.168.x.x
           const parts = hostname.split(".");
 
           if (parts.length === 4) {
@@ -121,9 +117,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
             setClientIP(hostname);
           }
         } else {
-          // Para desarrollo local (localhost) o otras situaciones
           setClientIP(hostname);
-          // Aquí podrías establecer un target por defecto o mantenerlo null
         }
 
         if (target) {

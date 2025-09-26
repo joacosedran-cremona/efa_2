@@ -43,7 +43,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
     e.preventDefault();
 
     const userData = sessionStorage.getItem("user_data");
-    let url = process.env.NEXT_PUBLIC_CAMARAS_URL; // fallback
+    let url = process.env.NEXT_PUBLIC_CAMARAS_URL;
 
     if (clientIP) {
       const parts = clientIP.split(".");

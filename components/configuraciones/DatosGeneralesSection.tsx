@@ -1,6 +1,7 @@
 "use client";
 
 import { BiCabinet } from "react-icons/bi";
+
 import { DatoReceta } from "@/types/configuraciones";
 
 interface DatosGeneralesSectionProps {

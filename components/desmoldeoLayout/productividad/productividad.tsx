@@ -67,12 +67,14 @@ const getColorById = (id: number): string => {
 
 const parseTimeToMinutes = (timeStr: string): number => {
   const [hours, minutes] = timeStr.split(":").map(Number);
+
   return hours * 60 + minutes;
 };
 
 const formatMinutesToHHMM = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const mins = Math.floor(minutes % 60);
+
   return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
 };
 
@@ -89,23 +91,17 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
   };
 
-  const Cant_Dias = Math.ceil(
-    (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) /
-      (1000 * 3600 * 24) +
-      1
-  );
-
   const cantidadCiclosF =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -118,13 +114,13 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
-          0
+          0,
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    numProductos: number
+    numProductos: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? formatMinutesToHHMM((horasUso as number) / numProductos)

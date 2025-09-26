@@ -59,7 +59,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5
+      5,
     );
 
     const finalData = {
@@ -89,7 +89,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11
+      11,
     );
 
     const finalData = {
@@ -126,7 +126,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0
+      0,
     );
 
     const datos = {
@@ -150,7 +150,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
     if (selectedOption === 1) {
       if (index === 4) {
@@ -159,12 +159,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         e.target.value = tagValidado;
       } else {
         e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value
+          e.target.value,
         );
       }
     } else {
       e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value
+        e.target.value,
       );
     }
   };

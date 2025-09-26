@@ -36,7 +36,10 @@ export default function BotonesDescarga({
 
     if (graphSection) {
       const canvasProduct = await html2canvas(graphSection, {
-        scale: 3,
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#ffffff",
         ignoreElements: (element) => {
           return !!(
             element.classList &&
@@ -73,7 +76,7 @@ export default function BotonesDescarga({
         pdfWidth,
         pdfHeight,
         undefined,
-        "FAST",
+        "FAST"
       );
 
       const logoWidth = 40;
@@ -113,7 +116,7 @@ export default function BotonesDescarga({
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -128,7 +131,7 @@ export default function BotonesDescarga({
     link.href = url;
     link.setAttribute(
       "download",
-      `productividad_${startDate}_to_${endDate}.xlsx`,
+      `productividad_${startDate}_to_${endDate}.xlsx`
     );
     document.body.appendChild(link);
     link.click();
