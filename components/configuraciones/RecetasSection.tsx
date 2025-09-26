@@ -28,7 +28,7 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
         onChange={onRecetaChange}
         onClick={onRecetaApply}
       />
-      <ul className="flex flex-col h-full justify-between w-full gap-5">
+      <ul className="flex flex-col h-full justify-between w-full">
         {datosGeneralesIzq.map(({ id, texto, dato }) => (
           <li key={id} className="">
             <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">

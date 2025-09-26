@@ -59,7 +59,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5,
+      5
     );
 
     const finalData = {
@@ -89,7 +89,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11,
+      11
     );
 
     const finalData = {
@@ -126,7 +126,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0,
+      0
     );
 
     const datos = {
@@ -150,7 +150,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) => {
     if (selectedOption === 1) {
       if (index === 4) {
@@ -159,12 +159,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         e.target.value = tagValidado;
       } else {
         e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value,
+          e.target.value
         );
       }
     } else {
       e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value,
+        e.target.value
       );
     }
   };
@@ -178,7 +178,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     ) {
       return (
         <ul
-          className="rounded-lg h-full grid gap-5"
+          className="rounded-lg h-full grid"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -196,7 +196,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               <h3>{texto}</h3>
               <h4>
                 {dato === "null" || dato === undefined || dato === null ? (
-                  <EjemploSkeleton2 />
+                  <span>null</span>
                 ) : (
                   <>
                     {dato}
@@ -225,7 +225,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else if (selectedOption === 2 && selectedNivel === "FA") {
       return (
         <ul
-          className="rounded-lg h-full grid gap-5"
+          className="rounded-lg h-full grid"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -265,7 +265,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       );
     } else if (selectedOption === 1) {
       return (
-        <ul className="flex flex-col rounded-lg h-full justify-between gap-5">
+        <ul className="flex flex-col rounded-lg h-full justify-between">
           {datosActuales.map(({ id, texto, dato }, index) => (
             <li
               key={id}
@@ -275,7 +275,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                 <>
                   <h3 className="">{texto}</h3>
                   <h4 className="">
-                    <EjemploSkeleton2 />
+                    <span>null</span>
                   </h4>
                 </>
               ) : (
@@ -311,7 +311,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else {
       return (
         <ul
-          className="rounded-lg h-full justify-between grid gap-5"
+          className="rounded-lg h-full justify-between grid"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -330,7 +330,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                 <>
                   <h3 className="">{texto}</h3>
                   <h4 className="">
-                    <EjemploSkeleton2 />
+                    <span>null</span>
                   </h4>
                 </>
               ) : (
@@ -347,11 +347,11 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   };
 
   return (
-    <div className="bg-background2 w-1/3 p-5 rounded-lg h-full flex flex-col gap-5 ">
+    <div className="bg-background2 flex-1 p-5 rounded-lg h-full flex flex-col gap-5">
       <h2 className="text-xl font-semibold">CORRECCIONES</h2>
-      <ul className="flex flex-row justify-between gap-5 w-auto">
+      <ul className="flex flex-row justify-between w-auto gap-5">
         {opcionesCorrecciones.map(({ id, nombre }) => (
-          <li key={id} className="flex flex-col flex-1 gap-5">
+          <li key={id} className="flex flex-col flex-1">
             <button
               className={`flex flex-col rounded-sm transition-all ${
                 selectedOption === id ? "bg-blue text-white" : "bg-background5"

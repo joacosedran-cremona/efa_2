@@ -11,7 +11,7 @@ interface ProductoRealizado {
   NombreProducto: string;
   cantidadCiclos: number;
   pesoTotal: number;
-  tiempoTotal: number;
+  tiempoTotal: string;
 }
 
 interface ProductividadData {
@@ -65,6 +65,17 @@ const getColorById = (id: number): string => {
   return colors[(id - 1) % colors.length];
 };
 
+const parseTimeToMinutes = (timeStr: string): number => {
+  const [hours, minutes] = timeStr.split(":").map(Number);
+  return hours * 60 + minutes;
+};
+
+const formatMinutesToHHMM = (minutes: number): string => {
+  const hours = Math.floor(minutes / 60);
+  const mins = Math.floor(minutes % 60);
+  return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
+};
+
 const Productividad = () => {
   const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];
@@ -78,7 +89,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -87,14 +98,14 @@ const Productividad = () => {
   const Cant_Dias = Math.ceil(
     (new Date(dateRange.end).getTime() - new Date(dateRange.start).getTime()) /
       (1000 * 3600 * 24) +
-      1,
+      1
   );
 
   const cantidadCiclosF =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0,
+          0
         )
       : t("min.cargando");
 
@@ -106,17 +117,17 @@ const Productividad = () => {
   const Horas_Uso =
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
-          (acc, prod) => acc + prod.tiempoTotal,
-          0,
+          (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
+          0
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number,
+    numProductos: number
   ): string =>
     horasUso !== t("min.cargando")
-      ? ((horasUso as number) / 60 / cantDias).toFixed(2)
+      ? formatMinutesToHHMM((horasUso as number) / numProductos)
       : t("min.cargando");
 
   const datos: DatoMetrica[] = [
@@ -135,8 +146,7 @@ const Productividad = () => {
       titulo: t("min.promedioUsoDiario"),
       dato: (
         <span>
-          {Promedio_Horas(Horas_Uso, Cant_Dias)}{" "}
-          <span className="text-lg">Hs</span>
+          {Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}
         </span>
       ),
     },
