@@ -101,9 +101,9 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
         let target = null;
 
-        if (hostname === "192.168.10.225") {
-          target = "192.168.10.225:8000";
-          setClientIP("192.168.10.225");
+        if (hostname === "192.168.10.114") {
+          target = "192.168.10.114:8000";
+          setClientIP("192.168.10.114");
         } else if (hostname === "192.168.20.150") {
           target = "192.168.20.150:8000";
           setClientIP("192.168.20.150");
@@ -113,7 +113,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
           if (parts.length === 4) {
             const segmento = parts[2];
 
-            target = `192.168.${segmento}.225:8000`;
+            target = `192.168.${segmento}.114:8000`;
             setClientIP(hostname);
           }
         } else {
