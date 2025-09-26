@@ -234,10 +234,9 @@ const DatosLaterales: React.FC = () => {
           {datosTiempoReal.map(({ id, nombre, dato, icono }) => (
             <Link key={id} className="block" href="/desmoldeo/equipos">
               <li className="flex flex-row items-center justify-between border border-background6 bg-background3 rounded-lg p-[5px]">
-                <div>
-                  <h3 className="text-md font-bold">{nombre}</h3>
-                  <h4 className="text-sm">{dato}</h4>
-                </div>
+                <p className="flex flex-col text-md font-bold">
+                  {nombre} <span className="text-sm">{dato}</span>
+                </p>
                 {React.createElement(icono, { size: 24 })}
               </li>
             </Link>

@@ -46,7 +46,7 @@ const DatosGripperComponent = () => {
       equipoSeleccionado === "Gripper" ||
         equipoSeleccionado === "Estación de grippers"
         ? null
-        : "Gripper",
+        : "Gripper"
     );
   };
 
@@ -69,17 +69,17 @@ const DatosGripperComponent = () => {
       type="button"
       onClick={handleClick}
     >
-      <h1 className="w-full text-[16px] font-bold tracking-[1px] m-0">
+      <p className="w-full text-[16px] font-bold tracking-[1px] m-0">
         {t("mayus.datosGripper")}
-      </h1>
+      </p>
       <div className="flex flex-row justify-between gap-5">
         {datosGripper.map(({ id, texto, dato }) => (
           <div
             key={id}
             className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
-            <h3 className="text-md font-medium">{texto}</h3>
-            <h4 className="text-sm">{dato === null ? "null" : `${dato} mm`}</h4>
+            <p className="text-md font-medium">{texto}</p>
+            <p className="text-sm">{dato === null ? "null" : `${dato} mm`}</p>
           </div>
         ))}
       </div>

@@ -20,9 +20,9 @@ const Equipos = () => {
       </div>
 
       <div className="w-2/4 flex flex-col justify-between">
-        <span className="block text-xl font-bold tracking-wide uppercase">
+        <p className="block text-xl font-bold tracking-wide uppercase">
           {t("mayus.datosDesmoldeo")}
-        </span>
+        </p>
         <DatosRobot />
         <DatosSDDA />
         <DatosTorre />

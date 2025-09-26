@@ -32,7 +32,7 @@ const Configuraciones = () => {
   }
 
   return (
-    <div className="flex flex-row justify-between gap-5 p-5 h-[55rem]">
+    <div className="flex flex-row justify-between gap-5 p-5 h-[50rem]">
       <RecetasSection
         datosGeneralesIzq={configuracionData.datosGeneralesIzq}
         loading={configuracionData.loading}

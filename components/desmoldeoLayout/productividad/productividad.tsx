@@ -91,7 +91,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -101,7 +101,7 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0,
+          0
         )
       : t("min.cargando");
 
@@ -114,13 +114,13 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
-          0,
+          0
         )
       : t("min.cargando");
 
   const Promedio_Horas = (
     horasUso: number | string,
-    numProductos: number,
+    numProductos: number
   ): string =>
     horasUso !== t("min.cargando")
       ? formatMinutesToHHMM((horasUso as number) / numProductos)
@@ -132,18 +132,18 @@ const Productividad = () => {
       id: 2,
       titulo: t("min.productoRealizado"),
       dato: (
-        <span>
+        <p>
           {PesoTotalCiclos} <span className="text-lg">Tn</span>
-        </span>
+        </p>
       ),
     },
     {
       id: 3,
       titulo: t("min.promedioUsoDiario"),
       dato: (
-        <span>
+        <p>
           {Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}
-        </span>
+        </p>
       ),
     },
   ];
@@ -170,13 +170,15 @@ const Productividad = () => {
       id="ProductividadSection"
     >
       <div className="w-full md:w-4/5 flex flex-col bg-background2 rounded-lg p-5 relative">
-        <h2 className="text-left text-[1vw] font-semibold">
+        <p className="text-left text-[1vw] font-semibold">
           {t("mayus.productividad")}
-        </h2>
+        </p>
         <div className="flex items-center">
-          <span className="inline text-orange">{dateRange.start}</span>
-          <span className="inline px-[5px] font-semibold"> - </span>
-          <span className="inline text-orange">{dateRange.end}</span>
+          <p className="inline text-orange">
+            {dateRange.start}{" "}
+            <span className="inline px-[5px] font-semibold"> - </span>{" "}
+            {dateRange.end}
+          </p>
         </div>
         <div className="flex justify-between w-full px-[50px]">
           {datos.map((dato, index) => (
@@ -188,7 +190,7 @@ const Productividad = () => {
         </div>
         <hr className="border-t-4 border-texto rounded-lg mx-auto my-5 w-4/5" />
         <div className="relative">
-          <h3>% {t("min.productoRealizado")}</h3>
+          <p>% {t("min.productoRealizado")}</p>
           <div className="flex h-5 rounded overflow-hidden bg-background5 mb-[15px]">
             {productos.map((producto, index) => (
               <div
@@ -208,7 +210,7 @@ const Productividad = () => {
           <div className="flex justify-around flex-wrap">
             {productos.map((producto, index) => (
               <div key={index} className="flex items-center m-[5px_10px]">
-                <span
+                <p
                   className="w-[15px] h-[15px] rounded mr-[5px]"
                   style={{ backgroundColor: producto.color }}
                 />

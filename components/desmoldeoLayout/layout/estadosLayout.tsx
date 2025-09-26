@@ -68,9 +68,9 @@ const EstadosLayout: React.FC = () => {
               className="w-[15px] h-[15px] my-[5px] -ml-[5px]"
               color={machineState.color}
             />
-            <h3 className={`font-semibold ${machineState.colorClass}`}>
+            <p className={`font-semibold ${machineState.colorClass}`}>
               {machineState.text}
-            </h3>
+            </p>
           </div>
         </li>
       </ul>

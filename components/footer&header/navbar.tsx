@@ -153,7 +153,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
                     className={currentPath === url ? "activeLink" : ""}
                     href={url}
                   >
-                    <span className="header">{text}</span>
+                    <p className="header">{text}</p>
                   </Link>
                 )
               )}

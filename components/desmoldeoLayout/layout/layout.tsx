@@ -65,7 +65,7 @@ const equipmentStatusMap = {
   robot: (data: any): EquipmentStatus => {
     const robotAlarms =
       data?.alarms?.filter(
-        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT",
+        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT"
       ) || [];
     const lastRobotAlarm = robotAlarms.length > 0 ? robotAlarms[0] : null;
 
@@ -208,7 +208,7 @@ const Layout: React.FC = () => {
   };
 
   const getEquipmentStatus = (
-    section: LayoutSection,
+    section: LayoutSection
   ): EquipmentStatus | null => {
     if (!equipmentData || !section.statusKey) return null;
 
@@ -240,13 +240,13 @@ const Layout: React.FC = () => {
               } hover:bg-white/30 hover:shadow-[0px_0px_15px_10px_rgba(255,255,255,0.8)] group`}
               style={section.style}
             >
-              <span
+              <p
                 className="absolute -top-5 left-1/2 -translate-x-1/2 bg-background p-2 rounded-lg 
                 text-md opacity-0 transition-opacity whitespace-nowrap
                 group-hover:opacity-100"
               >
                 {t(section.translationKey)}
-              </span>
+              </p>
 
               {status && (
                 <div

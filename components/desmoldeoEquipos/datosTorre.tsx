@@ -54,7 +54,7 @@ const DatosTorreComponent = () => {
     setEquipoSeleccionado(
       equipoSeleccionado === "Posicionador de torres"
         ? null
-        : "Posicionador de torres",
+        : "Posicionador de torres"
     );
   };
 
@@ -74,9 +74,9 @@ const DatosTorreComponent = () => {
       type="button"
       onClick={handleClick}
     >
-      <h1 className="text-[16px] font-bold tracking-[1px] m-0">
+      <p className="text-[16px] font-bold tracking-[1px] m-0">
         {t("mayus.datosTorre")}
-      </h1>
+      </p>
 
       <div className="flex flex-row justify-between gap-5">
         {datosTorre.map(({ id, texto, dato }) => (
@@ -84,8 +84,8 @@ const DatosTorreComponent = () => {
             key={id}
             className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
-            <h3 className="text-md font-medium">{texto}</h3>
-            <h4 className="text-sm">{dato === null ? "null" : `${dato} mm`}</h4>
+            <p className="text-md font-medium">{texto}</p>
+            <p className="text-sm">{dato === null ? "null" : `${dato} mm`}</p>
           </div>
         ))}
       </div>

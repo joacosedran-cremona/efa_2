@@ -72,14 +72,14 @@ const SectorIOComponent = () => {
 
   return (
     <div className="w-full bg-background2 rounded-lg p-5">
-      <h1 className="font-bold">{t("mayus.sectorIO")}</h1>
+      <p className="font-bold">{t("mayus.sectorIO")}</p>
       <div className="w-full grid grid-cols-2 gap-5">
         {sector_IO.map(({ id, texto, icono }) => (
           <div
             key={id}
             className="w-full p-5 bg-background3 rounded-lg flex items-center justify-between"
           >
-            <h3 className="text-base font-bold m-0 p-0">{texto}</h3>
+            <p className="text-base font-bold m-0 p-0">{texto}</p>
             {icono}
           </div>
         ))}

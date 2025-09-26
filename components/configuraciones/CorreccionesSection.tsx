@@ -59,7 +59,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5,
+      5
     );
 
     const finalData = {
@@ -89,7 +89,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11,
+      11
     );
 
     const finalData = {
@@ -126,7 +126,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0,
+      0
     );
 
     const datos = {
@@ -150,7 +150,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) => {
     if (selectedOption === 1) {
       if (index === 4) {
@@ -159,12 +159,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         e.target.value = tagValidado;
       } else {
         e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value,
+          e.target.value
         );
       }
     } else {
       e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value,
+        e.target.value
       );
     }
   };
@@ -178,7 +178,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     ) {
       return (
         <ul
-          className="rounded-lg h-full grid"
+          className="rounded-lg h-full grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -193,27 +193,23 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                   : ""
               }`}
             >
-              <h3>{texto}</h3>
-              <h4>
-                {dato === "null" || dato === undefined || dato === null ? (
-                  <span>null</span>
-                ) : (
-                  <>
-                    {dato}
-                    <span> - </span>
-                    <input
-                      ref={(el) => {
-                        if (inputRefs.current) {
-                          inputRefs.current[index] = el;
-                        }
-                      }}
-                      pattern="\d+"
-                      type="number"
-                      onChange={(e) => handleInputChange(e, index)}
-                    />
-                  </>
-                )}
-              </h4>
+              <label className="flex flex-col w-full">
+                <p className="w-full">{texto}</p>
+                <p className="flex flex-row items-center w-full gap-2">
+                  <span>{dato} - </span>
+                  <input
+                    className="bg-background4 rounded-lg px-[0.5rem] w-[75%]"
+                    ref={(el) => {
+                      if (inputRefs.current) {
+                        inputRefs.current[index] = el;
+                      }
+                    }}
+                    pattern="\d+"
+                    type="number"
+                    onChange={(e) => handleInputChange(e, index)}
+                  />
+                </p>
+              </label>
             </li>
           ))}
           <div className="col-span-2 flex flex-col gap-2">
@@ -225,7 +221,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else if (selectedOption === 2 && selectedNivel === "FA") {
       return (
         <ul
-          className="rounded-lg h-full grid"
+          className="rounded-lg h-full grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -233,32 +229,17 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
           {datosActuales.map(({ id, texto, dato }, index) => (
             <li
               key={id}
-              className={`bg-background3 p-2 rounded-lg flex flex-col ${
+              className={`bg-background3 p-2 rounded-lg flex flex-col justify-between ${
                 index === datosActuales.length - 1 &&
                 datosActuales.length % 2 !== 0
                   ? "col-span-2"
                   : ""
               }`}
             >
-              {dato === "null" || dato === undefined || dato === null ? (
-                <>
-                  <h3 className="">{texto}</h3>
-                  <h4 className="">
-                    <EjemploSkeleton2 />
-                  </h4>
-                </>
-              ) : (
-                <>
-                  <h3 className="">{texto}</h3>
-                  <h4 className="">{dato}</h4>
-                </>
-              )}
-              {dato !== "null" && dato !== undefined && dato !== null && (
-                <BotonResetear
-                  className=""
-                  onClick={() => handleAplicarReset(index)}
-                />
-              )}
+              <p className="flex flex-row w-full justify-between">
+                {texto} <span>{dato}</span>
+              </p>
+              <BotonResetear onClick={() => handleAplicarReset(index)} />
             </li>
           ))}
         </ul>
@@ -271,31 +252,22 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               key={id}
               className="bg-background3 p-2 rounded-lg flex flex-col"
             >
-              {dato === "null" || dato === undefined || dato === null ? (
-                <>
-                  <h3 className="">{texto}</h3>
-                  <h4 className="">
-                    <span>null</span>
-                  </h4>
-                </>
-              ) : (
-                <>
-                  <h3>{texto}</h3>
-                  <h4>
-                    {dato}
-                    <span> - </span>
-                    <input
-                      ref={(el) => {
-                        if (inputRefs.current) {
-                          inputRefs.current[index] = el;
-                        }
-                      }}
-                      className=""
-                      onChange={(e) => handleInputChange(e, index)}
-                    />
-                  </h4>
-                </>
-              )}
+              <p>{texto}</p>
+              <div className="flex flex-row items-center">
+                {dato}
+                <p> - </p>
+                <input
+                  className="bg-background4 rounded-lg w-[100%] px-[0.5rem]"
+                  ref={(el) => {
+                    if (inputRefs.current) {
+                      inputRefs.current[index] = el;
+                    }
+                  }}
+                  pattern="\d+"
+                  type="number"
+                  onChange={(e) => handleInputChange(e, index)}
+                />
+              </div>
             </li>
           ))}
           <div className="col-span-2 flex flex-col gap-2">
@@ -311,7 +283,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else {
       return (
         <ul
-          className="rounded-lg h-full justify-between grid"
+          className="rounded-lg h-full grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -319,26 +291,16 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
           {datosActuales.map(({ id, texto, dato }, index) => (
             <li
               key={id}
-              className={`bg-background3 p-2 rounded-lg flex flex-col ${
+              className={`bg-background3 p-2 rounded-lg flex flex-col items-center justify-center ${
                 index === datosActuales.length - 1 &&
                 datosActuales.length % 2 !== 0
                   ? "col-span-2"
                   : ""
               }`}
             >
-              {dato === "null" || dato === undefined || dato === null ? (
-                <>
-                  <h3 className="">{texto}</h3>
-                  <h4 className="">
-                    <span>null</span>
-                  </h4>
-                </>
-              ) : (
-                <>
-                  <h3 className="">{texto}</h3>
-                  <h4 className="">{dato}</h4>
-                </>
-              )}
+              <p className="flex flex-col w-full">
+                {texto} <span>{dato}</span>
+              </p>
             </li>
           ))}
         </ul>
@@ -348,7 +310,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   return (
     <div className="bg-background2 flex-1 p-5 rounded-lg h-full flex flex-col gap-5">
-      <h2 className="text-xl font-semibold">CORRECCIONES</h2>
+      <p className="text-xl font-semibold">CORRECCIONES</p>
       <ul className="flex flex-row justify-between w-auto gap-5">
         {opcionesCorrecciones.map(({ id, nombre }) => (
           <li key={id} className="flex flex-col flex-1">
@@ -359,9 +321,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               onClick={() => handleOptionChange(id)}
             >
               <div className="flex flex-col items-center p-2">
-                <span className="flex justify-center text-center">
-                  {nombre}
-                </span>
+                <p className="flex justify-center text-center">{nombre}</p>
                 {id === 1 && (
                   <SelectTorre
                     disabled={loading || datosGeneralesIzq[0].dato === "null"}

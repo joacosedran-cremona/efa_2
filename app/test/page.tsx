@@ -31,7 +31,7 @@ export default function MachineMonitor() {
 
       {data && showRawData && (
         <div className="raw-data" style={{ marginBottom: "2rem" }}>
-          <h2>Datos JSON Completos</h2>
+          <p>Datos JSON Completos</p>
           <div
             className="bg-background2"
             style={{
@@ -49,7 +49,7 @@ export default function MachineMonitor() {
       {data && (
         <>
           <div className="machine-status">
-            <h2>Estado de la máquina</h2>
+            <p>Estado de la máquina</p>
             <p>Producto: {data.machineStatus.CodigoProducto}</p>
             <p>Estado: {data.machineStatus.estadoMaquina}</p>
             <p>Tiempo: {data.machineStatus.TiempoTranscurrido}</p>
@@ -60,7 +60,7 @@ export default function MachineMonitor() {
           </div>
 
           <div className="technical-data">
-            <h2>Datos técnicos</h2>
+            <p>Datos técnicos</p>
             <p>
               Posición robot: X:{data.technicalData.datosRobot.posicionX}, Y:
               {data.technicalData.datosRobot.posicionY}, Z:
@@ -71,7 +71,7 @@ export default function MachineMonitor() {
           </div>
 
           <div className="alarms">
-            <h2>Alarmas activas</h2>
+            <p>Alarmas activas</p>
             {data.alarms.filter((alarm: Alarm) => alarm.estadoAlarma).length >
             0 ? (
               <ul>
@@ -80,7 +80,7 @@ export default function MachineMonitor() {
                   .map((alarm: Alarm) => (
                     <li key={alarm.id_alarma}>
                       <strong>{alarm.tipoAlarma}</strong>: {alarm.descripcion}
-                      <span className="timestamp">{alarm.fechaRegistro}</span>
+                      <p className="timestamp">{alarm.fechaRegistro}</p>
                     </li>
                   ))}
               </ul>

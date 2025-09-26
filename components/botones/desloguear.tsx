@@ -79,7 +79,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
                                  cursor-pointer"
             onClick={handleLogout}
           >
-            <span>{t("min.cerrarSesion")}</span>
+            <p>{t("min.cerrarSesion")}</p>
           </button>
         </div>
       </div>

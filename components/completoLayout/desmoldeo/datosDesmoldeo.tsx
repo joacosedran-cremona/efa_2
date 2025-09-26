@@ -120,12 +120,12 @@ const DatosDesmoldeo = () => {
           >
             {isActive ? (
               <div className="w-full h-full flex flex-col">
-                <h3 className="text-[1rem]  h-1/2 flex flex-col justify-center transition-colors font-semibold">
+                <p className="text-[1rem]  h-1/2 flex flex-col justify-center transition-colors font-semibold">
                   {nombre}
-                </h3>
-                <h4 className="text-[0.9rem]  h-1/2 flex flex-col justify-center transition-colors">
+                </p>
+                <p className="text-[0.9rem]  h-1/2 flex flex-col justify-center transition-colors">
                   {dato}
-                </h4>
+                </p>
               </div>
             ) : (
               <>{nombre}</>

@@ -74,13 +74,13 @@ const EquiposImg = () => {
 
   const prevImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? totalImages - 1 : prevIndex - 1,
+      prevIndex === 0 ? totalImages - 1 : prevIndex - 1
     );
   };
 
   const nextImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === totalImages - 1 ? 0 : prevIndex + 1,
+      prevIndex === totalImages - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -98,7 +98,7 @@ const EquiposImg = () => {
 
   return (
     <div className="text-center bg-background2 rounded-lg h-full flex flex-col p-5 justify-between">
-      <h1 className="text-[21px] font-bold tracking-[1px]">{title}</h1>
+      <p className="text-[21px] font-bold tracking-[1px]">{title}</p>
 
       <div className="max-w-[600px] overflow-hidden rounded-lg relative">
         {totalImages > 0 ? (

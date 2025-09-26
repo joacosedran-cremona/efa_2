@@ -175,7 +175,7 @@ const Tabla = () => {
           alarmas.forEach((alarma: Alarm) => {
             if (alarma.descripcion && alarma.descripcion.trim() !== "") {
               const index = updatedItems.findIndex(
-                (item) => item.key === alarma.id_alarma.toString(),
+                (item) => item.key === alarma.id_alarma.toString()
               );
 
               const newItem: AlertItem = {
@@ -195,7 +195,7 @@ const Tabla = () => {
           });
 
           return updatedItems.filter(
-            (item) => item.description && item.description.trim() !== "",
+            (item) => item.description && item.description.trim() !== ""
           );
         });
         setIsLoading(false);
@@ -262,7 +262,7 @@ const Tabla = () => {
         },
       },
     ],
-    [t],
+    [t]
   );
 
   const sortedItems = useMemo(() => {
@@ -296,11 +296,11 @@ const Tabla = () => {
   const totalRows = sortedItems.length;
   const paginatedRows = useMemo(
     () => sortedItems.slice((page - 1) * rowsPerPage, page * rowsPerPage),
-    [sortedItems, page, rowsPerPage],
+    [sortedItems, page, rowsPerPage]
   );
 
   const handleExportRowsToPDF = (
-    rows: Array<{ original: Record<string, any> }>,
+    rows: Array<{ original: Record<string, any> }>
   ) => {
     try {
       const doc = new jsPDF({
@@ -394,7 +394,7 @@ const Tabla = () => {
 
   const handleExportExcel = (
     rows: Array<{ original: Record<string, any> }>,
-    fileName: string,
+    fileName: string
   ) => {
     try {
       const excelData = rows.map((row) => {
@@ -651,7 +651,7 @@ const Tabla = () => {
             <MenuItem
               onClick={() =>
                 handleExportRowsToPDF(
-                  sortedItems.map((item) => ({ original: item })),
+                  sortedItems.map((item) => ({ original: item }))
                 )
               }
             >
@@ -666,7 +666,7 @@ const Tabla = () => {
               onClick={() =>
                 handleExportExcel(
                   sortedItems.map((item) => ({ original: item })),
-                  "Todas_Alertas",
+                  "Todas_Alertas"
                 )
               }
             >
@@ -700,7 +700,7 @@ const Tabla = () => {
               fontWeight: "bold",
               marginBottom: "-5px",
             }}
-            variant="h4"
+            variant="p"
           >
             {t("mayus.historialDeAlertas")}
           </Typography>

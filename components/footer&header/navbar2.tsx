@@ -62,7 +62,7 @@ const Navbar2 = () => {
                 ) : (
                   <GoDotFill className="text-gray-500" />
                 )}
-                <span>{text}</span>
+                <p>{text}</p>
               </Link>
               {isActive && (
                 <div className="absolute bottom-0 left-0 w-full h-0.5 bg-green-500" />

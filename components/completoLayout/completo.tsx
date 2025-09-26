@@ -90,9 +90,9 @@ const LayoutCompleto = () => {
             className={getSectionClasses(section.styleClass)}
             style={section.position}
           >
-            <span className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-lg text-xs opacity-0 transition-opacity ease-in-out group-hover:opacity-100">
+            <p className="absolute -top-5 left-1/2 -translate-x-1/2 bg-black p-[5px] rounded-lg text-xs opacity-0 transition-opacity ease-in-out group-hover:opacity-100">
               {section.name}
-            </span>
+            </p>
 
             {section.id === 1 && <EstadoDesmoldeo />}
             {section.id === 2 && <EstadoEncajonado />}

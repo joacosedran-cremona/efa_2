@@ -157,11 +157,11 @@ export const useConfiguracionData = () => {
   const [datosCorrecionesTorre, setDatosCorrecionesTorre] = useState<
     DatoCorreccion[]
   >([
-    { id: 1, texto: "Correccion_hBastidor", dato: "null" },
-    { id: 2, texto: "Correccion_hAjuste", dato: "null" },
-    { id: 3, texto: "Correccion_hAjusteN1", dato: "null" },
-    { id: 4, texto: "Correccion_DisteNivel", dato: "null" },
-    { id: 5, texto: "ActualizarTAG", dato: "null" },
+    { id: 1, texto: "Correccion_hBastidor", dato: "0" },
+    { id: 2, texto: "Correccion_hAjuste", dato: "0" },
+    { id: 3, texto: "Correccion_hAjusteN1", dato: "0" },
+    { id: 4, texto: "Correccion_DisteNivel", dato: "0" },
+    { id: 5, texto: "ActualizarTAG", dato: "" },
   ]);
 
   const [datosCorrecionesNivelesHN, setDatosCorrecionesNivelesHN] = useState<
@@ -172,7 +172,7 @@ export const useConfiguracionData = () => {
       .map((_, index) => ({
         id: index + 1,
         texto: `Correccion_hN${index + 1}`,
-        dato: "null",
+        dato: "0",
       })),
   );
 
@@ -184,7 +184,7 @@ export const useConfiguracionData = () => {
       .map((_, index) => ({
         id: index + 1,
         texto: `Correccion_hguardado_N${index + 1}`,
-        dato: "null",
+        dato: "0",
       })),
   );
 
@@ -196,7 +196,7 @@ export const useConfiguracionData = () => {
       .map((_, index) => ({
         id: index + 1,
         texto: `Correccion_hbusqueda_N${index + 1}`,
-        dato: "null",
+        dato: "0",
       })),
   );
 
@@ -208,7 +208,7 @@ export const useConfiguracionData = () => {
       .map((_, index) => ({
         id: index + 1,
         texto: `FallasN${index + 1}`,
-        dato: "null",
+        dato: "0",
       })),
   );
 
@@ -220,7 +220,7 @@ export const useConfiguracionData = () => {
       .map((_, index) => ({
         id: index + 1,
         texto: `ultimo_hNivel${index + 1}`,
-        dato: "null",
+        dato: "0",
       })),
   );
 
@@ -377,27 +377,27 @@ export const useConfiguracionData = () => {
         {
           id: 1,
           texto: "Correccion_hBastidor",
-          dato: data.DatosTorre?.hBastidor?.toString() ?? "null",
+          dato: data.DatosTorre?.hBastidor?.toString() ?? "0",
         },
         {
           id: 2,
           texto: "Correccion_hAjuste",
-          dato: data.DatosTorre?.hAjuste?.toString() ?? "null",
+          dato: data.DatosTorre?.hAjuste?.toString() ?? "0",
         },
         {
           id: 3,
           texto: "Correccion_hAjusteN1",
-          dato: data.DatosTorre?.hAjusteN1?.toString() ?? "null",
+          dato: data.DatosTorre?.hAjusteN1?.toString() ?? "0",
         },
         {
           id: 4,
           texto: "Correccion_DisteNivel",
-          dato: data.DatosTorre?.DisteNivel?.toString() ?? "null",
+          dato: data.DatosTorre?.DisteNivel?.toString() ?? "0",
         },
         {
           id: 5,
           texto: "ActualizarTAG",
-          dato: data.DatosTorre?.ActualizarTAG ?? "null",
+          dato: data.DatosTorre?.ActualizarTAG ?? "",
         },
       ]);
 
@@ -413,7 +413,7 @@ export const useConfiguracionData = () => {
             (dato, index) => ({
               id: index + 1,
               texto: `${prefijo}${index + 1}`,
-              dato: dato?.toString() ?? "null",
+              dato: dato?.toString() ?? "0",
             }),
           ),
         );

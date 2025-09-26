@@ -51,14 +51,14 @@ const FiltradoFechasGraph = () => {
     >
       <div className="h-full flex flex-row gap-5">
         <div className="w-4/5 flex flex-col bg-background2 rounded-lg p-5">
-          <h1 className="text-xl font-bold ">{t("mayus.ciclosDia")}</h1>
+          <p className="text-xl font-bold ">{t("mayus.ciclosDia")}</p>
           <CiclosRealizados endDate={fechaFin} startDate={fechaInicio} />
         </div>
 
         <div className="min-h-full w-1/5 flex flex-col items-center p-5 gap-10 rounded-lg bg-background2 FiltroPeriodoGraficos">
-          <h2 className="text-2xl font-bold text-center break-words w-full">
+          <p className="text-2xl font-bold text-center break-words w-full">
             {t("mayus.filtradoFechaGraficos")}
-          </h2>
+          </p>
           <DateRangePicker
             classNames={{
               base: "w-full",
