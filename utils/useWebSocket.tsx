@@ -27,8 +27,12 @@ export default function useWebSocket(pollId: string): UseWebSocketReturn {
     try {
       const target = localStorage.getItem("targetAddress");
 
-      if (!target) {
-        setError(new Error("Target address not available"));
+      if (
+        !target ||
+        target === "undefined:undefined" ||
+        target.includes("undefined")
+      ) {
+        setError(new Error("Target address not available or invalid"));
 
         return;
       }

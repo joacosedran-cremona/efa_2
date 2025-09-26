@@ -132,18 +132,18 @@ const Productividad = () => {
       id: 2,
       titulo: t("min.productoRealizado"),
       dato: (
-        <p>
+        <>
           {PesoTotalCiclos} <span className="text-lg">Tn</span>
-        </p>
+        </>
       ),
     },
     {
       id: 3,
       titulo: t("min.promedioUsoDiario"),
       dato: (
-        <p>
+        <>
           {Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}
-        </p>
+        </>
       ),
     },
   ];
@@ -175,8 +175,8 @@ const Productividad = () => {
         </p>
         <div className="flex items-center">
           <p className="inline text-orange">
-            {dateRange.start}{" "}
-            <span className="inline px-[5px] font-semibold"> - </span>{" "}
+            {dateRange.start}
+            <span className="inline px-[5px] font-semibold"> - </span>
             {dateRange.end}
           </p>
         </div>
