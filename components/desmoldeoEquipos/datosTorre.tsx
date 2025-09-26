@@ -54,7 +54,7 @@ const DatosTorreComponent = () => {
     setEquipoSeleccionado(
       equipoSeleccionado === "Posicionador de torres"
         ? null
-        : "Posicionador de torres"
+        : "Posicionador de torres",
     );
   };
 

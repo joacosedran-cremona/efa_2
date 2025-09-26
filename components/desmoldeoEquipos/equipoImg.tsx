@@ -74,13 +74,13 @@ const EquiposImg = () => {
 
   const prevImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? totalImages - 1 : prevIndex - 1
+      prevIndex === 0 ? totalImages - 1 : prevIndex - 1,
     );
   };
 
   const nextImage = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === totalImages - 1 ? 0 : prevIndex + 1
+      prevIndex === totalImages - 1 ? 0 : prevIndex + 1,
     );
   };
 

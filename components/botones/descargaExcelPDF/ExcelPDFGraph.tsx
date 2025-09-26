@@ -41,6 +41,7 @@ export default function BotonesDescarga({
         filter: (node: Node) => {
           if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as Element;
+
             return !!!(
               element.classList &&
               (element.classList.contains("FiltroPeriodoGraficos") ||
@@ -49,12 +50,14 @@ export default function BotonesDescarga({
                     element.textContent?.includes("Reset zoom"))))
             );
           }
+
           return true;
         },
       });
 
       // Create a temporary image to get dimensions
       const tempImg = new Image();
+
       tempImg.src = imgDataProduct;
       await new Promise((resolve) => {
         tempImg.onload = resolve;
@@ -83,7 +86,7 @@ export default function BotonesDescarga({
         pdfWidth,
         pdfHeight,
         undefined,
-        "FAST"
+        "FAST",
       );
 
       const logoWidth = 40;
@@ -123,7 +126,7 @@ export default function BotonesDescarga({
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -138,7 +141,7 @@ export default function BotonesDescarga({
     link.href = url;
     link.setAttribute(
       "download",
-      `productividad_${startDate}_to_${endDate}.xlsx`
+      `productividad_${startDate}_to_${endDate}.xlsx`,
     );
     document.body.appendChild(link);
     link.click();

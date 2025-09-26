@@ -5,7 +5,6 @@ import type { DatoCorreccion, Torre, TipoNivel } from "@/types/configuraciones";
 import React from "react";
 import { toast } from "sonner";
 
-import EjemploSkeleton2 from "./EjemploSkeleton2";
 import SelectTorre from "./SelectTorre";
 import SelectNivel from "./SelectNivel";
 import BotonAplicar2 from "./BotonAplicar2";
@@ -59,7 +58,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5
+      5,
     );
 
     const finalData = {
@@ -89,7 +88,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11
+      11,
     );
 
     const finalData = {
@@ -126,7 +125,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0
+      0,
     );
 
     const datos = {
@@ -150,7 +149,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
     if (selectedOption === 1) {
       if (index === 4) {
@@ -159,12 +158,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         e.target.value = tagValidado;
       } else {
         e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value
+          e.target.value,
         );
       }
     } else {
       e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value
+        e.target.value,
       );
     }
   };
@@ -198,12 +197,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                 <p className="flex flex-row items-center w-full gap-2">
                   <span>{dato} - </span>
                   <input
-                    className="bg-background4 rounded-lg px-[0.5rem] w-[75%]"
                     ref={(el) => {
                       if (inputRefs.current) {
                         inputRefs.current[index] = el;
                       }
                     }}
+                    className="bg-background4 rounded-lg px-[0.5rem] w-[75%]"
                     pattern="\d+"
                     type="number"
                     onChange={(e) => handleInputChange(e, index)}
@@ -257,12 +256,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                 {dato}
                 <p> - </p>
                 <input
-                  className="bg-background4 rounded-lg w-[100%] px-[0.5rem]"
                   ref={(el) => {
                     if (inputRefs.current) {
                       inputRefs.current[index] = el;
                     }
                   }}
+                  className="bg-background4 rounded-lg w-[100%] px-[0.5rem]"
                   pattern="\d+"
                   type="number"
                   onChange={(e) => handleInputChange(e, index)}

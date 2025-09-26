@@ -65,7 +65,7 @@ const equipmentStatusMap = {
   robot: (data: any): EquipmentStatus => {
     const robotAlarms =
       data?.alarms?.filter(
-        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT"
+        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT",
       ) || [];
     const lastRobotAlarm = robotAlarms.length > 0 ? robotAlarms[0] : null;
 
@@ -208,7 +208,7 @@ const Layout: React.FC = () => {
   };
 
   const getEquipmentStatus = (
-    section: LayoutSection
+    section: LayoutSection,
   ): EquipmentStatus | null => {
     if (!equipmentData || !section.statusKey) return null;
 
