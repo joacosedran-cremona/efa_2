@@ -178,7 +178,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     ) {
       return (
         <ul
-          className="bg-background2 rounded-lg h-full grid gap-5"
+          className="rounded-lg h-full grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -216,7 +216,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               </h4>
             </li>
           ))}
-          <div className="col-span-2 flex justify-end gap-2">
+          <div className="col-span-2 flex flex-col gap-2">
             <BotonAplicar2 className="p-2" onClick={handleAplicarNiveles} />
             <BotonRefresh className="p-2" onClick={refreshData} />
           </div>
@@ -225,7 +225,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else if (selectedOption === 2 && selectedNivel === "FA") {
       return (
         <ul
-          className="bg-background2 rounded-lg h-full grid gap-5"
+          className="rounded-lg h-full grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}
@@ -265,7 +265,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       );
     } else if (selectedOption === 1) {
       return (
-        <ul className="bg-background2 flex flex-col rounded-lg h-full justify-between gap-5">
+        <ul className="flex flex-col rounded-lg h-full justify-between gap-5">
           {datosActuales.map(({ id, texto, dato }, index) => (
             <li
               key={id}
@@ -298,7 +298,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               )}
             </li>
           ))}
-          <div className="col-span-2 flex justify-end gap-2">
+          <div className="col-span-2 flex flex-col gap-2">
             <BotonAplicar2
               className="p-2"
               isDisabled={isButtonDisabled}
@@ -311,7 +311,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     } else {
       return (
         <ul
-          className="bg-background2 rounded-lg h-full justify-between grid gap-5"
+          className="rounded-lg h-full justify-between grid gap-5"
           style={{
             gridTemplateColumns: "repeat(2, 1fr)",
           }}

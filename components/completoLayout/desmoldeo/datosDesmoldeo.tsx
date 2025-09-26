@@ -114,16 +114,16 @@ const DatosDesmoldeo = () => {
             className={
               isActive
                 ? "max-h-[55px] w-full h-full"
-                : "h-full w-full flex items-center justify-center rounded-lg bg-[#555555] text-lightgrey transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] pointer-events-none"
+                : "h-full w-full flex items-center justify-center rounded-lg bg-[#555555] text-lightgrey transition-colors pointer-events-none"
             }
             href="/desmoldeo/equipos"
           >
             {isActive ? (
               <div className="w-full h-full flex flex-col">
-                <h3 className="text-[1rem] h-1/2 flex flex-col justify-center transition-colors font-semibold">
+                <h3 className="text-[1rem]  h-1/2 flex flex-col justify-center transition-colors font-semibold">
                   {nombre}
                 </h3>
-                <h4 className="text-[0.9rem] h-1/2 flex flex-col justify-center transition-colors ">
+                <h4 className="text-[0.9rem]  h-1/2 flex flex-col justify-center transition-colors">
                   {dato}
                 </h4>
               </div>

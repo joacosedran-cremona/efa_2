@@ -84,7 +84,7 @@ const DatosLaterales: React.FC = () => {
     {
       id: 5,
       nombre: t("min.pesoFila"),
-      dato: PesoProducto || "",
+      dato: PesoProducto ? `${PesoProducto} kg` : "",
       icono: FaWeightHanging,
       isReactIcon: true,
     },
@@ -93,9 +93,9 @@ const DatosLaterales: React.FC = () => {
       nombre: t("min.pesoDesmoldado"),
       dato:
         estadoMaquina === "CICLO INACTIVO"
-          ? "0"
+          ? "0 kg"
           : PesoActualDesmoldado != null
-            ? PesoActualDesmoldado
+            ? `${PesoActualDesmoldado} kg`
             : "",
       icono: FaWeightHanging,
       isReactIcon: true,
@@ -236,12 +236,7 @@ const DatosLaterales: React.FC = () => {
               <li className="flex flex-row items-center justify-between border border-background6 bg-background3 rounded-lg p-[5px]">
                 <div>
                   <h3 className="text-md font-bold">{nombre}</h3>
-                  <h4 className="text-sm">
-                    {nombre === t("min.pesoFila") ||
-                    nombre === t("min.pesoDesmoldado")
-                      ? `${dato} kg`
-                      : dato}
-                  </h4>
+                  <h4 className="text-sm">{dato}</h4>
                 </div>
                 {React.createElement(icono, { size: 24 })}
               </li>

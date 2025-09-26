@@ -15,7 +15,8 @@ const DatosGeneralesSection: React.FC<DatosGeneralesSectionProps> = ({
 }) => {
   return (
     <div className="flex flex-col w-1/3 h-full bg-background2 p-5 rounded-lg gap-5">
-      <ul className="flex flex-col h-full justify-between w-full">
+      <h2 className="text-xl font-semibold">Datos Generales</h2>
+      <ul className="flex flex-col h-full justify-between w-full gap-5">
         {datosGeneralesDer.map(({ id, texto, dato }) => (
           <li key={id} className="">
             <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">

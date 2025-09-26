@@ -37,7 +37,7 @@ const SelectConfiguracion: React.FC<SelectConfiguracionProps> = ({
         </option>
       </select>
       <button
-        className="bg-blue px-5 py-1 rounded-sm disabled:opacity-50"
+        className="bg-blue px-5 py-1 text-white rounded-sm disabled:opacity-50"
         disabled={disabled}
         onClick={onClick}
       >

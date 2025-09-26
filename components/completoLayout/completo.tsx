@@ -65,7 +65,7 @@ const LayoutCompleto = () => {
   };
 
   return (
-    <div className="relative w-auto h-[80vh]">
+    <div className="relative w-auto h-[50rem]">
       <div className="relative w-full h-full">
         <Image
           priority
@@ -102,7 +102,7 @@ const LayoutCompleto = () => {
       ))}
 
       <div
-        className="absolute rounded-lg z-10 flex gap-2.5"
+        className="absolute rounded-lg z-10 flex gap-2"
         style={sections[3].position}
       >
         <DatosDesmoldeo />
