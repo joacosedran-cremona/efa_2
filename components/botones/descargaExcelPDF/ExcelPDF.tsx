@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@heroui/react";
 import { FaFilePdf, FaFileExcel } from "react-icons/fa";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
 import jsPDF from "jspdf";
 import { useTranslation } from "react-i18next";
 
@@ -35,17 +35,32 @@ export default function BotonesDescarga({
     const productSection = document.getElementById("ProductividadSection");
 
     if (productSection) {
-      const canvasProduct = await html2canvas(productSection, {
-        scale: 3,
-        ignoreElements: (element) =>
-          element.classList && element.classList.contains("FiltroPeriodo"),
+      const imgDataProduct = await domtoimage.toPng(productSection, {
+        quality: 0.95,
+        bgcolor: "#ffffff",
+        filter: (node: Node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            return !(
+              element.classList &&
+              (element.classList.contains("FiltroPeriodo") ||
+                element.classList.contains("ocultar-en-pdf"))
+            );
+          }
+          return true;
+        },
       });
 
-      const imgDataProduct = canvasProduct.toDataURL("image/png");
+      // Create a temporary image to get dimensions
+      const tempImg = new Image();
+      tempImg.src = imgDataProduct;
+      await new Promise((resolve) => {
+        tempImg.onload = resolve;
+      });
 
       const imgProps = {
-        width: canvasProduct.width,
-        height: canvasProduct.height,
+        width: tempImg.width,
+        height: tempImg.height,
       };
 
       const pdfWidth = 287;
@@ -71,7 +86,7 @@ export default function BotonesDescarga({
         pdfWidth,
         pdfHeight,
         undefined,
-        "FAST",
+        "FAST"
       );
 
       const logoWidth = 40;
@@ -110,7 +125,7 @@ export default function BotonesDescarga({
           Authorization: `Bearer ${token}`,
           Accept: "application/json",
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -125,7 +140,7 @@ export default function BotonesDescarga({
     link.href = url;
     link.setAttribute(
       "download",
-      `Productividad_${startDate}_to_${endDate}.xlsx`,
+      `Productividad_${startDate}_to_${endDate}.xlsx`
     );
     document.body.appendChild(link);
     link.click();

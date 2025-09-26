@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@heroui/react";
 import { FaFilePdf, FaFileExcel } from "react-icons/fa";
-import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
 import jsPDF from "jspdf";
 import { useTranslation } from "react-i18next";
 
@@ -35,27 +35,34 @@ export default function BotonesDescarga({
     const graphSection = document.getElementById("GraficosSection");
 
     if (graphSection) {
-      const canvasProduct = await html2canvas(graphSection, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#ffffff",
-        ignoreElements: (element) => {
-          return !!(
-            element.classList &&
-            (element.classList.contains("FiltroPeriodoGraficos") ||
-              (element.tagName === "BUTTON" &&
-                (element.textContent?.includes("Reiniciar zoom") ||
-                  element.textContent?.includes("Reset zoom"))))
-          );
+      const imgDataProduct = await domtoimage.toPng(graphSection, {
+        quality: 0.95,
+        bgcolor: "#ffffff",
+        filter: (node: Node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            return !!!(
+              element.classList &&
+              (element.classList.contains("FiltroPeriodoGraficos") ||
+                (element.tagName === "BUTTON" &&
+                  (element.textContent?.includes("Reiniciar zoom") ||
+                    element.textContent?.includes("Reset zoom"))))
+            );
+          }
+          return true;
         },
       });
 
-      const imgDataProduct = canvasProduct.toDataURL("image/png");
+      // Create a temporary image to get dimensions
+      const tempImg = new Image();
+      tempImg.src = imgDataProduct;
+      await new Promise((resolve) => {
+        tempImg.onload = resolve;
+      });
 
       const imgProps = {
-        width: canvasProduct.width,
-        height: canvasProduct.height,
+        width: tempImg.width,
+        height: tempImg.height,
       };
       const pdfWidth = 287;
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
