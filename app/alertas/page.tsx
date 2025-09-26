@@ -156,11 +156,24 @@ const Tabla = () => {
     setExportMenuAnchorEl(null);
   };
 
-  const wsUrl = `ws://${process.env.NEXT_PUBLIC_IP}:${process.env.NEXT_PUBLIC_PORT}/ws/datos`;
-
   const connectWebSocket = (): (() => void) => {
     setIsLoading(true);
     setError(null);
+
+    const target = localStorage.getItem("targetAddress");
+
+    if (
+      !target ||
+      target === "undefined:undefined" ||
+      target.includes("undefined")
+    ) {
+      setError("Target address not available or invalid");
+      setIsLoading(false);
+
+      return () => {};
+    }
+
+    const wsUrl = `ws://${target}/ws/datos`;
 
     const socket = new WebSocket(wsUrl);
 
@@ -214,7 +227,7 @@ const Tabla = () => {
 
   useEffect(() => {
     connectWebSocket();
-  }, [wsUrl]);
+  }, []);
 
   const [, forceUpdate] = useState({});
 
@@ -700,7 +713,6 @@ const Tabla = () => {
               fontWeight: "bold",
               marginBottom: "-5px",
             }}
-            variant="p"
           >
             {t("mayus.historialDeAlertas")}
           </Typography>
@@ -731,7 +743,9 @@ const Tabla = () => {
         </div>
       ) : (
         <ThemeProvider theme={theme}>
-          <MaterialReactTable table={table} />
+          <div suppressHydrationWarning>
+            <MaterialReactTable table={table} />
+          </div>
         </ThemeProvider>
       )}
     </div>

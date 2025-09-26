@@ -141,9 +141,7 @@ const Productividad = () => {
       id: 3,
       titulo: t("min.promedioUsoDiario"),
       dato: (
-        <>
-          {Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}
-        </>
+        <>{Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}</>
       ),
     },
   ];

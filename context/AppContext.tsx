@@ -66,7 +66,7 @@ export const useApp = () => useContext(AppContext);
 
 const AppProviderInner = ({ children }: { children: ReactNode }) => {
   const [equipoSeleccionado, setEquipoSeleccionado] = useState<string | null>(
-    "Default"
+    "Default",
   );
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -154,7 +154,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     const response = await axios.post<LoginResponse>(
       `http://${targetAddress}/usuario/login`,
-      formData
+      formData,
     );
 
     const { role, access_token, token_type } = response.data;
@@ -163,7 +163,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     sessionStorage.setItem(
       "user_data",
-      JSON.stringify({ access_token, token_type, role })
+      JSON.stringify({ access_token, token_type, role }),
     );
 
     sessionStorage.setItem("token", access_token);
