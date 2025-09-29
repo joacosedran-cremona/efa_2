@@ -54,7 +54,7 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
         if (segmento === "10") {
           url = "http://192.168.10.114:3001";
         } else if (segmento === "20") {
-          url = "http://192.168.20.150:3001";
+          url = "http://192.168.20.41:3001";
         }
       }
     }

@@ -102,18 +102,18 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
         let target = null;
 
         if (hostname === "192.168.10.114") {
-          target = "192.168.10.114:8000";
-          setClientIP("192.168.10.114");
-        } else if (hostname === "192.168.20.150") {
-          target = "192.168.20.150:8000";
-          setClientIP("192.168.20.150");
+          target = "192.168.10.115:8000";
+          setClientIP("192.168.10.115");
+        } else if (hostname === "192.168.20.41") {
+          target = "192.168.20.41:8000";
+          setClientIP("192.168.20.41");
         } else if (hostname.startsWith("192.168.")) {
           const parts = hostname.split(".");
 
           if (parts.length === 4) {
             const segmento = parts[2];
 
-            target = `192.168.${segmento}.114:8000`;
+            target = `192.168.${segmento}.41:8000`;
             setClientIP(hostname);
           }
         } else {
