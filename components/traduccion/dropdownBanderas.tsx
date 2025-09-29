@@ -38,7 +38,7 @@ const DropdownBanderas = () => {
   return (
     <div ref={dropdownRef} className="relative z-[1000] cursor-pointer">
       <button
-        className="flex items-center justify-between w-[100%] py-[2px] px-[4px] bg-[#BBB5] border border-[#AAA] rounded-lg shadow-sm z-[1000] cursor-pointer"
+        className="flex items-center justify-between w-[100%] py-[2px] px-[4px] bg-[#BBB5] border border-[#AAA] rounded-lg z-[1000] cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         {React.createElement(currentLanguage.flagComponent, {
@@ -51,7 +51,7 @@ const DropdownBanderas = () => {
       </button>
 
       {isOpen && (
-        <div className="absolute right-[0px] mt-[2px] w-[40px] rounded-lg shadow-lg bg-[#DDD] ring-[1px] ring-black ring-opacity-[5px] transition-colors ease-in-out hover:bg-lightGrey z-[1000] cursor-pointer">
+        <div className="absolute right-[0px] mt-[2px] w-[40px] rounded-lg bg-[#DDD] ring-[1px] ring-black ring-opacity-[5px] transition-colors ease-in-out hover:bg-lightGrey z-[1000] cursor-pointer">
           <div
             aria-labelledby="options-menu"
             aria-orientation="vertical"

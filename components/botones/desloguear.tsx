@@ -54,7 +54,7 @@ const Desloguear: React.FC<DesloguearProps> = ({ _username = "Usuario" }) => {
       </button>
 
       <div
-        className={`absolute left-[-10px] mt-[14px] w-48 rounded-lg transform ease-in-out origin-top-right shadow-[0_0_15px_rgba(0,0,0,0.3)]
+        className={`absolute left-[-10px] mt-[14px] w-48 rounded-lg transform ease-in-out origin-top-right
                 ${
                   isOpen
                     ? "opacity-100 scale-100 translate-y-0"

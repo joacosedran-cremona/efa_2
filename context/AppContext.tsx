@@ -66,31 +66,30 @@ export const useApp = () => useContext(AppContext);
 
 const AppProviderInner = ({ children }: { children: ReactNode }) => {
   const [equipoSeleccionado, setEquipoSeleccionado] = useState<string | null>(
-    "Default",
+    "Default"
   );
-  const [token, setToken] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("token");
+    }
+
+    return null;
+  });
+  const [user, setUser] = useState<User | null>(() => {
+    if (typeof window !== "undefined") {
+      const storedUser = sessionStorage.getItem("user_data");
+
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+
+    return null;
+  });
   const [clientIP, setClientIP] = useState<string | null>(null);
   const [targetAddress, setTargetAddress] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
   const websocketData = useWebSocketContext();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedUser = sessionStorage.getItem("user_data");
-      const storedToken = sessionStorage.getItem("token");
-
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-
-      if (storedToken) {
-        setToken(storedToken);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     const determineTargetFromURL = () => {
@@ -154,7 +153,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     const response = await axios.post<LoginResponse>(
       `http://${targetAddress}/usuario/login`,
-      formData,
+      formData
     );
 
     const { role, access_token, token_type } = response.data;
@@ -163,7 +162,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     sessionStorage.setItem(
       "user_data",
-      JSON.stringify({ access_token, token_type, role }),
+      JSON.stringify({ access_token, token_type, role })
     );
 
     sessionStorage.setItem("token", access_token);

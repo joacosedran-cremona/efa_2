@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import AppContext from "@/context/AppContext";
@@ -12,8 +12,13 @@ import CorreccionesSection from "@/components/configuraciones/CorreccionesSectio
 const Configuraciones = () => {
   const { user } = useContext(AppContext);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
   const configuracionData = useConfiguracionData();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!user) {
@@ -27,7 +32,7 @@ const Configuraciones = () => {
     }
   }, [user, router]);
 
-  if (!user || user.role !== "ADMIN") {
+  if (!mounted || !user || user.role !== "ADMIN") {
     return null;
   }
 

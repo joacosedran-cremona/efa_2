@@ -143,10 +143,15 @@ const Tabla = () => {
   });
   const { theme: themeMode } = useTheme();
   const theme = useCustomTheme();
+  const [mounted, setMounted] = useState(false);
 
   const [exportMenuAnchorEl, setExportMenuAnchorEl] =
     useState<HTMLElement | null>(null);
   const exportMenuOpen = Boolean(exportMenuAnchorEl);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleExportMenuClick = (event: MouseEvent<HTMLButtonElement>) => {
     setExportMenuAnchorEl(event.currentTarget as HTMLElement);
@@ -727,10 +732,12 @@ const Tabla = () => {
     ),
   });
 
+  if (!mounted) return null;
+
   return (
     <div className="flex min-h-full min-w-full items-center justify-center p-5">
       {error ? (
-        <div className="flex flex-col bg-background2 p-5 text-center flex flex-col justify-center items-center shadow-md rounded-[15px]">
+        <div className="flex flex-col bg-background2 p-5 text-center flex flex-col justify-center items-center rounded-[15px]">
           <div className="mb-2">{error}</div>
           <Button
             color="error"

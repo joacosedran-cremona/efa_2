@@ -39,7 +39,7 @@ const Navbar2 = () => {
   ];
 
   return (
-    <div className="w-full bg-background2 shadow-sm flex flex-row justify-center">
+    <div className="w-full bg-background2 flex flex-row justify-center">
       <ul className="flex flex-row items-center gap-6">
         {opcionesBotones.map(({ id, path, text, styleClass }) => {
           const isActive = Array.isArray(path)

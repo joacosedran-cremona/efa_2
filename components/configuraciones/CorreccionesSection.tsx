@@ -195,14 +195,15 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               <label className="flex flex-col w-full">
                 <p className="w-full">{texto}</p>
                 <p className="flex flex-row items-center w-full gap-2">
-                  <span>{dato} - </span>
+                  {dato}
+                  -
                   <input
                     ref={(el) => {
                       if (inputRefs.current) {
                         inputRefs.current[index] = el;
                       }
                     }}
-                    className="bg-background4 rounded-lg px-[0.5rem] w-[75%]"
+                    className="bg-background4 rounded-lg px-[0.5rem] w-[100%]"
                     pattern="\d+"
                     type="number"
                     onChange={(e) => handleInputChange(e, index)}
@@ -252,9 +253,9 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
               className="bg-background3 p-2 rounded-lg flex flex-col"
             >
               <p>{texto}</p>
-              <div className="flex flex-row items-center">
+              <div className="flex flex-row items-center gap-2">
                 {dato}
-                <p> - </p>
+                -
                 <input
                   ref={(el) => {
                     if (inputRefs.current) {

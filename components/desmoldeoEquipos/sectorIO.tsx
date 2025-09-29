@@ -44,18 +44,18 @@ const SectorIOComponent = () => {
           dato = estadoCiclo === true ? 1 : 0;
           icono =
             estadoCiclo === true ? (
-              <GoDotFill color="green" />
+              <GoDotFill color="green" size={25} />
             ) : (
-              <GoDotFill color="gray" />
+              <GoDotFill color="gray" size={25} />
             );
         } else if (index === 1) {
           dato = bandaDesmoldeo;
           if (dato === "CINTA A") {
-            icono = <TbCircleLetterAFilled color="gray" />;
+            icono = <TbCircleLetterAFilled color="gray" size={25} />;
           } else if (dato === "CINTA B") {
-            icono = <TbCircleLetterBFilled color="gray" />;
+            icono = <TbCircleLetterBFilled color="gray" size={25} />;
           } else {
-            icono = <GoDotFill color="gray" />;
+            icono = <GoDotFill color="gray" size={25} />;
           }
         }
 
@@ -69,6 +69,16 @@ const SectorIOComponent = () => {
       setSector_IO(updatedSectorIO);
     }
   }, [data]);
+
+  useEffect(() => {
+    setSector_IO((prev) =>
+      prev.map((item) =>
+        item.id === 1
+          ? { ...item, texto: t("min.estadoCiclo") }
+          : { ...item, texto: t("min.bandaDesmoldeo") },
+      ),
+    );
+  }, [t]);
 
   return (
     <div className="w-full bg-background2 rounded-lg p-5">

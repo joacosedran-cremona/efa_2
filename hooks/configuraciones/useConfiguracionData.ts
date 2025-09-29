@@ -19,6 +19,7 @@ import React from "react";
 
 import { configuracionesApi } from "@/services/configuracionesApi";
 import { validacionesConfiguraciones } from "@/utils/configuraciones/validaciones";
+import { useApp } from "@/context/AppContext";
 import NGripper from "@/public/equipos/Equipo_Gripper1.png";
 import Ancho from "@/public/correcciones/ancho.png";
 import Alto from "@/public/correcciones/alto.png";
@@ -146,6 +147,8 @@ export const useConfiguracionData = () => {
   const [selectedOption, setSelectedOption] = useState(1);
   const [selectedNivel, setSelectedNivel] = useState<TipoNivel>("HN");
   const [torres, setTorres] = useState<Torre[]>([]);
+
+  const { targetAddress } = useApp();
 
   const [datosGeneralesIzq, setDatosRecetas1] = useState<DatoReceta[]>(
     datosIniciales.datosGeneralesIzq,
@@ -450,17 +453,17 @@ export const useConfiguracionData = () => {
   };
 
   useEffect(() => {
-    if (selectedReceta) {
+    if (targetAddress && selectedReceta) {
       cargarDatosReceta(selectedReceta);
       cargarTorres(selectedReceta);
     }
-  }, [selectedReceta]);
+  }, [selectedReceta, targetAddress]);
 
   useEffect(() => {
-    if (selectedTorre && selectedReceta) {
+    if (targetAddress && selectedTorre && selectedReceta) {
       cargarDatosTorre(selectedTorre);
     }
-  }, [selectedTorre, selectedReceta]);
+  }, [selectedTorre, selectedReceta, targetAddress]);
 
   const obtenerDatosActuales = () => {
     if (selectedOption === 1) return datosCorrecionesTorre;
