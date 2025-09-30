@@ -66,7 +66,7 @@ export const useApp = () => useContext(AppContext);
 
 const AppProviderInner = ({ children }: { children: ReactNode }) => {
   const [equipoSeleccionado, setEquipoSeleccionado] = useState<string | null>(
-    "Default"
+    "Default",
   );
   const [token, setToken] = useState<string | null>(() => {
     if (typeof window !== "undefined") {
@@ -100,12 +100,12 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
         let target = null;
 
-        if (hostname === "192.168.10.114") {
-          target = "192.168.10.114:8000";
-          setClientIP("192.168.10.114");
-        } else if (hostname === "192.168.20.150") {
-          target = "192.168.20.150:8000";
-          setClientIP("192.168.20.150");
+        if (hostname === "192.168.10.115") {
+          target = "192.168.10.115:8000";
+          setClientIP("192.168.10.115");
+        } else if (hostname === "192.168.20.41") {
+          target = "192.168.20.41:8000";
+          setClientIP("192.168.20.41");
         } else if (hostname.startsWith("192.168.")) {
           const parts = hostname.split(".");
 
@@ -153,7 +153,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     const response = await axios.post<LoginResponse>(
       `http://${targetAddress}/usuario/login`,
-      formData
+      formData,
     );
 
     const { role, access_token, token_type } = response.data;
@@ -162,7 +162,7 @@ const AppProviderInner = ({ children }: { children: ReactNode }) => {
 
     sessionStorage.setItem(
       "user_data",
-      JSON.stringify({ access_token, token_type, role })
+      JSON.stringify({ access_token, token_type, role }),
     );
 
     sessionStorage.setItem("token", access_token);
