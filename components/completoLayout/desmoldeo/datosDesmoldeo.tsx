@@ -49,23 +49,12 @@ const DatosDesmoldeo = () => {
   const { t } = useTranslation();
 
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
-  const desmoldeoData = data?.processData?.Desmoldeo || ({} as DesmoldeoData);
 
-  const estadoMaquina =
-    desmoldeoData.estadoMaquina ||
-    machineStatus.estadoMaquina ||
-    "CICLO INACTIVO";
-  const PesoProducto = desmoldeoData.PesoProducto || machineStatus.PesoProducto;
-  const PesoActualDesmoldado =
-    desmoldeoData.PesoActualDesmoldado ||
-    machineStatus.PesoActualDesmoldado ||
-    0;
+  const estadoMaquina = machineStatus.estadoMaquina || "CICLO INACTIVO";
+  const PesoProducto = machineStatus.PesoProducto;
+  const PesoActualDesmoldado = machineStatus.PesoActualDesmoldado || 0;
 
-  const NombreActual =
-    desmoldeoData["Nombre actual"]?.trim() ||
-    machineStatus.CodigoProducto ||
-    machineStatus.idRecetaProxima ||
-    "-";
+  const NombreActual = machineStatus.CodigoProducto || "-";
 
   const datosTiempoReal = [
     {
