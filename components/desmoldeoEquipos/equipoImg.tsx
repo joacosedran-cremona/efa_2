@@ -145,7 +145,7 @@ const EquiposImg = () => {
         )}
       </div>
 
-      {totalImages > 1 && (
+      {totalImages > 0 && (
         <div className="flex justify-center gap-5">
           {images.map((_, index: number) => {
             const isActive = index === currentIndex;

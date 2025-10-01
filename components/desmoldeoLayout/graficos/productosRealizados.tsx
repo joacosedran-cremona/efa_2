@@ -103,7 +103,7 @@ const GraficoC = ({
       const day = new Date(
         date.getFullYear(),
         date.getMonth(),
-        date.getDate(),
+        date.getDate()
       ).getTime();
 
       groups.set(day, (groups.get(day) || 0) + ciclo.pesoDesmontado);
@@ -139,7 +139,7 @@ const GraficoC = ({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        },
+        }
       );
 
       if (!response.ok)
@@ -155,7 +155,7 @@ const GraficoC = ({
           fill: false,
           data: groupByDay(producto.ListaDeCiclos),
           borderWidth: 0,
-        }),
+        })
       );
 
       setChartData({ datasets });
@@ -176,25 +176,25 @@ const GraficoC = ({
   }, [chartData]);
 
   const formatDate = useMemo(
-    () => (date?: string | number) => {
+    () => (date?: string | number | Date) => {
       if (date == null) return "";
-      const d = new Date(Number(date));
+      const d = new Date(date);
       const year = d.getUTCFullYear();
       const month = String(d.getUTCMonth() + 1).padStart(2, "0");
       const day = String(d.getUTCDate()).padStart(2, "0");
 
       return `${year}-${month}-${day}`;
     },
-    [],
+    []
   );
 
   const formattedStartDate = useMemo(
     () => formatDate(startDate),
-    [startDate, formatDate],
+    [startDate, formatDate]
   );
   const formattedEndDate = useMemo(
     () => formatDate(endDate),
-    [endDate, formatDate],
+    [endDate, formatDate]
   );
 
   useEffect(() => {
