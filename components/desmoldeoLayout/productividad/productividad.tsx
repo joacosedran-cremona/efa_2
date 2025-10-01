@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ReactNode } from "react";
+import { Tooltip } from "@heroui/react";
 
 import FiltradoFechasProd from "./filtradoFechasProd";
 
@@ -91,7 +92,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -101,7 +102,7 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -114,7 +115,7 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -128,7 +129,7 @@ const Productividad = () => {
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number
+    cantDias: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? formatMinutesToHHMM((horasUso as number) / cantDias)
@@ -197,18 +198,19 @@ const Productividad = () => {
           <p>% {t("min.productoRealizado")}</p>
           <div className="flex h-5 rounded overflow-hidden bg-background5 mb-[15px]">
             {productos.map((producto, index) => (
-              <div
+              <Tooltip
                 key={index}
-                className="relative h-full group"
-                style={{
-                  width: `${producto.porcentaje}%`,
-                  backgroundColor: producto.color,
-                }}
+                content={`Ciclos: ${producto.cantidadCiclos}`}
+                placement="top"
               >
-                <div className="absolute hidden group-hover:block bg-black/70 text-white px-[10px] rounded whitespace-nowrap z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                  Ciclos: {producto.cantidadCiclos}
-                </div>
-              </div>
+                <div
+                  className="h-full"
+                  style={{
+                    width: `${producto.porcentaje}%`,
+                    backgroundColor: producto.color,
+                  }}
+                />
+              </Tooltip>
             ))}
           </div>
           <div className="flex justify-around flex-wrap">

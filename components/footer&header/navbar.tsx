@@ -133,7 +133,9 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
         ))}
       </div>
 
-      <p className="flex w-[40%] justify-center header font-bold">{t("min.titulo")}</p>
+      <p className="flex w-[40%] justify-center header font-bold">
+        {t("min.titulo")}
+      </p>
 
       <div className="flex flex-row w-[30%] justify-end">
         <ul className="flex flex-row w-full h-[100%] gap-[30px] justify-end">

@@ -85,10 +85,10 @@ const DatosGenerales = () => {
         {datosGenerales.map(({ id, texto, dato, icono: IconComponent }) => (
           <li key={id} className="w-full bg-background3 rounded-lg p-3">
             <div className="w-full flex justify-between items-center">
-                <p className="font-semibold">{texto}</p>
-                <p className="text-sm">
-                  {texto === t("min.pesoDesmoldado") ? `${dato} kg` : dato}
-                </p>
+              <p className="font-semibold">{texto}</p>
+              <p className="text-sm">
+                {texto === t("min.pesoDesmoldado") ? `${dato} kg` : dato}
+              </p>
               <IconComponent
                 className="text-texto p-[0.3rem] drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
                 size={40}
