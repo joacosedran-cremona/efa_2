@@ -21,6 +21,7 @@ interface MachineStatus {
   NGripperActual?: number;
   PesoActualDesmoldado?: number;
   TorreActual?: number;
+  PesoPorNivel?: number;
 }
 
 interface DesmoldeoData {
@@ -51,7 +52,7 @@ const DatosDesmoldeo = () => {
   const machineStatus = data?.machineStatus || ({} as MachineStatus);
 
   const estadoMaquina = machineStatus.estadoMaquina || "CICLO INACTIVO";
-  const PesoProducto = machineStatus.PesoProducto;
+  const PesoPorNivel = machineStatus.PesoPorNivel;
   const PesoActualDesmoldado = machineStatus.PesoActualDesmoldado || 0;
 
   const NombreActual = machineStatus.CodigoProducto || "-";
@@ -69,8 +70,8 @@ const DatosDesmoldeo = () => {
       id: 2,
       nombre: t("min.pesoFila"),
       dato:
-        PesoProducto !== undefined && PesoProducto !== null
-          ? PesoProducto + " kg"
+        PesoPorNivel !== undefined && PesoPorNivel !== null
+          ? PesoPorNivel + " kg"
           : "-",
     },
     {

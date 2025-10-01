@@ -60,7 +60,7 @@ const DatosSDDAComponent = () => {
   const isSelected = equipoSeleccionado === "SDDA";
 
   const baseClasses =
-    "w-full bg-background2 p-5 rounded-lg flex flex-col transition-transform transition-shadow cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
+    "w-full bg-background2 p-5 rounded-lg flex flex-col gap-3 transition-transform transition-shadow cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
   const hoverClasses =
     "hover:scale-[1.01] hover:shadow-[0px_4px_8px_rgba(255,255,255,0.2)]";
   const selectedClasses =

@@ -79,21 +79,24 @@ const DatosGenerales = () => {
   ];
 
   return (
-    <div className="w-full bg-background2 rounded-lg flex flex-col p-5">
+    <div className="w-full bg-background2 rounded-lg flex flex-col p-5 gap-3">
       <p className="text-xl font-bold">{t("mayus.datosGenerales")}</p>
       <ul className="w-full list-none flex flex-col gap-5">
         {datosGenerales.map(({ id, texto, dato, icono: IconComponent }) => (
-          <li key={id} className="w-full bg-background3 rounded-lg p-3">
-            <div className="w-full flex justify-between items-center">
+          <li
+            key={id}
+            className="flex flex-row w-full bg-background3 rounded-lg p-3"
+          >
+            <div className="w-full flex flex-col">
               <p className="font-semibold">{texto}</p>
               <p className="text-sm">
                 {texto === t("min.pesoDesmoldado") ? `${dato} kg` : dato}
               </p>
-              <IconComponent
-                className="text-texto p-[0.3rem] drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
-                size={40}
-              />
             </div>
+            <IconComponent
+              className="text-texto p-[0.3rem] drop-shadow-[5px_5px_10px_rgba(0,0,0,0.5)]"
+              size={40}
+            />
           </li>
         ))}
       </ul>

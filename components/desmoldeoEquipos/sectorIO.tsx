@@ -75,14 +75,14 @@ const SectorIOComponent = () => {
       prev.map((item) =>
         item.id === 1
           ? { ...item, texto: t("min.estadoCiclo") }
-          : { ...item, texto: t("min.bandaDesmoldeo") },
-      ),
+          : { ...item, texto: t("min.bandaDesmoldeo") }
+      )
     );
   }, [t]);
 
   return (
-    <div className="w-full bg-background2 rounded-lg p-5">
-      <p className="font-bold">{t("mayus.sectorIO")}</p>
+    <div className="flex flex-col w-full bg-background2 rounded-lg p-5 gap-3">
+      <p className="font-bold text-lg">{t("mayus.sectorIO")}</p>
       <div className="w-full grid grid-cols-2 gap-5">
         {sector_IO.map(({ id, texto, icono }) => (
           <div

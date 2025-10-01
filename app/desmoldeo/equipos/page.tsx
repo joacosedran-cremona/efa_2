@@ -20,7 +20,7 @@ const Equipos = () => {
       </div>
 
       <div className="w-2/4 flex flex-col justify-between">
-        <p className="block text-xl font-bold tracking-wide uppercase">
+        <p className="block flex w-full justify-center items-center text-xl font-bold tracking-wide uppercase">
           {t("mayus.datosDesmoldeo")}
         </p>
         <DatosRobot />

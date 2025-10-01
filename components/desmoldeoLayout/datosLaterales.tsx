@@ -39,7 +39,7 @@ const DatosLaterales: React.FC = () => {
   const TotalNiveles = machineStatus?.TotalNiveles ?? null;
   const TipoMolde = machineStatus?.TipoMolde ?? null;
   const estadoMaquina = machineStatus?.estadoMaquina ?? null;
-  const PesoProducto = machineStatus?.PesoProducto ?? null;
+  const PesoPorNivel = machineStatus?.PesoPorNivel ?? null;
   const TiempoTranscurrido = machineStatus?.TiempoTranscurrido ?? null;
   const sdda_nivel_actual = machineStatus?.sdda_nivel_actual ?? null;
   const NGripperActual = machineStatus?.NGripperActual ?? null;
@@ -84,7 +84,7 @@ const DatosLaterales: React.FC = () => {
     {
       id: 5,
       nombre: t("min.pesoFila"),
-      dato: PesoProducto ? `${PesoProducto} kg` : "",
+      dato: PesoPorNivel ? `${PesoPorNivel} kg` : "",
       icono: FaWeightHanging,
       isReactIcon: true,
     },
