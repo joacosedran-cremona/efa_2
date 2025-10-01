@@ -33,11 +33,15 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ) => void;
+  onLoading?: (loading: boolean) => void;
 }
 
-const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
+const FiltradoFechasProd = ({
+  onDataUpdate,
+  onLoading,
+}: FiltradoFechasProdProps) => {
   const { t } = useTranslation();
   const [token, setToken] = useState<string | null>(null);
 
@@ -75,26 +79,34 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       return;
     }
 
-    const target = localStorage.getItem("targetAddress");
+    onLoading?.(true);
 
-    const response = await fetch(
-      `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: token ? `Bearer ${token}` : "",
-          Accept: "application/json",
-        },
-      },
-    );
+    try {
+      const target = localStorage.getItem("targetAddress");
 
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+      const response = await fetch(
+        `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: token ? `Bearer ${token}` : "",
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      onDataUpdate(data, startDate, endDate);
+    } catch (error) {
+      console.error("Error fetching initial data:", error);
+    } finally {
+      onLoading?.(false);
     }
-
-    const data = await response.json();
-
-    onDataUpdate(data, startDate, endDate);
   };
 
   const handleDateChange = (value: RangeValueType<DateValue> | null) => {
@@ -111,26 +123,34 @@ const FiltradoFechasProd = ({ onDataUpdate }: FiltradoFechasProdProps) => {
       return;
     }
 
-    const target = localStorage.getItem("targetAddress");
+    onLoading?.(true);
 
-    const response = await fetch(
-      `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      },
-    );
+    try {
+      const target = localStorage.getItem("targetAddress");
 
-    if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+      const response = await fetch(
+        `http://${target}/productividad/resumen?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Network response was not ok: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      onDataUpdate(data, startDate, endDate);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      onLoading?.(false);
     }
-
-    const data = await response.json();
-
-    onDataUpdate(data, startDate, endDate);
   };
 
   useEffect(() => {
