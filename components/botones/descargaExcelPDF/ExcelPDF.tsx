@@ -53,7 +53,6 @@ export default function BotonesDescarga({
         },
       });
 
-      // Create a temporary image to get dimensions
       const tempImg = new Image();
 
       tempImg.src = imgDataProduct;

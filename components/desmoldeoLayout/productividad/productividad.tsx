@@ -91,7 +91,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -101,7 +101,7 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0,
+          0
         )
       : t("min.cargando");
 
@@ -114,16 +114,24 @@ const Productividad = () => {
     data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
-          0,
+          0
         )
       : t("min.cargando");
 
+  const cantDias =
+    dateRange.start && dateRange.end
+      ? (new Date(dateRange.end).getTime() -
+          new Date(dateRange.start).getTime()) /
+          (1000 * 60 * 60 * 24) +
+        1
+      : 1;
+
   const Promedio_Horas = (
     horasUso: number | string,
-    numProductos: number,
+    cantDias: number
   ): string =>
     horasUso !== t("min.cargando")
-      ? formatMinutesToHHMM((horasUso as number) / numProductos)
+      ? formatMinutesToHHMM((horasUso as number) / cantDias)
       : t("min.cargando");
 
   const datos: DatoMetrica[] = [
@@ -140,9 +148,7 @@ const Productividad = () => {
     {
       id: 3,
       titulo: t("min.promedioUsoDiario"),
-      dato: (
-        <>{Promedio_Horas(Horas_Uso, data?.ProductosRealizados?.length || 0)}</>
-      ),
+      dato: <>{Promedio_Horas(Horas_Uso, cantDias)}</>,
     },
   ];
 
@@ -167,7 +173,7 @@ const Productividad = () => {
       className="flex flex-col-reverse md:flex-row gap-5 w-full"
       id="ProductividadSection"
     >
-      <div className="w-full md:w-4/5 flex flex-col bg-background2 rounded-lg p-5 relative">
+      <div className="w-full md:w-[78%] flex flex-col bg-background2 rounded-lg p-5 relative">
         <p className="text-left text-[1vw] font-semibold">
           {t("mayus.productividad")}
         </p>
@@ -218,7 +224,7 @@ const Productividad = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-1/5 flex flex-col gap-5 ocultar-en-pdf">
+      <div className="w-full md:w-[22%] flex flex-col gap-5 ocultar-en-pdf">
         <FiltradoFechasProd onDataUpdate={handleDataUpdate} />
       </div>
     </div>

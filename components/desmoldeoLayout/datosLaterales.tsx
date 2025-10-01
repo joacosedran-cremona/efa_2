@@ -226,8 +226,8 @@ const DatosLaterales: React.FC = () => {
 
       <hr className="w-[98%] flex mx-auto my-[20px]" />
 
-      <div className="overflow-auto h-full">
-        <p className="font-semibold block text-center">
+      <div className="overflow-auto flex flex-col h-full gap-5">
+        <p className="font-semibold block flex text-center justify-center text-lg">
           {t("mayus.datosGenerales")}
         </p>
         <ul className="flex flex-col gap-2" lang="es">
