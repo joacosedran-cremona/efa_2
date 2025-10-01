@@ -19,7 +19,7 @@ export default function MachineMonitor() {
   }
 
   return (
-    <div className="machine-monitor">
+    <div className="machine-monitor p-5">
       <p>Estado de conexión: {isConnected ? "Conectado" : "Desconectado"}</p>
 
       <button
