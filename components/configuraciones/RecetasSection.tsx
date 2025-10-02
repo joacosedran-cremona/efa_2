@@ -32,17 +32,14 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
         {datosGeneralesIzq.map(({ id, texto, dato }) => (
           <li key={id} className="">
             <div className="flex flex-row bg-background3 items-center justify-between p-2 rounded-lg">
-              {dato === "null" || dato === undefined || dato === null ? (
-                <div className="flex flex-col">
-                  <p className="">{texto}</p>
-                  <EjemploSkeleton2 />
-                </div>
-              ) : (
-                <div className="flex flex-col">
-                  <p className="">{texto}</p>
-                  <p className="">{dato}</p>
-                </div>
-              )}
+              <div className="flex flex-col">
+                <p className="">{texto}</p>
+                <p className="">
+                  {dato === "null" || dato === undefined || dato === null
+                    ? "null"
+                    : dato}
+                </p>
+              </div>
               <BiReceipt className="flex h-[7%] w-[7%]" />
             </div>
           </li>
