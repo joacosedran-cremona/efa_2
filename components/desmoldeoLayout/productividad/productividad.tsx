@@ -190,7 +190,7 @@ const Productividad = () => {
       id="ProductividadSection"
     >
       <div className="w-full md:w-[78%] flex flex-col bg-background2 rounded-lg p-5 relative">
-        <p className="text-left text-[1vw] font-bold mb-[-5]">
+        <p className="text-left text-xl font-bold mb-[-5]">
           {t("mayus.productividad")}
         </p>
         <div className="flex items-center">

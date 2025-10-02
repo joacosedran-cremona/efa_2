@@ -37,9 +37,9 @@ const EstadosLayout: React.FC = () => {
       };
     } else if (estadoMaquina === "CICLO PAUSADO") {
       return {
-        color: "#4b5563",
+        color: "#ffa500",
         text: t("mayus.cicloPausado"),
-        colorClass: "text-gray-600",
+        colorClass: "text-[#ffa500]",
       };
     } else if (estadoMaquina === "CICLO INACTIVO" || !estadoMaquina) {
       return {

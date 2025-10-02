@@ -100,10 +100,11 @@ const GraficoC = ({
 
     cycles.forEach((ciclo) => {
       const date = new Date(ciclo.fecha_fin * 1000);
+      const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
       const day = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
+        localDate.getFullYear(),
+        localDate.getMonth(),
+        localDate.getDate(),
       ).getTime();
 
       groups.set(day, (groups.get(day) || 0) + ciclo.pesoDesmontado);
@@ -179,9 +180,9 @@ const GraficoC = ({
     () => (date?: string | number | Date) => {
       if (date == null) return "";
       const d = new Date(date);
-      const year = d.getUTCFullYear();
-      const month = String(d.getUTCMonth() + 1).padStart(2, "0");
-      const day = String(d.getUTCDate()).padStart(2, "0");
+      const year = d.getFullYear(); // Cambia a getFullYear() para zona local
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
 
       return `${year}-${month}-${day}`;
     },
