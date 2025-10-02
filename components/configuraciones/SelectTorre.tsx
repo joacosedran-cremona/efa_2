@@ -15,7 +15,7 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
 }) => {
   return (
     <select
-      className="border rounded px-2 py-1"
+      className="border rounded px-2 py-1 w-full"
       disabled={disabled}
       value={selectedTorre || ""}
       onChange={(e) => onChange(e.target.value)}

@@ -309,37 +309,35 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   };
 
   return (
-    <div className="bg-background2 flex-1 p-5 rounded-lg h-full flex flex-col gap-5">
+    <div className="bg-background2 flex-1 p-5 rounded-lg h-full flex flex-col gap-5 w-2/4">
       <p className="text-xl font-semibold">CORRECCIONES</p>
-      <ul className="flex flex-row justify-between w-auto gap-5">
+      <ul className="flex flex-row justify-between w-full gap-5">
         {opcionesCorrecciones.map(({ id, nombre }) => (
           <li key={id} className="flex flex-col flex-1">
             <button
-              className={`flex flex-col rounded-sm transition-all ${
+              className={`flex flex-col rounded-sm transition-all p-2 ${
                 selectedOption === id ? "bg-blue text-white" : "bg-background5"
               }`}
               onClick={() => handleOptionChange(id)}
             >
-              <div className="flex flex-col items-center p-2">
-                <p className="flex justify-center text-center">{nombre}</p>
-                {id === 1 && (
-                  <SelectTorre
-                    disabled={loading || datosGeneralesIzq[0].dato === "null"}
-                    refreshTorres={() => {}}
-                    refreshTorres2={() => {}}
-                    selectedReceta={selectedReceta}
-                    selectedTorre={selectedTorre}
-                    onChange={handleTorreChange}
-                    onTorresChange={handleTorresChange}
-                  />
-                )}
-                {id === 2 && (
-                  <SelectNivel
-                    disabled={loading || datosGeneralesIzq[0].dato === "null"}
-                    onChange={handleNivelChange}
-                  />
-                )}
-              </div>
+              <p className="flex justify-center text-center">{nombre}</p>
+              {id === 1 && (
+                <SelectTorre
+                  disabled={loading || datosGeneralesIzq[0].dato === "null"}
+                  refreshTorres={() => {}}
+                  refreshTorres2={() => {}}
+                  selectedReceta={selectedReceta}
+                  selectedTorre={selectedTorre}
+                  onChange={handleTorreChange}
+                  onTorresChange={handleTorresChange}
+                />
+              )}
+              {id === 2 && (
+                <SelectNivel
+                  disabled={loading || datosGeneralesIzq[0].dato === "null"}
+                  onChange={handleNivelChange}
+                />
+              )}
             </button>
           </li>
         ))}

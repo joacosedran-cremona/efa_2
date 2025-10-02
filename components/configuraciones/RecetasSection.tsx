@@ -22,7 +22,7 @@ const RecetasSection: React.FC<RecetasSectionProps> = ({
   onRecetaApply,
 }) => {
   return (
-    <div className="flex flex-col w-1/3 h-full bg-background2 p-5 rounded-lg gap-5">
+    <div className="flex flex-col w-1/4 h-full bg-background2 p-5 rounded-lg gap-5">
       <SelectConfiguracion
         disabled={loading}
         onChange={onRecetaChange}

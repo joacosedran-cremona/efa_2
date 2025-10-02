@@ -9,7 +9,7 @@ const SelectNivel: React.FC<SelectNivelProps> = ({
 }) => {
   return (
     <select
-      className="border rounded px-2 py-1 text-texto"
+      className="border rounded px-2 py-1 text-texto w-full"
       defaultValue="HN"
       disabled={disabled}
       onChange={(e) =>
