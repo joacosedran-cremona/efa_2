@@ -79,6 +79,11 @@ const formatSecondsToHHMM = (seconds: number): string => {
   return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
 };
 
+const formatDate = (dateStr: string): string => {
+  const [year, month, day] = dateStr.split("-");
+  return `${day}/${month}/${year}`;
+};
+
 const Productividad = () => {
   const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];
@@ -156,7 +161,7 @@ const Productividad = () => {
       dato: (
         <>
           {Promedio_Horas(Horas_Uso, cantDias)}{" "}
-          <span className="text-lg">hh:ss</span>
+          <span className="text-lg">hh:mm</span>
         </>
       ),
     },
@@ -185,11 +190,11 @@ const Productividad = () => {
       id="ProductividadSection"
     >
       <div className="w-full md:w-[78%] flex flex-col bg-background2 rounded-lg p-5 relative">
-        <p className="text-left text-[1vw] font-semibold">
+        <p className="text-left text-[1vw] font-bold mb-[-5]">
           {t("mayus.productividad")}
         </p>
         <div className="flex items-center">
-          <p className="inline text-orange">
+          <p className="inline text-[#ffa500] font-system-ui text-md">
             {dateRange.start}
             <span className="inline px-[5px] font-semibold"> - </span>
             {dateRange.end}

@@ -73,3 +73,7 @@ textarea {
   max-width: 100%;
   overflow: hidden;
 }
+
+.font-system-ui {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
