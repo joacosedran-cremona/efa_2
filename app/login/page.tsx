@@ -10,7 +10,7 @@ import LogoBase64 from "@/components/LogoBase64";
 import { useApp } from "@/context/AppContext";
 
 const Spinner = () => (
-  <div className="border-[3px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-[100%] w-[20px] h-[20px] animate-spin" />
+  <div className="border-[4px] border-solid border-[#f3f3f3] border-t-[#e82a31] rounded-[100%] w-[24px] h-[24px] animate-spin" />
 );
 
 const Login = () => {
