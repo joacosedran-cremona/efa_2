@@ -1,0 +1,24 @@
+{
+    "DatosRecetas": [
+        {
+            "id": 1,
+            "codigoProducto": "CUADRDADO CU",
+            "nroGripper": 1,
+            "tipoMolde": "1",
+            "anchoProducto": 1,
+            "altoProducto": 1,
+            "largoProducto": 1,
+            "pesoProducto": 15,
+            "moldesNivel": 1,
+            "altoMolde": 1,
+            "largoMolde": 1,
+            "ajusteAltura": 1,
+            "cantidadNiveles": 11,
+            "deltaNiveles": 1,
+            "n1Altura": 1,
+            "bastidorAltura": 1,
+            "ajusteN1Altura": 1,
+            "productosMolde": 6
+        }
+    ]
+}

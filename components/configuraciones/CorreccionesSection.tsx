@@ -58,7 +58,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5,
+      5
     );
 
     const finalData = {
@@ -71,24 +71,39 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       id_recetario: selectedReceta,
     };
 
-    try {
-      await configuracionesApi.enviarDatosTorre(finalData);
+    console.log("Datos enviados:", finalData);
 
-      toast.success("Datos de la torre corregidos exitosamente", {
-        position: "bottom-center",
-      });
-      refreshData();
-    } catch {
-      toast.error("Error al enviar los datos de la torre", {
-        position: "bottom-center",
-      });
-    }
+    const intentarEnvio = async (reintentos: number = 5) => {
+      for (let i = 1; i <= reintentos; i++) {
+        try {
+          await configuracionesApi.enviarDatosTorre(finalData, i);
+          console.log(`Intento ${i} exitoso`);
+
+          toast.success("Datos de la torre corregidos exitosamente", {
+            position: "bottom-center",
+          });
+          refreshData();
+
+          return;
+        } catch (error) {
+          console.error(`Error en el intento ${i}:`, error);
+
+          if (i === reintentos) {
+            toast.error("Error al enviar los datos de la torre", {
+              position: "bottom-center",
+            });
+          }
+        }
+      }
+    };
+
+    intentarEnvio();
   };
 
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11,
+      11
     );
 
     const finalData = {
@@ -108,13 +123,19 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         typeof inputValues[10] === "number" ? inputValues[10] : null,
     };
 
+    console.log("Datos enviados:", finalData);
+
     try {
       await configuracionesApi.enviarDatosNiveles(finalData);
-      toast.success("Datos de niveles corregidos exitosamente", {
+      console.log("Respuesta exitosa de la API");
+
+      toast.success("Datos de la torre corregidos exitosamente", {
         position: "bottom-center",
       });
       refreshData();
-    } catch {
+    } catch (error) {
+      console.error("Error al enviar datos:", error);
+
       toast.error("Error al enviar los datos de niveles", {
         position: "bottom-center",
       });
@@ -125,7 +146,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0,
+      0
     );
 
     const datos = {
@@ -134,13 +155,19 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       ...correcciones,
     };
 
+    console.log("Datos enviados:", datos);
+
     try {
       await configuracionesApi.resetearFallasNivel(datos);
-      toast.success("Falla reseteada exitosamente", {
+      console.log("Respuesta de la API exitosa");
+
+      toast.success("Datos de la torre corregidos exitosamente", {
         position: "bottom-center",
       });
       refreshData();
-    } catch {
+    } catch (error) {
+      console.error("Error al enviar datos:", error);
+
       toast.error("Error al resetear la falla", {
         position: "bottom-center",
       });
@@ -149,22 +176,32 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
+    index: number
   ) => {
     if (selectedOption === 1) {
+      // Para los inputs de TORRE
       if (index === 4) {
-        const tagValidado = validarTAGDuplicado(e.target.value);
+        // ActualizarTAG - input de texto
+        let inputValue = e.target.value.toUpperCase();
+        const tagValidado = validarTAGDuplicado(inputValue);
+
+        // Limpiar puntos decimales si los hubiera
+        if (inputValue.includes(".")) {
+          inputValue = inputValue.split(".")[0];
+        }
 
         e.target.value = tagValidado;
       } else {
-        e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-          e.target.value,
-        );
+        // Inputs numéricos - limpiar decimales
+        if (e.target.value.includes(".")) {
+          e.target.value = e.target.value.split(".")[0];
+        }
       }
     } else {
-      e.target.value = validacionesConfiguraciones.limpiarInputNumerico(
-        e.target.value,
-      );
+      // Para los inputs de NIVEL - solo números enteros
+      if (e.target.value.includes(".")) {
+        e.target.value = e.target.value.split(".")[0];
+      }
     }
   };
 
@@ -206,7 +243,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                     className="bg-background4 rounded-lg px-[0.5rem] w-[100%]"
                     pattern="\d+"
                     type="number"
-                    onChange={(e) => handleInputChange(e, index)}
+                    onInput={(e) =>
+                      handleInputChange(
+                        e as React.ChangeEvent<HTMLInputElement>,
+                        index
+                      )
+                    }
                   />
                 </p>
               </label>
@@ -263,9 +305,14 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                     }
                   }}
                   className="bg-background4 rounded-lg w-[100%] px-[0.5rem]"
-                  pattern="\d+"
-                  type="number"
-                  onChange={(e) => handleInputChange(e, index)}
+                  type={index === 4 ? "text" : "number"}
+                  pattern={index === 4 ? undefined : "\\d+"}
+                  onInput={(e) =>
+                    handleInputChange(
+                      e as React.ChangeEvent<HTMLInputElement>,
+                      index
+                    )
+                  }
                 />
               </div>
             </li>

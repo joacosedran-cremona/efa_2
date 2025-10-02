@@ -31,6 +31,21 @@ interface ResetFallasData {
 }
 
 export const configuracionesApi = {
+  obtenerListaRecetas: async () => {
+    const target = localStorage.getItem("targetAddress");
+
+    if (!target) throw new Error("Target address not available");
+    const url = `http://${target}/configuraciones/lista-recetas`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(
+        `Error al obtener lista de recetas: ${response.status}`,
+      );
+    }
+
+    return response.json();
+  },
   obtenerDatosRecetas: async (idReceta: string) => {
     const target = localStorage.getItem("targetAddress");
 

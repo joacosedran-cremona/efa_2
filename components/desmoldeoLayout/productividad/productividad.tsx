@@ -66,15 +66,15 @@ const getColorById = (id: number): string => {
   return colors[(id - 1) % colors.length];
 };
 
-const parseTimeToMinutes = (timeStr: string): number => {
-  const [hours, minutes] = timeStr.split(":").map(Number);
+const parseTimeToSeconds = (timeStr: string): number => {
+  const [hours, minutes, seconds] = timeStr.split(":").map(Number);
 
-  return hours * 60 + minutes;
+  return hours * 3600 + minutes * 60 + seconds;
 };
 
-const formatMinutesToHHMM = (minutes: number): string => {
-  const hours = Math.floor(minutes / 60);
-  const mins = Math.floor(minutes % 60);
+const formatSecondsToHHMM = (seconds: number): string => {
+  const hours = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
 
   return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
 };
@@ -118,7 +118,7 @@ const Productividad = () => {
     ? t("min.cargando")
     : data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
-          (acc, prod) => acc + parseTimeToMinutes(prod.tiempoTotal),
+          (acc, prod) => acc + parseTimeToSeconds(prod.tiempoTotal),
           0
         )
       : t("min.cargando");
@@ -136,7 +136,7 @@ const Productividad = () => {
     cantDias: number
   ): string =>
     horasUso !== t("min.cargando")
-      ? formatMinutesToHHMM((horasUso as number) / cantDias)
+      ? formatSecondsToHHMM((horasUso as number) / cantDias)
       : t("min.cargando");
 
   const datos: DatoMetrica[] = [

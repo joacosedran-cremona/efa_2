@@ -58,6 +58,13 @@ export interface TorresResponse {
   ListadoTorres?: Torre[];
 }
 
+export interface RecetasResponse {
+  ListadoRecetas?: Array<{
+    id: number;
+    codigoProducto: string;
+  }>;
+}
+
 export type TipoNivel = "HN" | "ChG" | "ChB" | "FA" | "uHN";
 
 export interface ConfiguracionData {
