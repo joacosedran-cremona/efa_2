@@ -2,7 +2,6 @@
 
 import { BiReceipt } from "react-icons/bi";
 
-import EjemploSkeleton2 from "./EjemploSkeleton2";
 import SelectConfiguracion from "./SelectConfiguracion";
 
 import { DatoReceta } from "@/types/configuraciones";

@@ -58,7 +58,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarTorre = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      5
+      5,
     );
 
     const finalData = {
@@ -71,13 +71,10 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       id_recetario: selectedReceta,
     };
 
-    console.log("Datos enviados:", finalData);
-
     const intentarEnvio = async (reintentos: number = 5) => {
       for (let i = 1; i <= reintentos; i++) {
         try {
           await configuracionesApi.enviarDatosTorre(finalData, i);
-          console.log(`Intento ${i} exitoso`);
 
           toast.success("Datos de la torre corregidos exitosamente", {
             position: "bottom-center",
@@ -85,9 +82,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
           refreshData();
 
           return;
-        } catch (error) {
-          console.error(`Error en el intento ${i}:`, error);
-
+        } catch {
           if (i === reintentos) {
             toast.error("Error al enviar los datos de la torre", {
               position: "bottom-center",
@@ -103,7 +98,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
   const handleAplicarNiveles = async () => {
     const inputValues = validacionesConfiguraciones.procesarValoresInput(
       inputRefs.current || [],
-      11
+      11,
     );
 
     const finalData = {
@@ -123,19 +118,13 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
         typeof inputValues[10] === "number" ? inputValues[10] : null,
     };
 
-    console.log("Datos enviados:", finalData);
-
     try {
       await configuracionesApi.enviarDatosNiveles(finalData);
-      console.log("Respuesta exitosa de la API");
-
       toast.success("Datos de la torre corregidos exitosamente", {
         position: "bottom-center",
       });
       refreshData();
-    } catch (error) {
-      console.error("Error al enviar datos:", error);
-
+    } catch {
       toast.error("Error al enviar los datos de niveles", {
         position: "bottom-center",
       });
@@ -146,7 +135,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     const correcciones = validacionesConfiguraciones.crearObjetoCorrecciones(
       11,
       index,
-      0
+      0,
     );
 
     const datos = {
@@ -155,19 +144,14 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
       ...correcciones,
     };
 
-    console.log("Datos enviados:", datos);
-
     try {
       await configuracionesApi.resetearFallasNivel(datos);
-      console.log("Respuesta de la API exitosa");
 
       toast.success("Datos de la torre corregidos exitosamente", {
         position: "bottom-center",
       });
       refreshData();
-    } catch (error) {
-      console.error("Error al enviar datos:", error);
-
+    } catch {
       toast.error("Error al resetear la falla", {
         position: "bottom-center",
       });
@@ -176,7 +160,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
     if (selectedOption === 1) {
       // Para los inputs de TORRE
@@ -246,7 +230,7 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                     onInput={(e) =>
                       handleInputChange(
                         e as React.ChangeEvent<HTMLInputElement>,
-                        index
+                        index,
                       )
                     }
                   />
@@ -305,12 +289,12 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
                     }
                   }}
                   className="bg-background4 rounded-lg w-[100%] px-[0.5rem]"
-                  type={index === 4 ? "text" : "number"}
                   pattern={index === 4 ? undefined : "\\d+"}
+                  type={index === 4 ? "text" : "number"}
                   onInput={(e) =>
                     handleInputChange(
                       e as React.ChangeEvent<HTMLInputElement>,
-                      index
+                      index,
                     )
                   }
                 />

@@ -33,26 +33,24 @@ const SelectConfiguracion: React.FC<SelectConfiguracionProps> = ({
           // Filtrar recetas que tengan codigoProducto no vacío
           const recetasFiltradas = data.ListadoRecetas.filter(
             (receta: Receta) =>
-              receta.codigoProducto && receta.codigoProducto.trim() !== ""
+              receta.codigoProducto && receta.codigoProducto.trim() !== "",
           );
 
           setRecetas(recetasFiltradas);
 
           if (recetasFiltradas.length > 0) {
             const primerReceta = recetasFiltradas[0];
+
             setSelectedKey(primerReceta.id.toString());
             onChange(primerReceta.id.toString());
           }
         }
-      } catch (error) {
-        console.error("Error al cargar recetas:", error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchRecetas();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectionChange = (value: string) => {

@@ -63,13 +63,18 @@ const DatosEstadoDesmoldeo = () => {
       {estadoMaquina === "CICLO ACTIVO" ? (
         <li className="flex flex-col p-2 rounded-lg bg-[#581420] w-full transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] text-white">
           <p className="text-[1rem] font-semibold">{t("mayus.desmoldeo")}</p>
-          <p className="text-[0.9rem] font-semibold"> {t("mayus.cicloActivo")} </p>
+          <p className="text-[0.9rem] font-semibold">
+            {" "}
+            {t("mayus.cicloActivo")}{" "}
+          </p>
           <p className="text-[0.8rem]">{TiempoTrancurrido}</p>
         </li>
       ) : estadoMaquina === "CICLO PAUSADO" ? (
         <li className="flex flex-col p-2 rounded-lg bg-[#8B6B00] w-full transition-colors shadow-[6px_6px_6px_0px_rgba(0,0,0,0.45)] text-white">
           <p className="text-[1rem] font-semibold">{t("mayus.desmoldeo")}</p>
-          <p className="text-[0.9rem] font-semibold">{t("mayus.cicloPausado")}</p>
+          <p className="text-[0.9rem] font-semibold">
+            {t("mayus.cicloPausado")}
+          </p>
           <p className="text-[0.8rem] text-texto">{TiempoTrancurrido}</p>
         </li>
       ) : (

@@ -33,7 +33,7 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) => void;
   onLoading?: (loading: boolean) => void;
 }
@@ -92,7 +92,7 @@ const FiltradoFechasProd = ({
             Authorization: token ? `Bearer ${token}` : "",
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -102,8 +102,6 @@ const FiltradoFechasProd = ({
       const data = await response.json();
 
       onDataUpdate(data, startDate, endDate);
-    } catch (error) {
-      console.error("Error fetching initial data:", error);
     } finally {
       onLoading?.(false);
     }
@@ -136,7 +134,7 @@ const FiltradoFechasProd = ({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -146,8 +144,6 @@ const FiltradoFechasProd = ({
       const data = await response.json();
 
       onDataUpdate(data, startDate, endDate);
-    } catch (error) {
-      console.error("Error fetching data:", error);
     } finally {
       onLoading?.(false);
     }

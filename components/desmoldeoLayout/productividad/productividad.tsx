@@ -93,7 +93,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -104,7 +104,7 @@ const Productividad = () => {
     : data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (total, producto) => total + producto.cantidadCiclos,
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -119,7 +119,7 @@ const Productividad = () => {
     : data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToSeconds(prod.tiempoTotal),
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -133,7 +133,7 @@ const Productividad = () => {
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number
+    cantDias: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? formatSecondsToHHMM((horasUso as number) / cantDias)
@@ -153,7 +153,12 @@ const Productividad = () => {
     {
       id: 3,
       titulo: t("min.promedioUsoDiario"),
-      dato: <>{Promedio_Horas(Horas_Uso, cantDias)}</>,
+      dato: (
+        <>
+          {Promedio_Horas(Horas_Uso, cantDias)}{" "}
+          <span className="text-lg">hh:ss</span>
+        </>
+      ),
     },
   ];
 
@@ -205,10 +210,10 @@ const Productividad = () => {
             {productos.map((producto, index) => (
               <Tooltip
                 key={index}
+                className="bg-background3 text-md"
                 content={`${t("min.ciclos")}: ${producto.cantidadCiclos}`}
                 placement="top"
                 radius="sm"
-                className="bg-background3 text-md"
               >
                 <div
                   className="h-full"

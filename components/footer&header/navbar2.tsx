@@ -57,7 +57,12 @@ const Navbar2 = () => {
               } ${isDisabled ? DESAC_CLASS : styleClass}`}
             >
               {isDisabled ? (
-                <Tooltip content={t("min.proximamente")} placement="bottom" radius="sm" className="bg-background3">
+                <Tooltip
+                  className="bg-background3"
+                  content={t("min.proximamente")}
+                  placement="bottom"
+                  radius="sm"
+                >
                   <div className="flex items-center gap-2">
                     <GoDotFill className="text-gray-500" />
                     <p>{text}</p>

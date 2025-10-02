@@ -75,8 +75,8 @@ const SectorIOComponent = () => {
       prev.map((item) =>
         item.id === 1
           ? { ...item, texto: t("min.estadoCiclo") }
-          : { ...item, texto: t("min.bandaDesmoldeo") }
-      )
+          : { ...item, texto: t("min.bandaDesmoldeo") },
+      ),
     );
   }, [t]);
 

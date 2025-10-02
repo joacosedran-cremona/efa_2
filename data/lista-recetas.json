@@ -1,84 +1,84 @@
 {
-    "ListadoRecetas": [
-        {
-            "id": 1,
-            "codigoProducto": "CUADRDADO CU"
-        },
-        {
-            "id": 2,
-            "codigoProducto": "RECTANGULAR 7K"
-        },
-        {
-            "id": 3,
-            "codigoProducto": "MANDOLINA 6K"
-        },
-        {
-            "id": 4,
-            "codigoProducto": "OVALADO A OV (ancho 120)"
-        },
-        {
-            "id": 5,
-            "codigoProducto": "OVALADO B OV (ancho 124)"
-        },
-        {
-            "id": 6,
-            "codigoProducto": "LUNCH LU"
-        },
-        {
-            "id": 7,
-            "codigoProducto": "CUADRADO LARGO"
-        },
-        {
-            "id": 8,
-            "codigoProducto": "QUESO PUERCO QP"
-        },
-        {
-            "id": 9,
-            "codigoProducto": ""
-        },
-        {
-            "id": 10,
-            "codigoProducto": ""
-        },
-        {
-            "id": 11,
-            "codigoProducto": ""
-        },
-        {
-            "id": 12,
-            "codigoProducto": ""
-        },
-        {
-            "id": 13,
-            "codigoProducto": ""
-        },
-        {
-            "id": 14,
-            "codigoProducto": ""
-        },
-        {
-            "id": 15,
-            "codigoProducto": ""
-        },
-        {
-            "id": 16,
-            "codigoProducto": ""
-        },
-        {
-            "id": 17,
-            "codigoProducto": ""
-        },
-        {
-            "id": 18,
-            "codigoProducto": ""
-        },
-        {
-            "id": 19,
-            "codigoProducto": ""
-        },
-        {
-            "id": 20,
-            "codigoProducto": ""
-        }
-    ]
+  "ListadoRecetas": [
+    {
+      "id": 1,
+      "codigoProducto": "CUADRDADO CU"
+    },
+    {
+      "id": 2,
+      "codigoProducto": "RECTANGULAR 7K"
+    },
+    {
+      "id": 3,
+      "codigoProducto": "MANDOLINA 6K"
+    },
+    {
+      "id": 4,
+      "codigoProducto": "OVALADO A OV (ancho 120)"
+    },
+    {
+      "id": 5,
+      "codigoProducto": "OVALADO B OV (ancho 124)"
+    },
+    {
+      "id": 6,
+      "codigoProducto": "LUNCH LU"
+    },
+    {
+      "id": 7,
+      "codigoProducto": "CUADRADO LARGO"
+    },
+    {
+      "id": 8,
+      "codigoProducto": "QUESO PUERCO QP"
+    },
+    {
+      "id": 9,
+      "codigoProducto": ""
+    },
+    {
+      "id": 10,
+      "codigoProducto": ""
+    },
+    {
+      "id": 11,
+      "codigoProducto": ""
+    },
+    {
+      "id": 12,
+      "codigoProducto": ""
+    },
+    {
+      "id": 13,
+      "codigoProducto": ""
+    },
+    {
+      "id": 14,
+      "codigoProducto": ""
+    },
+    {
+      "id": 15,
+      "codigoProducto": ""
+    },
+    {
+      "id": 16,
+      "codigoProducto": ""
+    },
+    {
+      "id": 17,
+      "codigoProducto": ""
+    },
+    {
+      "id": 18,
+      "codigoProducto": ""
+    },
+    {
+      "id": 19,
+      "codigoProducto": ""
+    },
+    {
+      "id": 20,
+      "codigoProducto": ""
+    }
+  ]
 }

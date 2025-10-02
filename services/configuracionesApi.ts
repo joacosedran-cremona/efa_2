@@ -39,9 +39,7 @@ export const configuracionesApi = {
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(
-        `Error al obtener lista de recetas: ${response.status}`,
-      );
+      throw new Error(`Error al obtener lista de recetas: ${response.status}`);
     }
 
     return response.json();
