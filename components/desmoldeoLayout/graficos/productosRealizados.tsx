@@ -57,9 +57,11 @@ type ProductoAPI = {
 const GraficoC = ({
   startDate,
   endDate,
+  onLoading,
 }: {
   startDate?: number | string;
   endDate?: number | string;
+  onLoading?: (loading: boolean) => void;
 }) => {
   const { t } = useTranslation();
   const chartRef = useRef<HTMLCanvasElement | null>(null);
@@ -120,10 +122,12 @@ const GraficoC = ({
   const fetchData = async () => {
     if (!startDate || !endDate) {
       setLoading(false);
+      onLoading?.(false);
 
       return;
     }
     setLoading(true);
+    onLoading?.(true);
     let token = null;
 
     if (typeof window !== "undefined") {
@@ -164,6 +168,7 @@ const GraficoC = ({
       setChartData({ datasets });
     } finally {
       setLoading(false);
+      onLoading?.(false);
     }
   };
 

@@ -242,6 +242,7 @@ const Productividad = () => {
         <FiltradoFechasProd
           onDataUpdate={handleDataUpdate}
           onLoading={setIsLoading}
+          isLoading={isLoading}
         />
       </div>
     </div>

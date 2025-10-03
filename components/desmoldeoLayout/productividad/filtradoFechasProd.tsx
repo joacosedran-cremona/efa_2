@@ -36,11 +36,13 @@ interface FiltradoFechasProdProps {
     endDate: string,
   ) => void;
   onLoading?: (loading: boolean) => void;
+  isLoading?: boolean;
 }
 
 const FiltradoFechasProd = ({
   onDataUpdate,
   onLoading,
+  isLoading = false,
 }: FiltradoFechasProdProps) => {
   const { t } = useTranslation();
   const [token, setToken] = useState<string | null>(null);
@@ -189,6 +191,7 @@ const FiltradoFechasProd = ({
               ? dateRange.start
               : formatDate(dateRange.start) || formattedToday
           }
+          isLoading={isLoading}
         />
       </div>
     </div>

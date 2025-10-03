@@ -1,9 +1,10 @@
 "use client";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { FaFilePdf, FaFileExcel } from "react-icons/fa";
 import domtoimage from "dom-to-image";
 import jsPDF from "jspdf";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 import logoDataURL from "./cremonabase64";
 import telIcon from "./telbase64";
@@ -13,15 +14,19 @@ import mailIcon from "./mailbase64";
 interface BotonesDescargaProps {
   startDate: string;
   endDate: string;
+  isLoading?: boolean;
 }
 
 export default function BotonesDescarga({
   startDate,
   endDate,
+  isLoading = false,
 }: BotonesDescargaProps) {
   const storedUser = sessionStorage.getItem("user_data");
   const token = storedUser ? JSON.parse(storedUser).access_token : null;
   const { t } = useTranslation();
+  const [isPdfLoading, setIsPdfLoading] = useState(false);
+  const [isExcelLoading, setIsExcelLoading] = useState(false);
 
   const fechaLocal = new Intl.DateTimeFormat("es-CL", {
     year: "numeric",
@@ -32,126 +37,140 @@ export default function BotonesDescarga({
     .replace(/\//g, "-");
 
   const handlePdfDownload = async () => {
-    const productSection = document.getElementById("ProductividadSection");
+    if (isPdfLoading) return; // Prevent multiple clicks
+    
+    setIsPdfLoading(true);
+    try {
+      const productSection = document.getElementById("ProductividadSection");
 
-    if (productSection) {
-      const imgDataProduct = await domtoimage.toPng(productSection, {
-        quality: 0.95,
-        bgcolor: "#ffffff",
-        filter: (node: Node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            const element = node as Element;
+      if (productSection) {
+        const imgDataProduct = await domtoimage.toPng(productSection, {
+          quality: 0.95,
+          bgcolor: "#ffffff",
+          filter: (node: Node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as Element;
 
-            return !(
-              element.classList &&
-              (element.classList.contains("FiltroPeriodo") ||
-                element.classList.contains("ocultar-en-pdf"))
-            );
-          }
+              return !(
+                element.classList &&
+                (element.classList.contains("FiltroPeriodo") ||
+                  element.classList.contains("ocultar-en-pdf"))
+              );
+            }
 
-          return true;
-        },
-      });
+            return true;
+          },
+        });
 
-      const tempImg = new Image();
+        const tempImg = new Image();
 
-      tempImg.src = imgDataProduct;
-      await new Promise((resolve) => {
-        tempImg.onload = resolve;
-      });
+        tempImg.src = imgDataProduct;
+        await new Promise((resolve) => {
+          tempImg.onload = resolve;
+        });
 
-      const imgProps = {
-        width: tempImg.width,
-        height: tempImg.height,
-      };
+        const imgProps = {
+          width: tempImg.width,
+          height: tempImg.height,
+        };
 
-      const pdfWidth = 287;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        const pdfWidth = 287;
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-      const pdfMargin = 10;
+        const pdfMargin = 10;
 
-      const logoMargin = (pdfHeight + pdfMargin) / 8;
+        const logoMargin = (pdfHeight + pdfMargin) / 8;
 
-      const pdfHeightWithMargin = pdfHeight + pdfMargin;
+        const pdfHeightWithMargin = pdfHeight + pdfMargin;
 
-      const pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "mm",
-        format: [pdfHeightWithMargin, 297],
-      });
+        const pdf = new jsPDF({
+          orientation: "landscape",
+          unit: "mm",
+          format: [pdfHeightWithMargin, 297],
+        });
 
-      pdf.addImage(
-        imgDataProduct,
-        "PNG",
-        5,
-        5,
-        pdfWidth,
-        pdfHeight,
-        undefined,
-        "FAST",
-      );
+        pdf.addImage(
+          imgDataProduct,
+          "PNG",
+          5,
+          5,
+          pdfWidth,
+          pdfHeight,
+          undefined,
+          "FAST",
+        );
 
-      const logoWidth = 40;
-      const logoHeight = 10;
+        const logoWidth = 40;
+        const logoHeight = 10;
 
-      pdf.addImage(logoDataURL, "PNG", 245, logoMargin, logoWidth, logoHeight);
+        pdf.addImage(logoDataURL, "PNG", 245, logoMargin, logoWidth, logoHeight);
 
-      pdf.setFontSize(12);
-      pdf.text("EFA - MXEF-04", 253, logoMargin + 17);
-      pdf.text("Celda de desmoldeo", 247, logoMargin + 22);
+        pdf.setFontSize(12);
+        pdf.text("EFA - MXEF-04", 253, logoMargin + 17);
+        pdf.text("Celda de desmoldeo", 247, logoMargin + 22);
 
-      pdf.addImage(webIcon, "PNG", 240, logoMargin + 40, 5, 5);
-      pdf.text("creminox.com", 247, logoMargin + 44);
-      pdf.link(240, logoMargin + 40, 30, 5, {
-        url: "https://creminox.com",
-        target: "_blank",
-      });
+        pdf.addImage(webIcon, "PNG", 240, logoMargin + 40, 5, 5);
+        pdf.text("creminox.com", 247, logoMargin + 44);
+        pdf.link(240, logoMargin + 40, 30, 5, {
+          url: "https://creminox.com",
+          target: "_blank",
+        });
 
-      pdf.addImage(telIcon, "PNG", 240, logoMargin + 46, 5, 5);
-      pdf.text("+54 11 4918-3944", 247, logoMargin + 50);
+        pdf.addImage(telIcon, "PNG", 240, logoMargin + 46, 5, 5);
+        pdf.text("+54 11 4918-3944", 247, logoMargin + 50);
 
-      pdf.addImage(mailIcon, "PNG", 240, logoMargin + 52, 5, 5);
-      pdf.text("soporte@creminox.com", 247, logoMargin + 56);
+        pdf.addImage(mailIcon, "PNG", 240, logoMargin + 52, 5, 5);
+        pdf.text("soporte@creminox.com", 247, logoMargin + 56);
 
-      pdf.save(`Reporte_Productividad_CeldaDesmoldeo_${fechaLocal}.pdf`);
+        pdf.save(`Reporte_Productividad_CeldaDesmoldeo_${fechaLocal}.pdf`);
+      }
+    } finally {
+      setIsPdfLoading(false);
     }
   };
 
   const handleExcelDownload = async () => {
-    const target = localStorage.getItem("targetAddress");
-    const response = await fetch(
-      `http://${target}/productividad/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
+    if (isExcelLoading) return; // Prevent multiple clicks
+    
+    setIsExcelLoading(true);
+    try {
+      const target = localStorage.getItem("targetAddress");
+      const response = await fetch(
+        `http://${target}/productividad/descargar-excel?fecha_inicio=${startDate}&fecha_fin=${endDate}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
         },
-      },
-    );
+      );
 
-    if (!response.ok) {
-      throw new Error(`Error en la descarga: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Error en la descarga: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.setAttribute(
+        "download",
+        `Productividad_${startDate}_to_${endDate}.xlsx`,
+      );
+      document.body.appendChild(link);
+      link.click();
+
+      if (link.parentNode) {
+        link.parentNode.removeChild(link);
+      }
+
+      window.URL.revokeObjectURL(url);
+    } finally {
+      setIsExcelLoading(false);
     }
-
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.setAttribute(
-      "download",
-      `Productividad_${startDate}_to_${endDate}.xlsx`,
-    );
-    document.body.appendChild(link);
-    link.click();
-
-    if (link.parentNode) {
-      link.parentNode.removeChild(link);
-    }
-
-    window.URL.revokeObjectURL(url);
   };
 
   return (
@@ -165,28 +184,36 @@ export default function BotonesDescarga({
       }}
     >
       <Button
-        className="bg-[#f3126020] border border-[#F31260] text-[#F31260] flex justify-center items-center text-[1rem] w-full h-[3rem]"
+        className={`border flex justify-center items-center text-[1rem] w-full h-[3rem] transition-all ${
+          isLoading || isPdfLoading
+            ? 'bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]' 
+            : 'bg-[#f3126020] border-[#F31260] text-[#F31260] hover:bg-[#f3126030]'
+        }`}
+        disabled={isLoading || isPdfLoading}
         onClick={handlePdfDownload}
       >
-        <FaFilePdf style={{ marginRight: "8px" }} />
+        {isPdfLoading ? (
+          <Spinner size="sm" color="default" />
+        ) : (
+          <FaFilePdf style={{ marginRight: "8px" }} />
+        )}
         {t("min.descargarPDF")}
       </Button>
 
       <Button
-        style={{
-          backgroundColor: "rgba(17, 171, 90, 0.3)",
-          border: "1px solid #11AB5A",
-          color: "#11AB5A",
-          width: "100%",
-          height: "50px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "17px",
-        }}
+        className={`border flex justify-center items-center w-full h-[3rem] transition-all ${
+          isLoading || isExcelLoading
+            ? 'bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]' 
+            : 'bg-green-700/20 border-green-500 text-green-600 text-[1rem]'
+        }`}
+        disabled={isLoading || isExcelLoading}
         onClick={handleExcelDownload}
       >
-        <FaFileExcel style={{ marginRight: "8px" }} />
+        {isExcelLoading ? (
+          <Spinner size="sm" color="default" />
+        ) : (
+          <FaFileExcel style={{ marginRight: "8px" }} />
+        )}
         {t("min.descargarExcel")}
       </Button>
     </div>

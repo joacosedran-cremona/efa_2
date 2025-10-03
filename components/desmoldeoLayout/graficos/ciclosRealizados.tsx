@@ -47,6 +47,7 @@ const useThemeColors = () => {
 interface GraficoProps {
   startDate: string | Date;
   endDate: string | Date;
+  onLoading?: (loading: boolean) => void;
 }
 
 interface ChartDataPoint {
@@ -54,7 +55,7 @@ interface ChartDataPoint {
   y: number;
 }
 
-const Grafico = ({ startDate, endDate }: GraficoProps) => {
+const Grafico = ({ startDate, endDate, onLoading }: GraficoProps) => {
   const { t } = useTranslation();
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart<
@@ -71,10 +72,12 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
   const fetchData = async () => {
     if (!startDate || !endDate) {
       setLoading(false);
+      onLoading?.(false);
 
       return;
     }
     setLoading(true);
+    onLoading?.(true);
 
     let token = null;
 
@@ -106,6 +109,7 @@ const Grafico = ({ startDate, endDate }: GraficoProps) => {
       setChartData(datos);
     } finally {
       setLoading(false);
+      onLoading?.(false);
     }
   };
 
