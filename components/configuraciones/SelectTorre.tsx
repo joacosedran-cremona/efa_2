@@ -1,3 +1,9 @@
+import React, { useState, useEffect } from "react";
+
+interface Torre {
+  id: string;
+}
+
 interface SelectTorreProps {
   onChange: (torre: string) => void;
   onTorresChange: (torres: any[]) => void;
@@ -10,13 +16,70 @@ interface SelectTorreProps {
 
 const SelectTorre: React.FC<SelectTorreProps> = ({
   onChange,
+  onTorresChange,
+  selectedReceta,
+  refreshTorres,
+  refreshTorres2,
   selectedTorre,
   disabled = false,
 }) => {
+  const [torres, setTorres] = useState<Torre[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Función para obtener las torres desde la API
+  const fetchTorres = async (idReceta: string) => {
+    if (!idReceta) {
+      setTorres([]);
+      onTorresChange([]);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `http://192.168.20.42:8000/configuraciones/lista-torres?id_receta=${idReceta}`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        const torresData = data.ListadoTorres || [];
+        setTorres(torresData);
+        onTorresChange(torresData);
+      } else {
+        console.error("Error al obtener las torres:", response.statusText);
+        setTorres([]);
+        onTorresChange([]);
+      }
+    } catch (error) {
+      console.error("Error en la petición de torres:", error);
+      setTorres([]);
+      onTorresChange([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // useEffect para cargar torres cuando cambie la receta seleccionada
+  useEffect(() => {
+    fetchTorres(selectedReceta);
+  }, [selectedReceta]);
+
+  // useEffect para manejar las funciones de refresh externas
+  useEffect(() => {
+    const handleRefresh = () => {
+      fetchTorres(selectedReceta);
+    };
+
+    // Si existe refreshTorres, la llamamos directamente
+    if (refreshTorres) {
+      refreshTorres(selectedReceta);
+    }
+  }, [refreshTorres, refreshTorres2, selectedReceta]);
+
   return (
     <select
       className="border rounded px-2 py-1 w-full"
-      disabled={disabled}
+      disabled={disabled || loading}
       value={selectedTorre || ""}
       onChange={(e) => onChange(e.target.value)}
     >
@@ -24,26 +87,17 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
         className="text-texto bg-background4 hover:bg-background5"
         value=""
       >
-        Seleccionar Torre
+        {loading ? "Cargando torres..." : "Seleccionar Torre"}
       </option>
-      <option
-        className="text-texto bg-background4 hover:bg-background5"
-        value="T1"
-      >
-        Torre 1
-      </option>
-      <option
-        className="text-texto bg-background4 hover:bg-background5"
-        value="T2"
-      >
-        Torre 2
-      </option>
-      <option
-        className="text-texto bg-background4 hover:bg-background5"
-        value="T3"
-      >
-        Torre 3
-      </option>
+      {torres.map((torre) => (
+        <option
+          key={torre.id}
+          className="text-texto bg-background4 hover:bg-background5"
+          value={torre.id}
+        >
+          {torre.id}
+        </option>
+      ))}
     </select>
   );
 };
