@@ -100,7 +100,9 @@ const GraficoC = ({
 
     cycles.forEach((ciclo) => {
       const date = new Date(ciclo.fecha_fin * 1000);
-      const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      const localDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000,
+      );
       const day = new Date(
         localDate.getFullYear(),
         localDate.getMonth(),

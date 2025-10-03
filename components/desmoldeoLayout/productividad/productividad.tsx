@@ -79,11 +79,6 @@ const formatSecondsToHHMM = (seconds: number): string => {
   return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
 };
 
-const formatDate = (dateStr: string): string => {
-  const [year, month, day] = dateStr.split("-");
-  return `${day}/${month}/${year}`;
-};
-
 const Productividad = () => {
   const { t } = useTranslation();
   const today = new Date().toISOString().split("T")[0];

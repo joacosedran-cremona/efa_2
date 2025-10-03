@@ -26,50 +26,55 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
   const [torres, setTorres] = useState<Torre[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // Función para obtener las torres desde la API
-  const fetchTorres = async (idReceta: string) => {
-    if (!idReceta) {
-      setTorres([]);
-      onTorresChange([]);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `http://192.168.20.42:8000/configuraciones/lista-torres?id_receta=${idReceta}`
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        const torresData = data.ListadoTorres || [];
-        setTorres(torresData);
-        onTorresChange(torresData);
-      } else {
-        console.error("Error al obtener las torres:", response.statusText);
-        setTorres([]);
-        onTorresChange([]);
-      }
-    } catch (error) {
-      console.error("Error en la petición de torres:", error);
-      setTorres([]);
-      onTorresChange([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   // useEffect para cargar torres cuando cambie la receta seleccionada
   useEffect(() => {
-    fetchTorres(selectedReceta);
+    const loadTorresAndSelectFirst = async () => {
+      if (!selectedReceta) {
+        setTorres([]);
+        onTorresChange([]);
+        onChange(""); // Limpiar selección si no hay receta
+
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `http://192.168.20.42:8000/configuraciones/lista-torres?id_receta=${selectedReceta}`,
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          const torresData = data.ListadoTorres || [];
+
+          setTorres(torresData);
+          onTorresChange(torresData);
+
+          // Preseleccionar automáticamente la primera torre disponible
+          if (torresData.length > 0) {
+            onChange(torresData[0].id);
+          } else {
+            onChange(""); // Si no hay torres, limpiar selección
+          }
+        } else {
+          setTorres([]);
+          onTorresChange([]);
+          onChange("");
+        }
+      } catch {
+        setTorres([]);
+        onTorresChange([]);
+        onChange("");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTorresAndSelectFirst();
   }, [selectedReceta]);
 
   // useEffect para manejar las funciones de refresh externas
   useEffect(() => {
-    const handleRefresh = () => {
-      fetchTorres(selectedReceta);
-    };
-
     // Si existe refreshTorres, la llamamos directamente
     if (refreshTorres) {
       refreshTorres(selectedReceta);

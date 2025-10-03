@@ -1,75 +1,15 @@
 {
-    "DatosTorre": {
-        "hBastidor": 0,
-        "hAjuste": 0,
-        "hAjusteN1": 0,
-        "DisteNivel": 0,
-        "ActualizarTAG": "CU02",
-        "cantidadNiveles": 11
-    },
-    "DatosNivelesHN": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "DatosNivelesChG": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "DatosNivelesChB": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "DatosNivelesFallas": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ],
-    "DatosNivelesuHN": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    ]
+  "DatosTorre": {
+    "hBastidor": 0,
+    "hAjuste": 0,
+    "hAjusteN1": 0,
+    "DisteNivel": 0,
+    "ActualizarTAG": "CU02",
+    "cantidadNiveles": 11
+  },
+  "DatosNivelesHN": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  "DatosNivelesChG": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  "DatosNivelesChB": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  "DatosNivelesFallas": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  "DatosNivelesuHN": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }
