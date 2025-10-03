@@ -68,7 +68,7 @@ const ForgotPassword = () => {
           </div>
 
           <button
-            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-1/4 flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed"
+            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-[1.5rem] flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-white"
             disabled={loading}
             type="submit"
           >
