@@ -36,87 +36,67 @@ interface EquipmentStatus {
 }
 
 const equipmentStatusMap = {
-  posicionador: (data: any): EquipmentStatus => {
-    const torreActual = data?.machineStatus?.TorreActual;
+  posicionador: (data: any, t: any): EquipmentStatus => {
     const torreProxima = data?.technicalData?.datosTorre?.N_torre_proxima;
 
     return {
       isActive: data?.machineStatus?.estadoMaquina === "CICLO ACTIVO",
-      statusText: `Torre: ${torreActual}/${torreProxima}`,
+      statusText: t("status.nroTorreProxima", { torreProxima }),
       statusClass:
         data?.machineStatus?.estadoMaquina === "CICLO ACTIVO"
           ? "bg-green-500"
           : "bg-yellow-500",
     };
   },
-  sdda: (data: any): EquipmentStatus => {
+  sdda: (data: any, t: any): EquipmentStatus => {
     const nivelActual = data?.machineStatus?.sdda_nivel_actual;
     const totalNiveles = data?.machineStatus?.TotalNiveles;
 
     return {
       isActive: data?.processData?.Desmoldeo?.estadoMaquina === "CICLO ACTIVO",
-      statusText: `Nivel: ${nivelActual}/${totalNiveles}`,
+      statusText: t("status.nivelActual", { nivelActual, totalNiveles }),
       statusClass:
         data?.processData?.Desmoldeo?.estadoMaquina === "CICLO ACTIVO"
           ? "bg-green-500"
           : "bg-gray-500",
     };
   },
-  robot: (data: any): EquipmentStatus => {
-    const robotAlarms =
-      data?.alarms?.filter(
-        (alarm: any) => alarm.tipoAlarma === "ESTADO ROBOT",
-      ) || [];
-    const lastRobotAlarm = robotAlarms.length > 0 ? robotAlarms[0] : null;
-
-    return {
-      isActive: data?.machineStatus?.estadoMaquina === "CICLO ACTIVO",
-      statusText:
-        lastRobotAlarm && lastRobotAlarm.descripcion
-          ? lastRobotAlarm.descripcion.substring(0, 20) + "..."
-          : "Estado desconocido",
-      statusClass:
-        data?.machineStatus?.estadoMaquina === "CICLO ACTIVO"
-          ? "bg-green-500"
-          : "bg-gray-500",
-    };
-  },
-  gripper: (data: any): EquipmentStatus => {
+  gripper: (data: any, t: any): EquipmentStatus => {
     const gripperActual = data?.machineStatus?.NGripperActual;
 
     return {
       isActive: gripperActual > 0,
-      statusText: `Gripper: ${gripperActual}`,
+      statusText: t("status.nroGripperActual", { gripperActual }),
       statusClass: gripperActual > 0 ? "bg-green-500" : "bg-gray-500",
     };
   },
-  estacionGrippers: (data: any): EquipmentStatus => {
+  estacionGrippers: (data: any, t: any): EquipmentStatus => {
     const gripperActual = data?.machineStatus?.NGripperActual;
     const gripperProximo = data?.technicalData?.datosGripper?.NGripperProximo;
 
     return {
       isActive: gripperActual !== gripperProximo,
-      statusText: `Próximo: ${gripperProximo}`,
+      statusText: t("status.nroGripperProximo", { gripperProximo }),
       statusClass: "bg-blue-500",
     };
   },
-  bandaA: (data: any): EquipmentStatus => {
+  bandaA: (data: any, t: any): EquipmentStatus => {
     const bandaActiva =
       data?.technicalData?.sector_IO?.banda_desmoldeo === "CINTA A";
 
     return {
       isActive: bandaActiva,
-      statusText: bandaActiva ? "Activa" : "Inactiva",
+      statusText: bandaActiva ? t("status.activo") : t("status.inactivo"),
       statusClass: bandaActiva ? "bg-green-500" : "bg-gray-500",
     };
   },
-  bandaB: (data: any): EquipmentStatus => {
+  bandaB: (data: any, t: any): EquipmentStatus => {
     const bandaActiva =
       data?.technicalData?.sector_IO?.banda_desmoldeo === "CINTA B";
 
     return {
       isActive: bandaActiva,
-      statusText: bandaActiva ? "Activa" : "Inactiva",
+      statusText: bandaActiva ? t("status.activo") : t("status.inactivo"),
       statusClass: bandaActiva ? "bg-green-500" : "bg-gray-500",
     };
   },
@@ -153,7 +133,6 @@ const Layout: React.FC = () => {
       path: "/desmoldeo/equipos",
       style: { top: "33.4%", left: "48.3%", width: "7.8%", height: "16.3%" },
       shadowColor: "shadow-[0px_0px_10px_5px_rgba(222,154,7,0.5)]",
-      statusKey: "robot",
     },
     {
       id: 4,
@@ -214,7 +193,7 @@ const Layout: React.FC = () => {
 
     const statusFunction = equipmentStatusMap[section.statusKey];
 
-    return statusFunction ? statusFunction(equipmentData) : null;
+    return statusFunction ? statusFunction(equipmentData, t) : null;
   };
 
   return (

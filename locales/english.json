@@ -47,7 +47,6 @@
     "descargarTodasPDF": "EXPORT ALL ROWS",
     "descargarVisiblesPDF": "EXPORT VISIBLE ROWS"
   },
-
   "min": {
     "totalNiveles": "Total leves",
     "posicionX": "X Position",
@@ -126,5 +125,13 @@
     "enviar": "Send",
     "camaras": "Cameras",
     "proximamente": "Coming soon"
+  },
+    "status": {
+    "nroTorreProxima": "Next Tower N°: {{torreProxima}}",
+    "nroGripperProximo": "Next Gripper N°: {{gripperProximo}}",
+    "nroGripperActual": "N°{{gripperActual}}",
+    "nivelActual": "Level: {{nivelActual}}/{{totalNiveles}}",
+    "activo": "Active",
+    "inactivo": "Inactive"
   }
 }

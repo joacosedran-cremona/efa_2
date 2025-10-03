@@ -125,5 +125,13 @@
     "enviar": "Enviar",
     "camaras": "Camaras",
     "proximamente": "Próximamente"
+  },
+  "status": {
+    "nroTorreProxima": "N° Torre próxima: {{torreProxima}}",
+    "nroGripperProximo": "N° Gripper próximo: {{gripperProximo}}",
+    "nroGripperActual": "N°{{gripperActual}}",
+    "nivelActual": "Nivel: {{nivelActual}}/{{totalNiveles}}",
+    "activo": "Activo",
+    "inactivo": "Inactivo"
   }
 }
