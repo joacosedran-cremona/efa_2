@@ -84,17 +84,21 @@ const EquiposImg = () => {
     );
   };
 
-  let title: string = t("mayus.celdaDesmoldeo");
-
+  // Determinar la clave de traducción basada en equipoSeleccionado
+  let titleKey: string;
   if (typeof equipoSeleccionado === "string") {
     if (["Default", "BandaA", "BandaB"].includes(equipoSeleccionado)) {
-      title = t("mayus.celdaDesmoldeo");
+      titleKey = "equipos.celdaDesmoldeo";
     } else if (equipoSeleccionado === "Estación de grippers") {
-      title = "GRIPPER";
+      titleKey = "equipos.gripper";
     } else {
-      title = equipoSeleccionado.toUpperCase();
+      titleKey = `equipos.${equipoSeleccionado.toLowerCase().replace(/\s+/g, '')}`; // Remover espacios para claves como "posicionadordetorres"
     }
+  } else {
+    titleKey = "equipos.celdaDesmoldeo";
   }
+
+  const title = t(titleKey);
 
   return (
     <div className="text-center bg-background2 rounded-lg h-full flex flex-col p-5 justify-between">

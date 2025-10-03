@@ -133,5 +133,12 @@
     "nivelActual": "Level: {{nivelActual}}/{{totalNiveles}}",
     "activo": "Active",
     "inactivo": "Inactive"
+  },
+    "equipos": {
+    "celdaDesmoldeo": "DEMOLDING CELL",
+    "gripper": "GRIPPER",
+    "posicionadordetorres": "TOWER POSITIONER",
+    "robot": "ROBOT",
+    "sdda": "SDDA"
   }
 }

@@ -83,7 +83,7 @@ const DatosRobotComponent = () => {
             className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
             <p className="text-md font-medium text-center opacity-50">{texto}</p>
-            <p className="text-sm text-center opacity-50">{dato === null ? "null" : `Próximamente...`}</p>
+            <p className="text-sm text-center opacity-50">{dato === null ? "null" : t("min.proximamente")}</p>
             
             {/*
             <p className="text-md font-medium">{texto}</p>
