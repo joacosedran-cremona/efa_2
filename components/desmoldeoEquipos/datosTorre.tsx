@@ -85,7 +85,7 @@ const DatosTorreComponent = () => {
             className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
             <p className="text-md font-medium">{texto}</p>
-            <p className="text-sm">{dato === null ? "null" : `${dato} mm`}</p>
+            <p className="text-sm">{dato === null ? "null" : `${dato}`}</p>
           </div>
         ))}
       </div>
