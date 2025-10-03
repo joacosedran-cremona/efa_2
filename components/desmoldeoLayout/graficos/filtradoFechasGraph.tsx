@@ -52,7 +52,7 @@ const FiltradoFechasGraph = () => {
     >
       <div className="h-full flex flex-row gap-5">
         <div className="w-[78%] flex flex-col bg-background2 rounded-lg p-5">
-          <p className="text-xl font-bold mb-[-10]">{t("mayus.ciclosDia")}</p>
+          <p className="text-xl font-bold mb-[-10]">{t("mayus.torresDía")}</p>
           <CiclosRealizados endDate={fechaFin} startDate={fechaInicio} onLoading={setIsLoading} />
         </div>
 

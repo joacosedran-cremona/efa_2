@@ -18,6 +18,7 @@ interface ProductoRealizado {
 interface ProductividadData {
   ProductosRealizados: ProductoRealizado[];
   PesoTotalCiclos: number;
+  CantidadCiclosCorrectos: number;
 }
 
 interface ProductoVisual {
@@ -101,11 +102,8 @@ const Productividad = () => {
 
   const cantidadCiclosF = isLoading
     ? t("min.cargando")
-    : data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
-      ? data.ProductosRealizados.reduce(
-          (total, producto) => total + producto.cantidadCiclos,
-          0,
-        )
+    : data?.CantidadCiclosCorrectos !== undefined
+      ? data.CantidadCiclosCorrectos.toFixed(2)
       : t("min.cargando");
 
   const PesoTotalCiclos = isLoading
@@ -140,7 +138,7 @@ const Productividad = () => {
       : t("min.cargando");
 
   const datos: DatoMetrica[] = [
-    { id: 1, titulo: t("min.ciclosRealizados"), dato: cantidadCiclosF },
+    { id: 1, titulo: t("min.torrescantidad"), dato: cantidadCiclosF },
     {
       id: 2,
       titulo: t("min.productoRealizado"),
@@ -211,7 +209,7 @@ const Productividad = () => {
               <Tooltip
                 key={index}
                 className="bg-background3 text-md"
-                content={`${t("min.ciclos")}: ${producto.cantidadCiclos}`}
+                content={`${t("min.torres")}: ${producto.cantidadCiclos}`}
                 placement="top"
                 radius="sm"
               >

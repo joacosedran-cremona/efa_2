@@ -45,7 +45,8 @@
     "cicloActivo": "ACTIVE CYCLE",
     "cicloPausado": "PAUSED CYCLE",
     "descargarTodasPDF": "EXPORT ALL ROWS",
-    "descargarVisiblesPDF": "EXPORT VISIBLE ROWS"
+    "descargarVisiblesPDF": "EXPORT VISIBLE ROWS",
+    "torresDía": "TOWERS PER DAY"
   },
   "min": {
     "totalNiveles": "Total leves",
@@ -124,7 +125,10 @@
     "correo": "Email address",
     "enviar": "Send",
     "camaras": "Cameras",
-    "proximamente": "Coming soon"
+    "proximamente": "Coming soon",
+    "torrescantidad": "Number of towers",
+    "torres": "Towers",
+    "torresrealizadas": "Towers completed"
   },
     "status": {
     "nroTorreProxima": "Next Tower N°: {{torreProxima}}",

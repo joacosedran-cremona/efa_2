@@ -152,7 +152,7 @@ const Grafico = ({ startDate, endDate, onLoading }: GraficoProps) => {
       const initialData: ChartData<"line", ChartDataPoint[]> = {
         datasets: [
           {
-            label: t("min.cantidadCiclos"),
+            label: t("min.torrescantidad"),
             data: [],
             borderColor: "#F828",
             backgroundColor: "#EF8225",
@@ -240,7 +240,7 @@ const Grafico = ({ startDate, endDate, onLoading }: GraficoProps) => {
             position: "left",
             title: {
               display: true,
-              text: t("min.ciclosRealizados"),
+              text: t("min.torresrealizadas"),
               color: "#EF8225",
             },
             grid: { color: colors.gridColor, tickColor: "#EF8225" },

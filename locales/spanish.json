@@ -45,7 +45,8 @@
     "cicloActivo": "CICLO ACTIVO",
     "cicloPausado": "CICLO PAUSADO",
     "descargarTodasPDF": "EXPORTAR TODAS LAS FILAS",
-    "descargarVisiblesPDF": "EXPORTAR FILAS VISIBLES"
+    "descargarVisiblesPDF": "EXPORTAR FILAS VISIBLES",
+    "torresDía": "TORRES POR DÍA"
   },
   "min": {
     "totalNiveles": "Niveles totales",
@@ -124,7 +125,10 @@
     "correo": "Correo electrónico",
     "enviar": "Enviar",
     "camaras": "Camaras",
-    "proximamente": "Próximamente"
+    "proximamente": "Próximamente",
+    "torrescantidad": "Cantidad de torres",
+    "torres": "Torres",
+    "torresrealizadas": "Torres realizadas"
   },
   "status": {
     "nroTorreProxima": "N° Torre próxima: {{torreProxima}}",
