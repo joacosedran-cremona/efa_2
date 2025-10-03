@@ -51,7 +51,7 @@ const ForgotPassword = () => {
         <LogoBase64 className="flex w-[65%] h-auto" />
 
         <form
-          className="w-[100%] h-3/5 flex flex-col justify-evenly"
+          className="w-[100%] h-3/5 flex flex-col justify-evenly gap-[20px]"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col gap-[5px] h-1/2">
@@ -68,7 +68,7 @@ const ForgotPassword = () => {
           </div>
 
           <button
-            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-[1.7rem] flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-white"
+            className="bg-[#e82a31] mt-[5px] p-[4px] rounded-lg w-[100%] h-[2rem] flex items-center justify-center border-none font-semibold cursor-pointer disabled:bg-[#a82328] disabled:cursor-not-allowed text-white"
             disabled={loading}
             type="submit"
           >
