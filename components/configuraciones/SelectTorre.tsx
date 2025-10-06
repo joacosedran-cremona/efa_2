@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import { useApp } from "../../context/AppContext";
 
 interface Torre {
@@ -45,7 +46,7 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
       setLoading(true);
       try {
         const response = await fetch(
-          `http://${targetAddress}/configuraciones/lista-torres?id_receta=${selectedReceta}`
+          `http://${targetAddress}/configuraciones/lista-torres?id_receta=${selectedReceta}`,
         );
 
         if (response.ok) {
@@ -93,6 +94,7 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
       <option
         className="text-texto bg-background4 hover:bg-background5"
         value=""
+        disabled
       >
         {loading ? "Cargando torres..." : "Seleccionar Torre"}
       </option>

@@ -267,25 +267,33 @@ export const useConfiguracionData = () => {
         {
           id: 3,
           texto: "ANCHO DEL PRODUCTO",
-          dato: receta.anchoProducto ? `${receta.anchoProducto} mm` : "null",
+          dato:
+            receta.anchoProducto != null
+              ? `${receta.anchoProducto} mm`
+              : "null",
           icono: Ancho,
         },
         {
           id: 4,
           texto: "ALTO DEL PRODUCTO",
-          dato: receta.altoProducto ? `${receta.altoProducto} mm` : "null",
+          dato:
+            receta.altoProducto != null ? `${receta.altoProducto} mm` : "null",
           icono: Alto,
         },
         {
           id: 5,
           texto: "LARGO DEL PRODUCTO",
-          dato: receta.largoProducto ? `${receta.largoProducto} mm` : "null",
+          dato:
+            receta.largoProducto != null
+              ? `${receta.largoProducto} mm`
+              : "null",
           icono: Largo,
         },
         {
           id: 6,
           texto: "PESO DEL PRODUCTO",
-          dato: receta.pesoProducto ? `${receta.pesoProducto} kg` : "null",
+          dato:
+            receta.pesoProducto != null ? `${receta.pesoProducto} kg` : "null",
           icono: Peso,
         },
         {
@@ -306,19 +314,20 @@ export const useConfiguracionData = () => {
         {
           id: 1,
           texto: "ALTURA DE MOLDE",
-          dato: receta.altoMolde ? `${receta.altoMolde} mm` : "null",
+          dato: receta.altoMolde != null ? `${receta.altoMolde} mm` : "null",
           icono: AlturaMolde,
         },
         {
           id: 2,
           texto: "LARGO DE MOLDE",
-          dato: receta.largoMolde ? `${receta.largoMolde} mm` : "null",
+          dato: receta.largoMolde != null ? `${receta.largoMolde} mm` : "null",
           icono: LargoMolde,
         },
         {
           id: 3,
           texto: "ALTURA AJUSTE",
-          dato: receta.ajusteAltura ? `${receta.ajusteAltura} mm` : "null",
+          dato:
+            receta.ajusteAltura != null ? `${receta.ajusteAltura} mm` : "null",
           icono: AlturaAjuste,
         },
         {
@@ -330,25 +339,32 @@ export const useConfiguracionData = () => {
         {
           id: 5,
           texto: "DELTA ENTRE NIVELES",
-          dato: receta.deltaNiveles ? `${receta.deltaNiveles} mm` : "null",
+          dato:
+            receta.deltaNiveles != null ? `${receta.deltaNiveles} mm` : "null",
           icono: DisteNivel,
         },
         {
           id: 6,
           texto: "ALTURA N1",
-          dato: receta.n1Altura ? `${receta.n1Altura} mm` : "null",
+          dato: receta.n1Altura != null ? `${receta.n1Altura} mm` : "null",
           icono: AlturaN1,
         },
         {
           id: 7,
           texto: "ALTURA DE BASTIDOR",
-          dato: receta.bastidorAltura ? `${receta.bastidorAltura} mm` : "null",
+          dato:
+            receta.bastidorAltura != null
+              ? `${receta.bastidorAltura} mm`
+              : "null",
           icono: AlturaBastidor,
         },
         {
           id: 8,
           texto: "ALTURA AJUSTE N1",
-          dato: receta.ajusteN1Altura ? `${receta.ajusteN1Altura} mm` : "null",
+          dato:
+            receta.ajusteN1Altura != null
+              ? `${receta.ajusteN1Altura} mm`
+              : "null",
           icono: AlturaAjusteN1,
         },
       ]);
