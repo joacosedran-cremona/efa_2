@@ -103,7 +103,7 @@ const GraficoC = ({
     cycles.forEach((ciclo) => {
       const date = new Date(ciclo.fecha_fin * 1000);
       const day = new Date(
-        Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
+        Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
       ).getTime();
 
       groups.set(day, (groups.get(day) || 0) + ciclo.pesoDesmontado);
@@ -141,7 +141,7 @@ const GraficoC = ({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok)
@@ -157,7 +157,7 @@ const GraficoC = ({
           fill: false,
           data: groupByDay(producto.ListaDeCiclos),
           borderWidth: 0,
-        })
+        }),
       );
 
       setChartData({ datasets });
@@ -188,16 +188,16 @@ const GraficoC = ({
 
       return `${year}-${month}-${day}`;
     },
-    []
+    [],
   );
 
   const formattedStartDate = useMemo(
     () => formatDate(startDate),
-    [startDate, formatDate]
+    [startDate, formatDate],
   );
   const formattedEndDate = useMemo(
     () => formatDate(endDate),
-    [endDate, formatDate]
+    [endDate, formatDate],
   );
 
   useEffect(() => {

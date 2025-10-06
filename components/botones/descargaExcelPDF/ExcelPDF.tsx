@@ -37,8 +37,8 @@ export default function BotonesDescarga({
     .replace(/\//g, "-");
 
   const handlePdfDownload = async () => {
-    if (isPdfLoading) return; // Prevent multiple clicks
-    
+    if (isPdfLoading) return;
+
     setIsPdfLoading(true);
     try {
       const productSection = document.getElementById("ProductividadSection");
@@ -103,7 +103,14 @@ export default function BotonesDescarga({
         const logoWidth = 40;
         const logoHeight = 10;
 
-        pdf.addImage(logoDataURL, "PNG", 245, logoMargin, logoWidth, logoHeight);
+        pdf.addImage(
+          logoDataURL,
+          "PNG",
+          245,
+          logoMargin,
+          logoWidth,
+          logoHeight,
+        );
 
         pdf.setFontSize(12);
         pdf.text("EFA - MXEF-04", 253, logoMargin + 17);
@@ -130,8 +137,8 @@ export default function BotonesDescarga({
   };
 
   const handleExcelDownload = async () => {
-    if (isExcelLoading) return; // Prevent multiple clicks
-    
+    if (isExcelLoading) return;
+
     setIsExcelLoading(true);
     try {
       const target = localStorage.getItem("targetAddress");
@@ -186,14 +193,14 @@ export default function BotonesDescarga({
       <Button
         className={`border flex justify-center items-center text-[1rem] w-full h-[3rem] transition-all ${
           isLoading || isPdfLoading
-            ? 'bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]' 
-            : 'bg-[#f3126020] border-[#F31260] text-[#F31260] hover:bg-[#f3126030]'
+            ? "bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]"
+            : "bg-[#f3126020] border-[#F31260] text-[#F31260] hover:bg-[#f3126030]"
         }`}
         disabled={isLoading || isPdfLoading}
         onClick={handlePdfDownload}
       >
         {isPdfLoading ? (
-          <Spinner size="sm" color="default" />
+          <Spinner color="default" size="sm" />
         ) : (
           <FaFilePdf style={{ marginRight: "8px" }} />
         )}
@@ -203,14 +210,14 @@ export default function BotonesDescarga({
       <Button
         className={`border flex justify-center items-center w-full h-[3rem] transition-all ${
           isLoading || isExcelLoading
-            ? 'bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]' 
-            : 'bg-green-700/20 border-green-500 text-green-600 text-[1rem]'
+            ? "bg-white-300/30 border-white-400 text-gray-500 cursor-not-allowed opacity-60 text-[1rem]"
+            : "bg-green-700/20 border-green-500 text-green-600 text-[1rem]"
         }`}
         disabled={isLoading || isExcelLoading}
         onClick={handleExcelDownload}
       >
         {isExcelLoading ? (
-          <Spinner size="sm" color="default" />
+          <Spinner color="default" size="sm" />
         ) : (
           <FaFileExcel style={{ marginRight: "8px" }} />
         )}

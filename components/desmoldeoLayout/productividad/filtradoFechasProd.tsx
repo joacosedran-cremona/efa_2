@@ -5,10 +5,10 @@ import { DateRangePicker } from "@heroui/react";
 import { DateValue } from "@internationalized/date";
 import { useTranslation } from "react-i18next";
 
+import { ProductividadData } from "./productividad";
+
 import ExcelPDF from "@/components/botones/descargaExcelPDF/ExcelPDF";
 import AplicarFiltro from "@/components/botones/aplicarFiltro";
-
-import { ProductividadData } from "./productividad";
 
 interface DateObject {
   year: number;
@@ -30,7 +30,7 @@ interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ) => void;
   onLoading?: (loading: boolean) => void;
   isLoading?: boolean;
@@ -91,7 +91,7 @@ const FiltradoFechasProd = ({
             Authorization: token ? `Bearer ${token}` : "",
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -133,7 +133,7 @@ const FiltradoFechasProd = ({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -183,12 +183,12 @@ const FiltradoFechasProd = ({
               ? dateRange.end
               : formatDate(dateRange.end) || formattedToday
           }
+          isLoading={isLoading}
           startDate={
             typeof dateRange.start === "string"
               ? dateRange.start
               : formatDate(dateRange.start) || formattedToday
           }
-          isLoading={isLoading}
         />
       </div>
     </div>

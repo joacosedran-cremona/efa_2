@@ -130,7 +130,7 @@
     "torres": "Towers",
     "torresrealizadas": "Towers completed"
   },
-    "status": {
+  "status": {
     "nroTorreProxima": "Next Tower N°: {{torreProxima}}",
     "nroGripperProximo": "Next Gripper N°: {{gripperProximo}}",
     "nroGripperActual": "N°{{gripperActual}}",
@@ -138,7 +138,7 @@
     "activo": "Active",
     "inactivo": "Inactive"
   },
-    "equipos": {
+  "equipos": {
     "celdaDesmoldeo": "DEMOLDING CELL",
     "gripper": "GRIPPER",
     "posicionadordetorres": "TOWER POSITIONER",

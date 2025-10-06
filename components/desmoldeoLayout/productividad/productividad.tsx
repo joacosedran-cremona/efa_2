@@ -94,7 +94,7 @@ const Productividad = () => {
   const handleDataUpdate = (
     newData: ProductividadData,
     startDate: string,
-    endDate: string
+    endDate: string,
   ): void => {
     setData(newData);
     setDateRange({ start: startDate, end: endDate });
@@ -117,7 +117,7 @@ const Productividad = () => {
     : data?.ProductosRealizados && Array.isArray(data.ProductosRealizados)
       ? data.ProductosRealizados.reduce(
           (acc, prod) => acc + parseTimeToSeconds(prod.tiempoTotal),
-          0
+          0,
         )
       : t("min.cargando");
 
@@ -131,7 +131,7 @@ const Productividad = () => {
 
   const Promedio_Horas = (
     horasUso: number | string,
-    cantDias: number
+    cantDias: number,
   ): string =>
     horasUso !== t("min.cargando")
       ? formatSecondsToHHMM((horasUso as number) / cantDias)
@@ -238,9 +238,9 @@ const Productividad = () => {
       </div>
       <div className="w-full md:w-[22%] flex flex-col gap-5 ocultar-en-pdf">
         <FiltradoFechasProd
+          isLoading={isLoading}
           onDataUpdate={handleDataUpdate}
           onLoading={setIsLoading}
-          isLoading={isLoading}
         />
       </div>
     </div>

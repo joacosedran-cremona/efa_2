@@ -53,7 +53,11 @@ const FiltradoFechasGraph = () => {
       <div className="h-full flex flex-row gap-5">
         <div className="w-[78%] flex flex-col bg-background2 rounded-lg p-5">
           <p className="text-xl font-bold mb-[-10]">{t("mayus.torresDía")}</p>
-          <CiclosRealizados endDate={fechaFin} startDate={fechaInicio} onLoading={setIsLoading} />
+          <CiclosRealizados
+            endDate={fechaFin}
+            startDate={fechaInicio}
+            onLoading={setIsLoading}
+          />
         </div>
 
         <div className="min-h-full w-[22%] flex flex-col items-center p-5 gap-10 rounded-lg bg-background2 FiltroPeriodoGraficos">
@@ -80,12 +84,16 @@ const FiltradoFechasGraph = () => {
 
           <BotonesDescarga
             endDate={dateRange.end}
-            startDate={dateRange.start}
             isLoading={isLoading}
+            startDate={dateRange.start}
           />
         </div>
       </div>
-      <ProductosRealizados endDate={fechaFin} startDate={fechaInicio} onLoading={setIsLoading} />
+      <ProductosRealizados
+        endDate={fechaFin}
+        startDate={fechaInicio}
+        onLoading={setIsLoading}
+      />
     </div>
   );
 };

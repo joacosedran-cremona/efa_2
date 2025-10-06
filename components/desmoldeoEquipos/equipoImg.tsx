@@ -84,15 +84,15 @@ const EquiposImg = () => {
     );
   };
 
-  // Determinar la clave de traducción basada en equipoSeleccionado
   let titleKey: string;
+
   if (typeof equipoSeleccionado === "string") {
     if (["Default", "BandaA", "BandaB"].includes(equipoSeleccionado)) {
       titleKey = "equipos.celdaDesmoldeo";
     } else if (equipoSeleccionado === "Estación de grippers") {
       titleKey = "equipos.gripper";
     } else {
-      titleKey = `equipos.${equipoSeleccionado.toLowerCase().replace(/\s+/g, '')}`; // Remover espacios para claves como "posicionadordetorres"
+      titleKey = `equipos.${equipoSeleccionado.toLowerCase().replace(/\s+/g, "")}`;
     }
   } else {
     titleKey = "equipos.celdaDesmoldeo";

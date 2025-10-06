@@ -34,7 +34,7 @@ const DatosSDDAComponent = () => {
           id: 1,
           texto: t("min.nivelActual"),
           dato: (sdda.sdda_nivel_actual ?? null) as number | null,
-          texto2: '',
+          texto2: "",
         },
         {
           id: 2,
@@ -85,7 +85,9 @@ const DatosSDDAComponent = () => {
             className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
           >
             <p className="text-md font-medium">{texto}</p>
-            <p className="text-sm">{dato === null ? "null" : `${dato} ${texto2}`}</p>
+            <p className="text-sm">
+              {dato === null ? "null" : `${dato} ${texto2}`}
+            </p>
           </div>
         ))}
       </div>

@@ -30,7 +30,6 @@ const SelectConfiguracion: React.FC<SelectConfiguracionProps> = ({
         const data = await configuracionesApi.obtenerListaRecetas();
 
         if (data.ListadoRecetas && Array.isArray(data.ListadoRecetas)) {
-          // Filtrar recetas que tengan codigoProducto no vacío
           const recetasFiltradas = data.ListadoRecetas.filter(
             (receta: Receta) =>
               receta.codigoProducto && receta.codigoProducto.trim() !== "",

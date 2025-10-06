@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useApp } from "../../context/AppContext";
 
 interface Torre {
   id: string;
@@ -23,24 +24,28 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
   selectedTorre,
   disabled = false,
 }) => {
+  const { targetAddress } = useApp();
   const [torres, setTorres] = useState<Torre[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect para cargar torres cuando cambie la receta seleccionada
   useEffect(() => {
     const loadTorresAndSelectFirst = async () => {
       if (!selectedReceta) {
         setTorres([]);
         onTorresChange([]);
-        onChange(""); // Limpiar selección si no hay receta
+        onChange("");
 
+        return;
+      }
+
+      if (!targetAddress) {
         return;
       }
 
       setLoading(true);
       try {
         const response = await fetch(
-          `http://192.168.20.42:8000/configuraciones/lista-torres?id_receta=${selectedReceta}`,
+          `http://${targetAddress}/configuraciones/lista-torres?id_receta=${selectedReceta}`
         );
 
         if (response.ok) {
@@ -50,11 +55,10 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
           setTorres(torresData);
           onTorresChange(torresData);
 
-          // Preseleccionar automáticamente la primera torre disponible
           if (torresData.length > 0) {
             onChange(torresData[0].id);
           } else {
-            onChange(""); // Si no hay torres, limpiar selección
+            onChange("");
           }
         } else {
           setTorres([]);
@@ -73,9 +77,7 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
     loadTorresAndSelectFirst();
   }, [selectedReceta]);
 
-  // useEffect para manejar las funciones de refresh externas
   useEffect(() => {
-    // Si existe refreshTorres, la llamamos directamente
     if (refreshTorres) {
       refreshTorres(selectedReceta);
     }

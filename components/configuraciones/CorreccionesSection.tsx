@@ -163,26 +163,21 @@ const CorreccionesSection: React.FC<CorreccionesSectionProps> = ({
     index: number,
   ) => {
     if (selectedOption === 1) {
-      // Para los inputs de TORRE
       if (index === 4) {
-        // ActualizarTAG - input de texto
         let inputValue = e.target.value.toUpperCase();
         const tagValidado = validarTAGDuplicado(inputValue);
 
-        // Limpiar puntos decimales si los hubiera
         if (inputValue.includes(".")) {
           inputValue = inputValue.split(".")[0];
         }
 
         e.target.value = tagValidado;
       } else {
-        // Inputs numéricos - limpiar decimales
         if (e.target.value.includes(".")) {
           e.target.value = e.target.value.split(".")[0];
         }
       }
     } else {
-      // Para los inputs de NIVEL - solo números enteros
       if (e.target.value.includes(".")) {
         e.target.value = e.target.value.split(".")[0];
       }
