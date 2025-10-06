@@ -92,9 +92,9 @@ const SelectTorre: React.FC<SelectTorreProps> = ({
       onChange={(e) => onChange(e.target.value)}
     >
       <option
+        disabled
         className="text-texto bg-background4 hover:bg-background5"
         value=""
-        disabled
       >
         {loading ? "Cargando torres..." : "Seleccionar Torre"}
       </option>

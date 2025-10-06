@@ -56,35 +56,35 @@ const DatosLaterales: React.FC = () => {
     {
       id: 1,
       nombre: t("min.recetaActual"),
-      dato: CodigoProducto || "",
+      dato: CodigoProducto ?? null,
       icono: BiReceipt,
       isReactIcon: true,
     },
     {
       id: 2,
       nombre: t("min.nroMolde"),
-      dato: TipoMolde || "",
+      dato: TipoMolde ?? null,
       icono: TbBowl,
       isReactIcon: true,
     },
     {
       id: 3,
       nombre: t("min.nroGripperActual"),
-      dato: NGripperActual || "",
+      dato: NGripperActual ?? null,
       icono: MdPrecisionManufacturing,
       isReactIcon: true,
     },
     {
       id: 4,
       nombre: t("min.nroTorreActual"),
-      dato: TorreActual || "",
+      dato: TorreActual ?? null,
       icono: BiCabinet,
       isReactIcon: true,
     },
     {
       id: 5,
       nombre: t("min.pesoFila"),
-      dato: PesoPorNivel ? `${PesoPorNivel} kg` : "",
+      dato: PesoPorNivel != null ? `${PesoPorNivel} kg` : null,
       icono: FaWeightHanging,
       isReactIcon: true,
     },
@@ -96,7 +96,7 @@ const DatosLaterales: React.FC = () => {
           ? "0 kg"
           : PesoActualDesmoldado != null
             ? `${PesoActualDesmoldado} kg`
-            : "",
+            : null,
       icono: FaWeightHanging,
       isReactIcon: true,
     },
@@ -106,7 +106,7 @@ const DatosLaterales: React.FC = () => {
       dato:
         sdda_nivel_actual != null && TotalNiveles != null
           ? `${sdda_nivel_actual}/${TotalNiveles}`
-          : "",
+          : null,
       icono: GrResources,
       isReactIcon: true,
     },
@@ -118,14 +118,14 @@ const DatosLaterales: React.FC = () => {
           ? TiempoTranscurrido === "0"
             ? "00:00 mm:ss"
             : TiempoTranscurrido
-          : "",
+          : null,
       icono: FaRegClock,
       isReactIcon: true,
     },
     {
       id: 9,
       nombre: t("min.idProxReceta"),
-      dato: idRecetaProxima || "",
+      dato: idRecetaProxima ?? null,
       icono: PiChefHat,
       isReactIcon: true,
     },
@@ -235,7 +235,8 @@ const DatosLaterales: React.FC = () => {
             <Link key={id} className="block" href="/desmoldeo/equipos">
               <li className="flex flex-row items-center justify-between border border-background6 bg-background3 rounded-lg p-[5px]">
                 <p className="flex flex-col text-md font-bold">
-                  {nombre} <span className="text-sm">{dato}</span>
+                  {nombre}{" "}
+                  {dato != null && <span className="text-sm">{dato}</span>}
                 </p>
                 {React.createElement(icono, { size: 24 })}
               </li>
