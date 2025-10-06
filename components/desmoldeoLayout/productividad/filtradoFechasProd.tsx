@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import ExcelPDF from "@/components/botones/descargaExcelPDF/ExcelPDF";
 import AplicarFiltro from "@/components/botones/aplicarFiltro";
 
+import { ProductividadData } from "./productividad";
+
 interface DateObject {
   year: number;
   month: number;
@@ -24,16 +26,11 @@ type RangeValueType<T> = {
   end: T;
 };
 
-interface ProductividadData {
-  ProductosRealizados: Array<any>;
-  PesoTotalCiclos: number;
-}
-
 interface FiltradoFechasProdProps {
   onDataUpdate: (
     data: ProductividadData,
     startDate: string,
-    endDate: string,
+    endDate: string
   ) => void;
   onLoading?: (loading: boolean) => void;
   isLoading?: boolean;
@@ -94,7 +91,7 @@ const FiltradoFechasProd = ({
             Authorization: token ? `Bearer ${token}` : "",
             Accept: "application/json",
           },
-        },
+        }
       );
 
       if (!response.ok) {
@@ -136,7 +133,7 @@ const FiltradoFechasProd = ({
             Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
-        },
+        }
       );
 
       if (!response.ok) {
