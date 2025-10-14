@@ -1,0 +1,90 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+
+import { useApp } from "@/context/AppContext";
+
+const DatosGripperComponent = () => {
+  const { equipoSeleccionado, setEquipoSeleccionado, websocketData } = useApp();
+  const { t } = useTranslation();
+
+  const data = websocketData?.data ?? null;
+
+  const initialdatosGripper = [
+    { id: 1, texto: t("min.nroGripperActual"), dato: null },
+    { id: 2, texto: t("min.nroGripperProximo"), dato: null },
+  ];
+
+  const [datosGripper, setdatosGripper] = useState(initialdatosGripper);
+
+  useEffect(() => {
+    const gripperData =
+      data?.technicalData?.datosGripper ??
+      (Array.isArray(data) ? data[2]?.datosGripper : undefined);
+
+    if (gripperData) {
+      const updateddatosGripper = [
+        {
+          id: 1,
+          texto: t("min.nroGripperActual"),
+          dato: gripperData.NGripperActual ?? null,
+        },
+        {
+          id: 2,
+          texto: t("min.nroGripperProximo"),
+          dato: gripperData.NGripperProximo ?? null,
+        },
+      ];
+
+      setdatosGripper(updateddatosGripper);
+    }
+  }, [data, t]);
+
+  const handleClick = () => {
+    setEquipoSeleccionado(
+      equipoSeleccionado === "Gripper" ||
+        equipoSeleccionado === "Estación de grippers"
+        ? null
+        : "Gripper",
+    );
+  };
+
+  const isSelected =
+    equipoSeleccionado === "Gripper" ||
+    equipoSeleccionado === "Estación de grippers";
+
+  const baseClasses =
+    "w-full bg-background2 p-5 rounded-lg flex flex-col gap-3 transition-transform transition-shadow cursor-pointer hover:scale-[1.01] hover:shadow-[0_4px_8px_rgba(255,255,255,0.2)]";
+  const hoverClasses =
+    "hover:scale-[1.01] hover:shadow-[0px_4px_8px_rgba(255,255,255,0.2)]";
+  const selectedClasses =
+    "scale-[1.03] shadow-[0px_6px_12px_rgba(255,255,255,0.5)] border border-[#8c8c8c]";
+  const selectedHover = "hover:scale-[1.02]";
+
+  return (
+    <button
+      aria-pressed={isSelected}
+      className={`${baseClasses} ${hoverClasses} ${isSelected ? `${selectedClasses} ${selectedHover}` : ""} text-left`}
+      type="button"
+      onClick={handleClick}
+    >
+      <p className="w-full text-[16px] font-bold tracking-[1px] m-0">
+        {t("mayus.datosGripper")}
+      </p>
+      <div className="flex flex-row justify-between gap-5">
+        {datosGripper.map(({ id, texto, dato }) => (
+          <div
+            key={id}
+            className="w-full bg-background3 p-5 rounded-lg flex flex-col justify-center"
+          >
+            <p className="text-md font-medium">{texto}</p>
+            <p className="text-sm">{dato === null ? "null" : `${dato}`}</p>
+          </div>
+        ))}
+      </div>
+    </button>
+  );
+};
+
+export default DatosGripperComponent;

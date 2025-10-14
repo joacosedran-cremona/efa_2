@@ -1,3 +1,87 @@
 @import "tailwindcss";
 
-@config "../tailwind.config.js"
+@config "../tailwind.config.js";
+
+/* Transición de color optimizada para todos los elementos */
+html {
+  /* Aplicar solo a nivel de documento para evitar cascada excesiva */
+  color-scheme: light dark;
+}
+
+/* Optimización para elementos que cambian de color (no texto) */
+body,
+div,
+section,
+article,
+aside,
+button,
+a {
+  transition:
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out;
+  /* Evitar transición en propiedades que puedan causar reflow */
+  transition-property: background-color, border-color;
+}
+
+/* Optimización específica para elementos de texto */
+p,
+span,
+p,
+p,
+p,
+p,
+h5,
+h6,
+label,
+li,
+td,
+th {
+  /* Transición más corta para el texto para reducir titileo */
+  transition: color 0.2s linear;
+  /* Mejora del renderizado de fuente durante transiciones */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimización para elementos interactivos */
+button,
+a,
+input,
+select,
+textarea {
+  /* Will-change mejora el rendimiento indicando al navegador qué propiedades cambiarán */
+  will-change: color, background-color;
+  /* Timing function suavizada */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Clase para deshabilitar transiciones en elementos específicos que causan problemas */
+.no-transition {
+  transition: none !important;
+}
+
+.date-segment-truncate {
+  max-width: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.date-range-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.font-system-ui {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}

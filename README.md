@@ -1,17 +1,117 @@
+## Iconos y banderas
+
+```bash
+npm install react-icons --save
+
+npm install country-flag-icons --save
+```
+
 ```js
 import { FiMapPin } from "react-icons/fi"; //Mapa
-import { CiMail } from "react-icons/ci"; //Mail
+
 import { CiBellOn } from "react-icons/ci"; //Campana
+import { CiMail } from "react-icons/ci"; //Mail
+
+import { FaWeightHanging } from "react-icons/fa"; //Peso
 import { FaFacebook } from "react-icons/fa"; //Facebook
 import { FaLinkedin } from "react-icons/fa"; //Linkedin
-import { FaSearch } from "react-icons/fa"; //Lupa
-import { FaWeightHanging } from "react-icons/fa"; //Peso
 import { FaRegClock } from "react-icons/fa"; //Reloj
+import { FaSearch } from "react-icons/fa"; //Lupa
+
 import { MdPrecisionManufacturing } from "react-icons/md"; //Kuka
+
 import { BiReceipt } from "react-icons/bi"; //Receta
+import { BiCabinet } from "react-icons/bi"; //Torre
+
+import { PiArrowsDownUpFill } from "react-icons/pi"; //Flechas Up & Down
 import { PiChefHat } from "react-icons/pi"; //Receta 2
+
 import { VscAccount } from "react-icons/vsc"; //User
+
 import { GoDotFill } from "react-icons/go"; //Punto
+
 import { AiOutlineExclamationCircle } from "react-icons/ai"; //Circulo Exclamacion con circulo
 import { HiOutlineSwitchVertical } from "react-icons/hi"; //Flechas Verticales Arriba y Abajo
+
+import { TbCircleLetterAFilled } from "react-icons/tb"; //A
+import { TbCircleLetterBFilled } from "react-icons/tb"; //B
+import { TbCircleLetterCFilled } from "react-icons/tb"; //C
+import { TbBowl } from "react-icons/tb"; //Molde
+
+import { GrResources } from "react-icons/gr"; //Nivel
+
+import { MdCancel } from "react-icons/md"; //Cancel
+```
+
+## Traducciones
+
+```bash
+npm install i18next react-i18next
+```
+
+Como usar?
+
+```js
+import { useTranslation } from 'react-i18next';
+
+export default Ejemplo () {
+  const { t } = useTranslation('NombreDelArchivo');
+  <p> {t("objeto.atributo")} </p>
+}
+```
+
+## WebSocket
+
+```js
+// Usando el endpoint por defecto
+const { data } = useWebSocketContext();
+
+// Usando un endpoint específico
+const { data } = useWebSocketContext("mi-endpoint-especifico");
+
+// Usando endpoints dinámicos
+const endpoint = `${miVariable}-datos`;
+const { data } = useWebSocketContext(endpoint);
+```
+
+## Para descargar en pdf y excel
+
+```bash
+npm install html2canvas jspdf
+```
+
+## Otros
+
+```bash
+npm install --save-dev @types/js-cookie
+npm install --save-dev @types/axios
+npm install --save-dev @next/eslint-plugin-next
+npm install sonner
+```
+
+## Graficos
+
+```bash
+npm install chart.js
+npm install chartjs-plugin-zoom
+npm install date-fns chartjs-adapter-date-fns --save
+
+```
+
+## Config Red
+
+Red Segmento Host
+IXON 192.168.10.X 8000
+Local 192.168.20.X
+
+10.225 => 10.115
+20.150 => 20.150
+
+## npm run build
+
+```bash
+npx eslint --fix .
+npx prettier --write .
+npm run build
+npm run start
 ```

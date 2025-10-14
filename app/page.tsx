@@ -1,9 +1,14 @@
-import { title } from "@/components/primitives";
+"use client";
+import LayoutCompleto from "@/components/completoLayout/completo";
 
-export default function Home() {
+const Completo = () => {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <h1 className="">Hello, World!</h1>
+    <section className="flex flex-col p-5 w-full h-full items-center">
+      <div className="bg-background2 p-5 rounded-lg">
+        <LayoutCompleto />
+      </div>
     </section>
   );
-}
+};
+
+export default Completo;
