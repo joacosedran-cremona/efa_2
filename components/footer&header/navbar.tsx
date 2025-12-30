@@ -1,6 +1,5 @@
 "use client";
 
-import { Navbar as HeroUINavbar } from "@heroui/navbar";
 import { useTranslation } from "react-i18next";
 import { VscBell } from "react-icons/vsc";
 import { GoGear } from "react-icons/go";
@@ -117,10 +116,8 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
   }
 
   return (
-    <HeroUINavbar
+    <header
       className="bg-headerbg text-textoheader"
-      maxWidth="full"
-      position="sticky"
     >
       <div className="flex flex-row h-[100%] w-[30%] justify-start gap-[30px] items-center">
         {opcionesIconos.map(({ id, icon }) => (
@@ -176,6 +173,6 @@ export const Navbar: React.FC<Header1Props> = ({ currentPath }) => {
           </Link>
         </ul>
       </div>
-    </HeroUINavbar>
+    </header>
   );
 };
